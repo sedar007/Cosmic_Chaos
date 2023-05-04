@@ -10,7 +10,6 @@ public class Spacecraft {
     protected int stamina;
     protected int maxStamina;
 
-
     public Spacecraft(String name){
         this.name = name;
         this.life = 100;
