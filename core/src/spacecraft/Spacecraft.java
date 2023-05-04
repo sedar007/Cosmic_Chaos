@@ -33,7 +33,7 @@ public class Spacecraft {
         setMaxStamina(maxStamina);
     }
 
-    public Spacecraft(){
+    public Spacecraft(String name){
         this("Vessel",100,100,50,50);
     }
 

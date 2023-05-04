@@ -8,4 +8,5 @@ public class Knight extends Spacecraft {
         setStamina( stamina);
         setMaxStamina( maxStamina);
     }
+
 }
