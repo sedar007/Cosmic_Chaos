@@ -1,15 +1,23 @@
 package spacecraft;
 
 
-//La généralité
-public class Spacecraft {
+import com.badlogic.gdx.graphics.Texture;
 
+//La généralité
+abstract public class Spacecraft {
+
+    //Les attributs
     protected String name;
     protected int life;
     protected int maxLife;
     protected int stamina;
     protected int maxStamina;
+    protected float posX;
+    protected float posY;
+    protected Texture picture;
 
+
+    //Les méthodes associées
     public String getName(){ return this.name;}
     public void setName(String name){ this.name = name;}
 
@@ -24,21 +32,28 @@ public class Spacecraft {
 
     public int getMaxStamina(){ return this.maxStamina;}
     public void setMaxStamina(int maxStamina) {this.maxStamina = maxStamina;}
+    public float getPosX() { return posX;}
+    public void setPosX(float posX) { this.posX = posX;}
+    public float getPosY() { return posY;}
+    public void setPosY(float posY) { this.posY = posY;}
+    public Texture getPicture() { return picture;}
+    public void setPicture(Texture picture) { this.picture = picture;}
+    public boolean isAlive(){ return getLife()>0;}
 
-    public Spacecraft(String name, int life, int maxLife, int stamina,int maxStamina){
+    //Les méthodes abstraites
+    public abstract void move();
+
+    //Le constructeur
+    public Spacecraft(String name,Texture picture){
         setName(name);
-        setLife(life);
-        setMaxLife(maxLife);
-        setStamina(stamina);
-        setMaxStamina(maxStamina);
+        setPicture(picture);
     }
 
-    public Spacecraft(String name){
-        this("Vessel",100,100,50,50);
-    }
-
+    //Affichage des statistiques
     @Override
     public String toString() {
         return String.format(" Name :%s Life :%d MaxLife :%d Stamina :%d MaxStamina :%d \n", getName(),getLife(),getMaxLife(),getStamina(),getMaxStamina());
     }
+
+
 }
