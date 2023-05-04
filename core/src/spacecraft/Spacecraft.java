@@ -25,14 +25,20 @@ public class Spacecraft {
     public int getMaxStamina(){ return this.maxStamina;}
     public void setMaxStamina(int maxStamina) {this.maxStamina = maxStamina;}
 
-    public Spacecraft(String name){
+    public Spacecraft(String name, int life, int maxLife, int stamina,int maxStamina){
         setName(name);
+        setLife(life);
+        setMaxLife(maxLife);
+        setStamina(stamina);
+        setMaxStamina(maxStamina);
     }
 
     public Spacecraft(){
-        this("Vessel");
+        this("Vessel",100,100,50,50);
     }
 
-
-
+    @Override
+    public String toString() {
+        return String.format(" Name :%s Life :%d MaxLife :%d Stamina :%d MaxStamina :%d \n", getName(),getLife(),getMaxLife(),getStamina(),getMaxStamina());
+    }
 }
