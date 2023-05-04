@@ -3,6 +3,8 @@ package screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import shoo_em_up.ShootEmUP;
 
@@ -10,11 +12,19 @@ public class MainMenuScreen implements Screen {
     final ShootEmUP game;
     OrthographicCamera camera;
 
+
+    BitmapFont fontBoutton;
+
+    // Créer un style de bouton pour le bouton de texte
+
     public MainMenuScreen(final ShootEmUP game) {
         this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
+        fontBoutton = new BitmapFont();
+
+
     }
 
     @Override
