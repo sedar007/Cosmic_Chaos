@@ -3,8 +3,8 @@ package spacecraft;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Monster4 extends Alien {
-    private static int DEFAULT_MAX_LIFE = 100 ;
-    private static int DEFAULT_LIFE = 100 ;
+    private static int DEFAULT_MAX_LIFE = 15 ;
+    private static int DEFAULT_LIFE = 15 ;
     private static String DEFAULT_NAME = "Monster4" ;
     private static Texture DEFAULT_PICTURE =new Texture(" " );
     public Monster4() {
