@@ -45,6 +45,7 @@ abstract public class Spacecraft {
 
     //Le constructeur
     public Spacecraft(String name,Texture picture){
+        picture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // optionnel : améliore la qualité de l'image redimensionnée
         setName(name);
         setPicture(picture);
     }
