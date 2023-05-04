@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, 800, 480);
 
 
-        background = new Background("stars_1.png", 50.1f, camera);
+        background = new Background("pictures/stars_1.png", 50.1f, camera);
 
 
 

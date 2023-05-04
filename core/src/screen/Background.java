@@ -14,7 +14,7 @@ public class Background {
 
     public Background(String texturePath, float scrollSpeed, OrthographicCamera camera) {
         texture = new Texture(texturePath);
-        backgroundP = new Texture("images/background.png");
+        backgroundP = new Texture("pictures/background.png");
 
         this.scrollSpeed = scrollSpeed;
         this.camera = camera;
