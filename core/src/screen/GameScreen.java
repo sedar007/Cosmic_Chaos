@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import shoot_em_up.ShootEmUP;
@@ -30,6 +32,9 @@ public class GameScreen implements Screen {
     Boss boss;
 
     Texture shield = new Texture("pictures/shield/shield.png");
+    Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
+    Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
+
 
 
 
@@ -63,7 +68,6 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         backgroundMusic.play();
-
     }
 
     @Override
@@ -98,6 +102,9 @@ public class GameScreen implements Screen {
         }
         batch.draw(captain.getPicture(),captain.getPosX(),captain.getPosY());
 
+        stats(captain.getLife(), 90, 122323.4, 2);
+
+
 
         monster3.move();
         captain.move();
@@ -115,6 +122,41 @@ public class GameScreen implements Screen {
 
             batch.end();
 
+    }
+
+    public void lifeStats(Texture captainPicture, int captainStat,  Texture alienPicture, int alienStat){
+        BitmapFont captainLife = new BitmapFont();
+        BitmapFont alienLife = new BitmapFont();
+
+        batch.draw( captainPicture,0,15, 40,40);
+        captainLife.draw(batch, String.format(" %d %% ",captainStat), 50, 40);
+
+        batch.draw( alienPicture,Gdx.graphics.getWidth() - 40,15, 40,40);
+        alienLife.draw(batch, String.format("%d %%",alienStat),  Gdx.graphics.getWidth() - 2*40, 40);
+
+    }
+    public void scoreStat(Double score){
+        BitmapFont ScoreStat = new BitmapFont();
+
+        String text =" SCORE: " + score;
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(ScoreStat, text);
+        float x = (Gdx.graphics.getWidth() - layout.width) / 2;
+        float y = (Gdx.graphics.getHeight() + layout.height) / 2;
+
+        ScoreStat.draw(batch, layout, x, Gdx.graphics.getHeight() - 10);
+
+    }
+
+    public void level(int level){
+        BitmapFont levelFont = new BitmapFont();
+        levelFont.draw(batch, String.format("Level: %d",level),  1, Gdx.graphics.getHeight() - 10);
+    }
+
+    public void stats(int captainLife, int alienLife, Double stat, int levelStat){
+        lifeStats(imageCaptain,alienLife,imageAlien,alienLife);
+        scoreStat(stat);
+        level(levelStat);
     }
 
     @Override
