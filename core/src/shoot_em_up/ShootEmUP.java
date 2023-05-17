@@ -1,4 +1,4 @@
-package shoo_em_up;
+package shoot_em_up;
 
 import screen.MainMenuScreen;
 import com.badlogic.gdx.Game;
