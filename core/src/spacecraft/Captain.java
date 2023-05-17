@@ -57,7 +57,6 @@ public void setArmorItem(ArmorItem item, int slot){
 
  */
 
-
     @Override
     public void move() {
         float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);
@@ -83,12 +82,13 @@ public void setArmorItem(ArmorItem item, int slot){
 
     public boolean isProtected(){ return this.Protected; }
 
-    public float shotBy(float shot) {
+    public int shotBy(int shot) {
+        float value;
        if(isProtected()){
            shield.touched();//on décrémente la charge du bouclier
        }
        else {
-
+           float effect = getMaxPuissance() / 5;
        }
        return 0;
     }
