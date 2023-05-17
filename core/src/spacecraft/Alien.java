@@ -64,7 +64,7 @@ public class Alien extends Spacecraft {
             setPosX(Gdx.graphics.getWidth() - getPicture().getWidth());
     }
 
-    public float shotBy(float shot) {
+    public int shotBy(int shot) {
         shot = (this.getPuissance() - shot) >= 0 ? shot : this.getPuissance();
         setPuissance(this.getPuissance() - 1);
         return shot;
