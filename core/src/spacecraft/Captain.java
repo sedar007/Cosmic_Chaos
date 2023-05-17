@@ -80,17 +80,23 @@ public void setArmorItem(ArmorItem item, int slot){
 
     }
 
-    public boolean isProtected(){ return this.Protected; }
+    public boolean isProtected(){
+        return this.Protected;
+    }
+
+    public void equipShield(){//pour renforcer le vaisseau
+        this.Protected = true;
+    }
 
     public int shotBy(int shot) {
-        float value;
        if(isProtected()){
            shield.touched();//on décrémente la charge du bouclier
        }
        else {
-           float effect = getMaxPuissance() / 5;
+           int effect = Math.round(getMaxPuissance() / 5);
+           setPuissance(getPuissance() - effect);
        }
-       return 0;
+       return getPuissance();
     }
 
 
