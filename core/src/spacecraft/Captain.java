@@ -9,10 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Captain extends Spacecraft {
 
-    private static int DEFAULT_MAX_LIFE = 100 ;
-    private static int DEFAULT_LIFE = 100 ;
-    private static int DEFAULT_MAX_STAMINA = 100 ;
-    private static int DEFAULT_STAMINA = 100 ;
+    private static int DEFAULT_MAX_PUISSANCE = 100 ;
+    private static int DEFAULT_PUISSANCE = 100 ;
     private static Texture DEFAULT_PICTURE =new Texture("pictures/ships/blueships1_small.png" );
     private static String DEFAULT_NAME = "captain";
 
@@ -21,10 +19,8 @@ public class Captain extends Spacecraft {
     public Captain(String name){
         super(name,DEFAULT_PICTURE);
        // Ammos=new HashSet<>();
-        setLife(DEFAULT_LIFE);
-        setMaxLife( DEFAULT_MAX_LIFE );
-        setStamina( DEFAULT_STAMINA);
-        setMaxStamina( DEFAULT_MAX_STAMINA);
+        setPuissance(DEFAULT_PUISSANCE);
+        setMaxPuissance( DEFAULT_MAX_PUISSANCE );
         setPosX(0);
         setPosY(0);
     }
@@ -82,6 +78,11 @@ public void setArmorItem(ArmorItem item, int slot){
         else
             setPosY(positionY);
 
+    }
+
+    @Override
+    public int shotBy(int shot) {
+        return 0;
     }
 
 

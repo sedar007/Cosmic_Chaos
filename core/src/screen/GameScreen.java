@@ -102,7 +102,7 @@ public class GameScreen implements Screen {
         }
         batch.draw(captain.getPicture(),captain.getPosX(),captain.getPosY());
 
-        stats(captain.getLife(), 90, 122323.4, 2);
+        stats(captain.getPuissance(), 90, 122323.4, 2);
 
 
 
