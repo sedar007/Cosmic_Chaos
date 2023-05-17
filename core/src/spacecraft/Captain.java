@@ -1,6 +1,10 @@
 package spacecraft;
 
+import ammo.Ammo;
 import com.badlogic.gdx.Gdx;
+;
+import java.util.HashSet;
+
 import com.badlogic.gdx.graphics.Texture;
 
 public class Captain extends Spacecraft {
@@ -11,9 +15,12 @@ public class Captain extends Spacecraft {
     private static int DEFAULT_STAMINA = 100 ;
     private static Texture DEFAULT_PICTURE =new Texture("pictures/ships/blueships1_small.png" );
     private static String DEFAULT_NAME = "captain";
+
+    public HashSet<Ammo> Ammos ;
+
     public Captain(String name){
         super(name,DEFAULT_PICTURE);
-
+       // Ammos=new HashSet<>();
         setLife(DEFAULT_LIFE);
         setMaxLife( DEFAULT_MAX_LIFE );
         setStamina( DEFAULT_STAMINA);
@@ -25,6 +32,33 @@ public class Captain extends Spacecraft {
     public Captain(){
        this(DEFAULT_NAME);
     }
+
+    public void  pushAmmo(Ammo b){
+        this.Ammos.add(b);
+    }
+
+
+
+
+    public Ammo getAmmo(){
+        for(Ammo ammo : this.Ammos){
+            this.Ammos.remove(ammo);
+          return ammo;
+        }
+
+        return null;
+
+    }
+
+/*
+public void setArmorItem(ArmorItem item, int slot){
+		int index = slot-1 ;
+		if(index >=0 && index < MAX_ARMOR_PIECES){
+			armor[index] = item ;
+		}
+	}
+
+ */
 
 
     @Override
@@ -49,4 +83,6 @@ public class Captain extends Spacecraft {
             setPosY(positionY);
 
     }
+
+
 }
