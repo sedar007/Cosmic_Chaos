@@ -8,12 +8,8 @@ abstract public class Spacecraft {
 
     //Les attributs
     protected String name;
-    protected int life;
-    protected int maxLife;
-    protected int stamina;
-    protected int maxStamina;
-    protected float posX;
-    protected float posY;
+    protected int life,maxLife,stamina,maxStamina;
+    protected float posX,posY;
     protected Texture picture;
 
 
@@ -38,7 +34,7 @@ abstract public class Spacecraft {
     public void setPosY(float posY) { this.posY = posY;}
     public Texture getPicture() { return picture;}
     public void setPicture(Texture picture) { this.picture = picture;}
-    public boolean isAlive(){ return getLife()>0;}
+    public boolean isNotDestroyed(){ return getLife()>0;}
 
     //Les méthodes abstraites
     public abstract void move();
