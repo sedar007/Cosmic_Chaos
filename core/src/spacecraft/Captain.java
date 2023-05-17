@@ -2,19 +2,21 @@ package spacecraft;
 
 import ammo.Ammo;
 import com.badlogic.gdx.Gdx;
-;
+
 import java.util.HashSet;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class Captain extends Spacecraft {
+import gift.Shield;
 
+public class Captain extends Spacecraft {
     private static int DEFAULT_MAX_PUISSANCE = 100 ;
     private static int DEFAULT_PUISSANCE = 100 ;
-    private static Texture DEFAULT_PICTURE =new Texture("pictures/ships/blueships1_small.png" );
+    private static String DEFAULT_PICTURE ="pictures/ships/blueships1_small.png";
     private static String DEFAULT_NAME = "captain";
 
     public HashSet<Ammo> Ammos ;
+    public Shield shield;//bouclier du Capitaine.
 
     public Captain(String name){
         super(name,DEFAULT_PICTURE);
@@ -29,12 +31,9 @@ public class Captain extends Spacecraft {
        this(DEFAULT_NAME);
     }
 
-    public void  pushAmmo(Ammo b){
+    public void pushAmmo(Ammo b){
         this.Ammos.add(b);
     }
-
-
-
 
     public Ammo getAmmo(){
         for(Ammo ammo : this.Ammos){
@@ -82,7 +81,13 @@ public void setArmorItem(ArmorItem item, int slot){
 
     @Override
     public int shotBy(int shot) {
-        return 0;
+       if(isProtected()){
+           shield.touched();//on décrémente la charge du bouclier
+       }
+       else {
+
+       }
+       return 0;
     }
 
 

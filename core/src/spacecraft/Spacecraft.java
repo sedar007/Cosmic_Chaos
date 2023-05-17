@@ -43,8 +43,6 @@ abstract public class Spacecraft {
     public void setPosX(float posX) { this.posX = posX;}
     public float getPosY() { return posY;}
     public void setPosY(float posY) { this.posY = posY;}
-    public Texture getPicture() { return picture;}
-    public void setPicture(Texture picture) { this.picture = picture;}
     private Ammo getAmmo() {
         return ammo;
     }
@@ -58,12 +56,13 @@ abstract public class Spacecraft {
     abstract public int shotBy(int shot);//car le vaisseau du héro peut avoir un bouclier
 
     //Le constructeur
-    public Spacecraft(String name,Texture picture){
-        picture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // optionnel : améliore la qualité de l'image redimensionnée
+    public Spacecraft(String name,String picture){
         setName(name);
-        setPicture(picture);
         this.Protected = false;
+        this.picture = new Texture(picture );
+        this.picture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // optionnel : améliore la qualité de l'image redimensionnée
     }
+
     public boolean isProtected(){ return this.Protected; }
     public int shotWith(Ammo ammo){//Le vaisseau tiré avec l ammo
         return ammo.getDegats();
