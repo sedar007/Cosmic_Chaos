@@ -52,7 +52,7 @@ abstract public class Spacecraft {
 
     //Les méthodes abstraites
     public abstract void move();
-    abstract public int shotBy(int shot);//car le vaisseau du héro peut avoir un bouclier
+    abstract public float shotBy(float shot);//car le vaisseau du héro peut avoir un bouclier
 
     //Le constructeur
     public Spacecraft(String name,String picture){

@@ -1,5 +1,6 @@
 package spacecraft;
 
+import gift.Gift;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 
@@ -13,8 +14,10 @@ public class Captain extends Spacecraft {
     private static String DEFAULT_PICTURE ="pictures/ships/blueships1_small.png";
     private static String DEFAULT_NAME = "captain";
 
-    public HashSet<Ammo> Ammos ;
+   /* public HashSet<Ammo> Ammos ;*/
     public Shield shield;//bouclier du Capitaine.
+
+    private HashSet<Gift> gifts ;//pour stocker les recompenses recues !
 
     private boolean Protected;//si le vaisseau du Héro possède un bouclier !
 
@@ -32,11 +35,11 @@ public class Captain extends Spacecraft {
        this(DEFAULT_NAME);
     }
 
-    public void pushAmmo(Ammo b){
+    /*public void pushAmmo(Ammo b){
         this.Ammos.add(b);
     }
 
-    public Ammo getAmmo(){
+    /*public Ammo getAmmo(){
         for(Ammo ammo : this.Ammos){
             this.Ammos.remove(ammo);
           return ammo;
@@ -79,8 +82,8 @@ public void setArmorItem(ArmorItem item, int slot){
     }
 
     public boolean isProtected(){ return this.Protected; }
-    @Override
-    public int shotBy(int shot) {
+
+    public float shotBy(float shot) {
        if(isProtected()){
            shield.touched();//on décrémente la charge du bouclier
        }
