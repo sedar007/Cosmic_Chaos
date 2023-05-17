@@ -11,6 +11,7 @@ public class Ammo {
     private void setDegats(int degats) {
         this.degats = degats;
     }
+    public int getDegats(){ return this.degats;}
 
     private void setImage(Texture image) {
         this.image = image;
