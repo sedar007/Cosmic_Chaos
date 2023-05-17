@@ -4,19 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 
-public class Ammo {
+abstract public class Ammo {
     protected int degats;
     protected Texture image;
     protected String name;
-    private float xPosition,yPosition;
-    private int speed = 5;
-    Music soung;
+    private float xPosition, yPosition;
 
+    public static String DEFAULT_PICTURE = "pictures/projectiles/rocket.png";
+    public static String DEFAULT_NAME = "ammo";
 
     private void setDegats(int degats) {
         this.degats = degats;
     }
-    public int getDegats(){ return this.degats;}
+
+    public int getDegats() {
+        return this.degats;
+    }
 
     private void setImage(Texture image) {
         this.image = image;
@@ -50,7 +53,7 @@ public class Ammo {
         this.yPosition = yPosition;
     }
 
-    public Ammo(String name, String image, int degats, float xPosition, float yPosition){
+    public Ammo(String name, String image, int degats, float xPosition, float yPosition) {
         setName(name);
         setImage(new Texture(image));
         setDegats(degats);
@@ -58,9 +61,13 @@ public class Ammo {
         setyPosition(yPosition);
     }
 
-    public void move(){
-        setxPosition(getxPosition());
-        setyPosition(getyPosition() + speed);
-
+    public Ammo() {
+        setName(DEFAULT_NAME);
+        setImage(new Texture(DEFAULT_PICTURE));
+        setDegats(0);
+        setxPosition(0);
+        setyPosition(0);
     }
+
+    abstract public void move();
 }

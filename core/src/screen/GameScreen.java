@@ -17,11 +17,15 @@ import shoot_em_up.ShootEmUP;
 import spacecraft.Boss;
 import spacecraft.Captain;
 import spacecraft.Monster3;
+import spacecraft.Spacecraft;
+import weapon.Weapon;
+import weapon.ammo.Ammo;
 import weapon.ammo.Ammo1;
 import helpers.Collision;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class GameScreen implements Screen {
     final ShootEmUP game;
@@ -32,17 +36,13 @@ public class GameScreen implements Screen {
     Captain captain;
     SpriteBatch batch;
     Music backgroundMusic;
-    Monster3 monster3;
 
-    ArrayList<Monster3> monsters = new ArrayList<>();
+    HashSet<Monster3> monsters = new HashSet<>();
     Boss boss;
 
-    Texture shield = new Texture("pictures/shield/shield.png");
     Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
     Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
 
-    HashSet<Ammo1> ammos;
-    long lastDropTime;
 
 
 
@@ -62,15 +62,14 @@ public class GameScreen implements Screen {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
 
-        monster3 = new Monster3();
         boss = new Boss();
 
-        ammos = new HashSet<>();
 
         for (int i = 0; i < 10; i++) {
             monsters.add(new Monster3());
         }
 
+        captain.setWeapon(new Weapon(batch,captain));
     }
 
     @Override
@@ -98,41 +97,28 @@ public class GameScreen implements Screen {
 
 
 
-        batch.draw(monster3.getPicture(), monster3.getPosX(),monster3.getPosY());
 
 
         batch.draw(boss.getPicture(), boss.getPosX(),boss.getPosY());
 
 
 
-//        for(Monster3 monster: monsters) {
-//            batch.draw(monster.getPicture(), monster.getPosX(), monster.getPosY());
-//            monster.move();
-//        }
+        for(Monster3 monster: monsters) {
+            batch.draw(monster.getPicture(), monster.getPosX(), monster.getPosY());
+            monster.move();
+        }
         batch.draw(captain.getPicture(),captain.getPosX(),captain.getPosY());
 
-//        for (Ammo1 ammo : ammos) {
-//            batch.draw(ammo.getImage(), ammo.getxPosition(), ammo.getyPosition());
-//            ammo.move();
-//        }
-
-        for (Ammo1 ammo : ammos) {
-            if(new Collision().checkCollision(ammo.getxPosition(),ammo.getyPosition(),ammo.getImage().getWidth(), ammo.getImage().getHeight(), monster3.getPosX(), monster3.getPosY(),monster3.getPicture().getWidth(), monster3.getPicture().getHeight() )){
-                System.out.println("q");
-//                ammos.remove(ammo);
-            }
-            else{
-                batch.draw(ammo.getImage(), ammo.getxPosition(), ammo.getyPosition());
-
-
-            }
-            ammo.move();
-
+        captain.getWeapon().shoot(boss);
+        for(Monster3 monster: monsters) {
+//            captain.getWeapon().shoot(monster);
 
         }
 
-        if (TimeUtils.nanoTime() - lastDropTime > 100000000)
-            spawnAmmo();
+
+
+
+
 
 
 
@@ -141,29 +127,13 @@ public class GameScreen implements Screen {
 
 
 
-//        monster3.move();
         captain.move();
 
             batch.end();
 
     }
 
-    private void spawnAmmo(){
-        float xPosition = captain.getPosX() + (captain.getPicture().getWidth()/2 ) ;
-        float yPosition = captain.getPosY() + captain.getPicture().getHeight();
-        Ammo1 ammo = new Ammo1(xPosition,yPosition);
 
-        ammos.add(ammo);
-        lastDropTime = TimeUtils.nanoTime();
-        Music soungShoot;
-        soungShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-
-
-        soungShoot.play();
-
-
-
-    }
 
     public void lifeStats(Texture captainPicture, int captainStat,  Texture alienPicture, int alienStat){
         BitmapFont captainLife = new BitmapFont();
