@@ -14,7 +14,8 @@ public class Boss extends Alien{
         return ratio;
     }
 
-    private static  Texture DEFAULT_PICTURE = new Texture("pictures/ships/roundysh_large.png");
+    private static final String DEFAULT_PICTURE = "pictures/ships/roundysh_large.png" ;
+
     public Boss(){
         super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_MAX_LIFE);
     }

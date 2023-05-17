@@ -14,7 +14,7 @@ public class Alien extends Spacecraft {
     private long yAlea;
 
 
-    public Alien(String name, Texture picture, int maxPuissance){
+    public Alien(String name, String picture, int maxPuissance){
         super(name,picture);
        setMaxPuissance(maxPuissance);
 
