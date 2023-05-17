@@ -9,15 +9,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import shoot_em_up.ShootEmUP;
 import spacecraft.Boss;
 import spacecraft.Captain;
 import spacecraft.Monster3;
 import weapon.ammo.Ammo1;
+import helpers.Collision;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class GameScreen implements Screen {
     final ShootEmUP game;
@@ -37,11 +41,8 @@ public class GameScreen implements Screen {
     Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
     Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
 
-    Array<Ammo1> ammos;
-
-
-
-
+    HashSet<Ammo1> ammos;
+    long lastDropTime;
 
 
 
@@ -60,10 +61,11 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
+
         monster3 = new Monster3();
         boss = new Boss();
-        ammos = new Array<Ammo1>();
 
+        ammos = new HashSet<>();
 
         for (int i = 0; i < 10; i++) {
             monsters.add(new Monster3());
@@ -95,10 +97,11 @@ public class GameScreen implements Screen {
 
 
 
-//        batch.draw(monster3.getPicture(), monster3.getPosX(),monster3.getPosY());
-//
-//
-//        batch.draw(boss.getPicture(), boss.getPosX(),boss.getPosY());
+
+        batch.draw(monster3.getPicture(), monster3.getPosX(),monster3.getPosY());
+
+
+        batch.draw(boss.getPicture(), boss.getPosX(),boss.getPosY());
 
 
 
@@ -108,17 +111,36 @@ public class GameScreen implements Screen {
 //        }
         batch.draw(captain.getPicture(),captain.getPosX(),captain.getPosY());
 
+//        for (Ammo1 ammo : ammos) {
+//            batch.draw(ammo.getImage(), ammo.getxPosition(), ammo.getyPosition());
+//            ammo.move();
+//        }
 
-//        ammoTest.setxPosition(captain.getPosX());
-//        ammoTest.setxPosition(captain.getPosY());
+        for (Ammo1 ammo : ammos) {
+            if(new Collision().checkCollision(ammo.getxPosition(),ammo.getyPosition(),ammo.getImage().getWidth(), ammo.getImage().getHeight(), monster3.getPosX(), monster3.getPosY(),monster3.getPicture().getWidth(), monster3.getPicture().getHeight() )){
+                System.out.println("q");
+//                ammos.remove(ammo);
+            }
+            else{
+                batch.draw(ammo.getImage(), ammo.getxPosition(), ammo.getyPosition());
 
-//        batch.draw(ammoTest.getImage(), ammoTest.getxPosition(),ammoTest.getyPosition());
+
+            }
+            ammo.move();
+
+
+        }
+
+        if (TimeUtils.nanoTime() - lastDropTime > 100000000)
+            spawnAmmo();
+
+
 
 //
-//        stats(captain.getPuissance(), 90, 122323.4, 2);
-//
-//
-//
+        stats(captain.getPuissance(), 90, 122323.4, 2);
+
+
+
 //        monster3.move();
         captain.move();
 
@@ -127,9 +149,19 @@ public class GameScreen implements Screen {
     }
 
     private void spawnAmmo(){
-        Ammo1 ammo = new Ammo1();
-        ammo.setxPosition(15);
-        ammo.setyPosition(15);
+        float xPosition = captain.getPosX() + (captain.getPicture().getWidth()/2 ) ;
+        float yPosition = captain.getPosY() + captain.getPicture().getHeight();
+        Ammo1 ammo = new Ammo1(xPosition,yPosition);
+
+        ammos.add(ammo);
+        lastDropTime = TimeUtils.nanoTime();
+        Music soungShoot;
+        soungShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+
+
+        soungShoot.play();
+
+
 
     }
 

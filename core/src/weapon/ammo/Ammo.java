@@ -1,5 +1,7 @@
 package weapon.ammo;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Ammo {
@@ -7,6 +9,9 @@ public class Ammo {
     protected Texture image;
     protected String name;
     private float xPosition,yPosition;
+    private int speed = 5;
+    Music soung;
+
 
     private void setDegats(int degats) {
         this.degats = degats;
@@ -45,9 +50,17 @@ public class Ammo {
         this.yPosition = yPosition;
     }
 
-    public Ammo(String name, String image, int degats){
+    public Ammo(String name, String image, int degats, float xPosition, float yPosition){
         setName(name);
         setImage(new Texture(image));
         setDegats(degats);
+        setxPosition(xPosition - this.getImage().getWidth() / 2);
+        setyPosition(yPosition);
+    }
+
+    public void move(){
+        setxPosition(getxPosition());
+        setyPosition(getyPosition() + speed);
+
     }
 }
