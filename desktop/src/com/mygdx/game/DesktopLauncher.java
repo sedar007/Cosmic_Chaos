@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import shoo_em_up.ShootEmUP;
+import shoot_em_up.ShootEmUP;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Shoot_em_up");
-		config.setWindowedMode(900, 900);
+		config.setWindowedMode(800, 800);
 		new Lwjgl3Application(new ShootEmUP(), config);
 	}
 }
