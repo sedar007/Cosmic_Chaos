@@ -1,4 +1,4 @@
-package ammo;
+package weapon.ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 

@@ -1,7 +1,7 @@
 package spacecraft;
 
-
-import ammo.Ammo;
+import weapon.Weapon;
+import weapon.ammo.Ammo;
 import com.badlogic.gdx.graphics.Texture;
 
 //La généralité
@@ -12,9 +12,8 @@ abstract public class Spacecraft {
     protected int puissance ,maxPuissance;
     protected float posX,posY;
     protected Texture picture;
-    private Ammo ammo;
+    private Weapon weapon;
 
-    private boolean Protected ;
 
     //Les méthodes associées
     public String getName(){ return this.name;}
@@ -35,23 +34,21 @@ abstract public class Spacecraft {
         this.maxPuissance = maxPuissance;
     }
 
-    public void setProtected(boolean aProtected) {
-        Protected = aProtected;
-    }
-
     public float getPosX() { return posX;}
     public void setPosX(float posX) { this.posX = posX;}
     public float getPosY() { return posY;}
     public void setPosY(float posY) { this.posY = posY;}
     public Texture getPicture() { return picture;}
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
     public void setPicture(Texture picture) { this.picture = picture;}
-    private Ammo getAmmo() {
-        return ammo;
-    }
-    private void setAmmo(Ammo ammo) {
-        this.ammo = ammo;
-    }
-    public boolean isNotDestroyed(){ return getPuissance()>0;}
+
+    public boolean isNotDestroyed(){ return getPuissance()>0;} //si le vaisseau est detruit ou pas !
 
     //Les méthodes abstraites
     public abstract void move();
@@ -60,12 +57,10 @@ abstract public class Spacecraft {
     //Le constructeur
     public Spacecraft(String name,String picture){
         setName(name);
-        this.Protected = false;
-        this.picture = new Texture(picture );
+        this.picture = new Texture(picture);
         this.picture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // optionnel : améliore la qualité de l'image redimensionnée
     }
 
-    public boolean isProtected(){ return this.Protected; }
     public int shotWith(Ammo ammo){//Le vaisseau tiré avec l ammo
         return ammo.getDegats();
     }

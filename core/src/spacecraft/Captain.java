@@ -1,11 +1,9 @@
 package spacecraft;
 
-import ammo.Ammo;
+import weapon.ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 
 import java.util.HashSet;
-
-import com.badlogic.gdx.graphics.Texture;
 
 import gift.Shield;
 
@@ -18,6 +16,8 @@ public class Captain extends Spacecraft {
     public HashSet<Ammo> Ammos ;
     public Shield shield;//bouclier du Capitaine.
 
+    private boolean Protected;//si le vaisseau du Héro possède un bouclier !
+
     public Captain(String name){
         super(name,DEFAULT_PICTURE);
        // Ammos=new HashSet<>();
@@ -25,6 +25,7 @@ public class Captain extends Spacecraft {
         setMaxPuissance( DEFAULT_MAX_PUISSANCE );
         setPosX(0);
         setPosY(0);
+        this.Protected = false;
     }
 
     public Captain(){
@@ -40,9 +41,7 @@ public class Captain extends Spacecraft {
             this.Ammos.remove(ammo);
           return ammo;
         }
-
         return null;
-
     }
 
 /*
@@ -79,6 +78,7 @@ public void setArmorItem(ArmorItem item, int slot){
 
     }
 
+    public boolean isProtected(){ return this.Protected; }
     @Override
     public int shotBy(int shot) {
        if(isProtected()){
