@@ -6,7 +6,7 @@ public class Ammo {
     protected int degats;
     protected Texture image;
     protected String name;
-    protected int xPosition,yPosition;
+    private float xPosition,yPosition;
 
     private void setDegats(int degats) {
         this.degats = degats;
@@ -17,23 +17,37 @@ public class Ammo {
         this.image = image;
     }
 
+    public Texture getImage() {
+        return image;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public float getxPosition() {
+        return xPosition;
+    }
+
+    public float getyPosition() {
+        return yPosition;
+    }
+
     private void setName(String name) {
         this.name = name;
     }
 
-    private void setxPosition(int xPosition) {
+    public void setxPosition(float xPosition) {
         this.xPosition = xPosition;
     }
 
-    private void setyPosition(int yPosition) {
+    public void setyPosition(float yPosition) {
         this.yPosition = yPosition;
     }
 
-    public Ammo(String name, Texture image, int degats, int xPosition, int yPosition){
+    public Ammo(String name, String image, int degats){
         setName(name);
-        setImage(image);
+        setImage(new Texture(image));
         setDegats(degats);
-        setxPosition(xPosition);
-        setyPosition(yPosition);
     }
 }
