@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import shoot_em_up.ShootEmUP;
 import spacecraft.Boss;
 import spacecraft.Captain;
 import spacecraft.Monster3;
+import weapon.ammo.Ammo1;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,8 @@ public class GameScreen implements Screen {
     Texture shield = new Texture("pictures/shield/shield.png");
     Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
     Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
+
+    Array<Ammo1> ammos;
 
 
 
@@ -58,6 +62,8 @@ public class GameScreen implements Screen {
         backgroundMusic.setLooping(true);
         monster3 = new Monster3();
         boss = new Boss();
+        ammos = new Array<Ammo1>();
+
 
         for (int i = 0; i < 10; i++) {
             monsters.add(new Monster3());
@@ -86,41 +92,44 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-//        batch.draw(shield,(captain.getPosX() - shield.getWidth()/2 ) ,captain.getPosY() , captain.getPicture().getWidth() + 20, captain.getPicture().getWidth() + 20);
-
-        batch.draw(monster3.getPicture(), monster3.getPosX(),monster3.getPosY());
-
-
-        batch.draw(boss.getPicture(), boss.getPosX(),boss.getPosY());
-//        batch.draw(boss.getPicture(), boss.getPosX(),boss.getPosY(), boss.getPicture().getWidth()/2, boss.getPicture().getHeight()/2, boss.getPicture().getWidth() , boss.getPicture().getHeight(), 1, 1, 180, 0, 0, boss.getPicture().getWidth(), boss.getPicture().getHeight(), false, false);
 
 
 
-        for(Monster3 monster: monsters) {
-            batch.draw(monster.getPicture(), monster.getPosX(), monster.getPosY());
-            monster.move();
-        }
+//        batch.draw(monster3.getPicture(), monster3.getPosX(),monster3.getPosY());
+//
+//
+//        batch.draw(boss.getPicture(), boss.getPosX(),boss.getPosY());
+
+
+
+//        for(Monster3 monster: monsters) {
+//            batch.draw(monster.getPicture(), monster.getPosX(), monster.getPosY());
+//            monster.move();
+//        }
         batch.draw(captain.getPicture(),captain.getPosX(),captain.getPosY());
 
-        stats(captain.getPuissance(), 90, 122323.4, 2);
 
+//        ammoTest.setxPosition(captain.getPosX());
+//        ammoTest.setxPosition(captain.getPosY());
 
+//        batch.draw(ammoTest.getImage(), ammoTest.getxPosition(),ammoTest.getyPosition());
 
-        monster3.move();
+//
+//        stats(captain.getPuissance(), 90, 122323.4, 2);
+//
+//
+//
+//        monster3.move();
         captain.move();
-//        boss.move();
-
-
-//        batch.draw(shield,(captain.getPosX() + captain.getPicture().getWidth()/2) - shield.getWidth()/2,(captain.getPosY() - captain.getPicture().getHeight()/2) - shield.getHeight()/2, captain.getPicture().getWidth(), captain.getPicture().getWidth());
-
-//    if(new Collision().checkCollision(captain.getPosX(), captain.getPosY(), captain.getPicture().getWidth() , captain.getPicture().getHeight(), boss.getPosX(), boss.getPosY(), boss.getPicture().getWidth() , boss.getPicture().getHeight()))
-//    {
-//        Texture flamme = new Texture("pictures/explosion-8.png");
-//        batch.draw(flamme, captain.getPosX(), captain.getPosY(), 250,250);
-//    }
-
 
             batch.end();
+
+    }
+
+    private void spawnAmmo(){
+        Ammo1 ammo = new Ammo1();
+        ammo.setxPosition(15);
+        ammo.setyPosition(15);
 
     }
 
