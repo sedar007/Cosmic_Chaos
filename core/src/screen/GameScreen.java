@@ -85,7 +85,6 @@ public class GameScreen implements Screen {
         batch.begin();
 //        batch.draw(shield,(captain.getPosX() - shield.getWidth()/2 ) ,captain.getPosY() , captain.getPicture().getWidth() + 20, captain.getPicture().getWidth() + 20);
 
-        batch.draw(captain.getPicture(),captain.getPosX(),captain.getPosY());
         batch.draw(monster3.getPicture(), monster3.getPosX(),monster3.getPosY());
 
 
@@ -98,6 +97,8 @@ public class GameScreen implements Screen {
             batch.draw(monster.getPicture(), monster.getPosX(), monster.getPosY());
             monster.move();
         }
+        batch.draw(captain.getPicture(),captain.getPosX(),captain.getPosY());
+
 
         monster3.move();
         captain.move();
