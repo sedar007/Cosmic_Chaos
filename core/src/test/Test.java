@@ -7,5 +7,7 @@ public class Test {
     public static void main (String[] args) {
         Boss monster = new Boss();
         System.out.println(monster);
+
+
     }
 }
