@@ -14,35 +14,27 @@ public class Alien extends Spacecraft {
     private long yAlea;
 
 
-    public Alien(String name, Texture picture, int maxLife){
+    public Alien(String name, Texture picture, int maxPuissance){
         super(name,picture);
-        setLife(maxLife);
-        setMaxLife(maxLife);
+       setMaxPuissance(maxPuissance);
 
         int xPos = 0;
         xPos = (new Random().nextInt(2) == 0 )? xPos : Gdx.graphics.getWidth() - getPicture().getWidth();
-
 //        int yPos = Gdx.graphics.getHeight()-getPicture().getHeight() - 2;
         int yPos = new Random().nextInt(Gdx.graphics.getHeight() - getPicture().getHeight());
         setPosX(xPos);
         setPosY(yPos);
         xAlea = new Random().nextInt(5)  ;
         yAlea = new Random().nextInt(4)  ;
-
     }
 
     @Override
     public void move() {
-
         setPosX(getPosX() + xSpeed);
         setPosY(getPosY() + ySpeed);
 
-
         xAlea -= 1;
         yAlea--;
-
-
-
 
         if(getPosX()<0 || getPosX() > Gdx.graphics.getWidth() - getPicture().getWidth())
             xSpeed = - xSpeed;
@@ -66,17 +58,17 @@ public class Alien extends Spacecraft {
             setPosX(0);
 
         if(getPosY() > Gdx.graphics.getHeight() - getPicture().getHeight())
-            setLife(Gdx.graphics.getHeight() - getPicture().getHeight());
+            setPosY(Gdx.graphics.getHeight() - getPicture().getHeight());
 
         if(getPosX() > Gdx.graphics.getWidth() - getPicture().getWidth())
             setPosX(Gdx.graphics.getWidth() - getPicture().getWidth());
-
-
-
-
-
     }
-
+    @Override
+    public int shotBy(int shot) {
+        shot = (this.getPuissance() - shot) >= 0 ? shot : this.getPuissance();
+        setPuissance(this.getPuissance() - 1);
+        return shot;
+    }
 
 
 }

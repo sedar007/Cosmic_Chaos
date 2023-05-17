@@ -1,6 +1,7 @@
 package spacecraft;
 
 
+import ammo.Ammo;
 import com.badlogic.gdx.graphics.Texture;
 
 //La généralité
@@ -8,48 +9,70 @@ abstract public class Spacecraft {
 
     //Les attributs
     protected String name;
-    protected int life,maxLife,stamina,maxStamina;
+    protected int puissance ,maxPuissance;
     protected float posX,posY;
     protected Texture picture;
+    private Ammo ammo;
 
+    private boolean Protected ;
 
     //Les méthodes associées
     public String getName(){ return this.name;}
     public void setName(String name){ this.name = name;}
+    public int getPuissance() {
+        return puissance;
+    }
 
-    public int getLife() { return this.life;}
-    public void setLife(int life){ this.life = life;}
+    public void setPuissance(int puissance) {
+        this.puissance = puissance;
+    }
 
-    public int getStamina(){ return this.stamina;}
-    public void setStamina(int stamina){ this.stamina = stamina;}
+    public int getMaxPuissance() {
+        return maxPuissance;
+    }
 
-    public int getMaxLife(){ return this.maxLife;}
-    public void setMaxLife(int maxLife) {this.maxLife = maxLife;}
+    public void setMaxPuissance(int maxPuissance) {
+        this.maxPuissance = maxPuissance;
+    }
 
-    public int getMaxStamina(){ return this.maxStamina;}
-    public void setMaxStamina(int maxStamina) {this.maxStamina = maxStamina;}
+    public void setProtected(boolean aProtected) {
+        Protected = aProtected;
+    }
+
     public float getPosX() { return posX;}
     public void setPosX(float posX) { this.posX = posX;}
     public float getPosY() { return posY;}
     public void setPosY(float posY) { this.posY = posY;}
     public Texture getPicture() { return picture;}
     public void setPicture(Texture picture) { this.picture = picture;}
-    public boolean isNotDestroyed(){ return getLife()>0;}
+    private Ammo getAmmo() {
+        return ammo;
+    }
+    private void setAmmo(Ammo ammo) {
+        this.ammo = ammo;
+    }
+    public boolean isNotDestroyed(){ return getPuissance()>0;}
 
     //Les méthodes abstraites
     public abstract void move();
+    abstract public int shotBy(int shot);//car le vaisseau du héro peut avoir un bouclier
 
     //Le constructeur
     public Spacecraft(String name,Texture picture){
         picture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // optionnel : améliore la qualité de l'image redimensionnée
         setName(name);
         setPicture(picture);
+        this.Protected = false;
+    }
+    public boolean isProtected(){ return this.Protected; }
+    public int shotWith(Ammo ammo){//Le vaisseau tiré avec l ammo
+        return ammo.getDegats();
     }
 
     //Affichage des statistiques
     @Override
     public String toString() {
-        return String.format(" Name :%s Life :%d MaxLife :%d Stamina :%d MaxStamina :%d \n", getName(),getLife(),getMaxLife(),getStamina(),getMaxStamina());
+        return String.format(" Name :%s Puissance :%d MaxPuissance :%d \n", getName(),getPuissance(),getMaxPuissance());
     }
 
 
