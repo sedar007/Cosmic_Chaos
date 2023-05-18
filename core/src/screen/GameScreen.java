@@ -95,10 +95,6 @@ public class GameScreen implements Screen {
         batch.begin();
 
 
-
-
-
-
         batch.draw(boss.getPicture(), boss.getPosX(),boss.getPosY());
 
 
@@ -111,7 +107,7 @@ public class GameScreen implements Screen {
 
         captain.getWeapon().shoot(boss);
         for(Monster3 monster: monsters) {
-//            captain.getWeapon().shoot(monster);
+            captain.getWeapon().shoot(monster);
 
         }
 

@@ -9,12 +9,7 @@ public class Collision {
         Rectangle image1Bounds = new Rectangle(image1X, image1Y, image1Width, image1Height);
         Rectangle image2Bounds = new Rectangle(image2X, image2Y, image2Width, image2Height);
 
-
-
         return image1Bounds.overlaps(image2Bounds);
-
-
-
         }
 
 
