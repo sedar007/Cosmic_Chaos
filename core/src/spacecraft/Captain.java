@@ -1,5 +1,6 @@
 package spacecraft;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import gift.Gift;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.Gdx;
@@ -19,7 +20,18 @@ public class Captain extends Spacecraft {
 
     private HashSet<Gift> gifts ;//pour stocker les recompenses recues !
 
+    private Double score;
+
     private boolean Protected;//si le vaisseau du Héro possède un bouclier !
+
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
 
     public Captain(String name){
         super(name,DEFAULT_PICTURE);
@@ -28,6 +40,7 @@ public class Captain extends Spacecraft {
         setMaxPuissance( DEFAULT_MAX_PUISSANCE );
         setPosX(0);
         setPosY(0);
+        setScore(0.0);
         this.Protected = false;
     }
 
@@ -58,7 +71,8 @@ public void setArmorItem(ArmorItem item, int slot){
  */
 
     @Override
-    public void move() {
+    public void move(SpriteBatch spriteBatch,Spacecraft spacecraft) {
+        spriteBatch.draw(getPicture(), getPosX(), getPosY());
         float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);
 
         if(positionX < 0)
@@ -88,16 +102,16 @@ public void setArmorItem(ArmorItem item, int slot){
         this.Protected = true;
     }
 
-    public int shotBy(int shot) {
+    public void shotBy(Ammo ammo) {// qund il a ete tire
        if(isProtected()){
            shield.touched();//on décrémente la charge du bouclier
        }
        else {
-           int effect = Math.round(getMaxPuissance() / 5);
-           setPuissance(getPuissance() - effect);
+           setPuissance(getPuissance() - ammo.getDegats());
        }
-       return getPuissance();
     }
+
+
 
 
 }

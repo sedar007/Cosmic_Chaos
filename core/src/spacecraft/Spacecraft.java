@@ -1,5 +1,6 @@
 package spacecraft;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import weapon.Weapon;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,7 +24,7 @@ abstract public class Spacecraft {
     }
 
     public void setPuissance(int puissance) {
-        this.puissance = puissance;
+        this.puissance = (puissance < 0) ? 0 : puissance;
     }
 
     public int getMaxPuissance() {
@@ -51,8 +52,8 @@ abstract public class Spacecraft {
     public boolean isNotDestroyed(){ return getPuissance()>0;} //si le vaisseau est detruit ou pas !
 
     //Les méthodes abstraites
-    public abstract void move();
-    abstract public int shotBy(int shot);//car le vaisseau du héro peut avoir un bouclier
+    public abstract void move(SpriteBatch spriteBatch,Spacecraft spacecraft);
+    abstract public void shotBy(Ammo ammo);//car le vaisseau du héro peut avoir un bouclier
 
     //Le constructeur
     public Spacecraft(String name,String picture){

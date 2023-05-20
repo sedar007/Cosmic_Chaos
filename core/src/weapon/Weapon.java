@@ -38,14 +38,14 @@ public class Weapon {
 
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();
-            batch.draw(ammo.getImage(), ammo.getxPosition(), ammo.getyPosition());
+//            batch.draw(ammo.getImage(), ammo.getxPosition(), ammo.getyPosition());
             ammo.move();
             if (new Collision().checkCollision(ammo.getxPosition(), ammo.getyPosition(), ammo.getImage().getWidth(), ammo.getImage().getHeight(), ennemi.getPosX(),
-                    ennemi.getPosY(), ennemi.getPicture().getWidth(), ennemi.getPicture().getHeight())) {
+                    ennemi.getPosY(), ennemi.getPicture().getWidth(), ennemi.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
                 Texture boom = new Texture("pictures/explosion/boom06.png");
                 batch.draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
+                ennemi.shotBy(ammo);//il a ete tire !!
                 iterator.remove();
-
 
             }
 
@@ -54,14 +54,12 @@ public class Weapon {
 
             }
 
-
         }
-        if (TimeUtils.nanoTime() - lastAmmoTime > 100000000)
-            spawnAmmo();
+
 
     }
 
-    private void spawnAmmo(){
+    public void spawnAmmo(){//creer un seul munition
         float xPosition = spacecraft.getPosX() + ((float) spacecraft.getPicture().getWidth() /2 ) ;
         float yPosition = spacecraft.getPosY() + spacecraft.getPicture().getHeight();
         Rocket ammo = new Rocket(xPosition,yPosition);
@@ -69,19 +67,22 @@ public class Weapon {
 
         Texture boom = new Texture("pictures/explosion/explosion-5.png");
         this.batch.draw(boom,ammo.getxPosition()-ammo.getImage().getWidth()-8,ammo.getyPosition()-ammo.getImage().getHeight());
-
-
-
-
         munitions.add(ammo);
         lastAmmoTime = TimeUtils.nanoTime();
          Music soundShoot;
-
         soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-
         soundShoot.play();
     }
 
+    public void spawnAllAmmo(){
+        if (Gdx.input.isTouched())
+            if (TimeUtils.nanoTime() - lastAmmoTime > 100000000)
+                spawnAmmo();
+        for (Ammo ammo : munitions) {
+            batch.draw(ammo.getImage(), ammo.getxPosition(), ammo.getyPosition());
+            ammo.move();
+        }
 
+    }
 
 }

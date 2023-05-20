@@ -2,7 +2,11 @@ package spacecraft;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import helpers.Collision;
+import weapon.ammo.Ammo;
 
 import java.util.Random;
 
@@ -12,16 +16,25 @@ public class Alien extends Spacecraft {
     private int ySpeed = 2;
     private long xAlea;
     private long yAlea;
+    protected int points;
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
 
     public Alien(String name, String picture, int maxPuissance){
         super(name,picture);
        setMaxPuissance(maxPuissance);
+       setPuissance(maxPuissance);
 
         int xPos = 0;
         xPos = (new Random().nextInt(2) == 0 )? xPos : Gdx.graphics.getWidth() - getPicture().getWidth();
 //        int yPos = Gdx.graphics.getHeight()-getPicture().getHeight() - 2;
-        int yPos = new Random().nextInt(Gdx.graphics.getHeight() - getPicture().getHeight());
+        int yPos = new Random().nextInt(Gdx.graphics.getHeight() - getPicture().getHeight()) + Gdx.graphics.getHeight() /2;
         setPosX(xPos);
         setPosY(yPos);
         xAlea = new Random().nextInt(5)  ;
@@ -29,7 +42,11 @@ public class Alien extends Spacecraft {
     }
 
     @Override
-    public void move() {
+    public void move(SpriteBatch spriteBatch,Spacecraft spacecraft) {
+
+        spriteBatch.draw(getPicture(), getPosX(), getPosY());
+
+
         setPosX(getPosX() + xSpeed);
         setPosY(getPosY() + ySpeed);
 
@@ -39,7 +56,7 @@ public class Alien extends Spacecraft {
         if(getPosX()<0 || getPosX() > Gdx.graphics.getWidth() - getPicture().getWidth())
             xSpeed = - xSpeed;
 
-        if(getPosY()<0 || getPosY() > Gdx.graphics.getHeight() - getPicture().getHeight())
+        if(getPosY()< (float) Gdx.graphics.getHeight() /2 || getPosY() > Gdx.graphics.getHeight() - getPicture().getHeight())
             ySpeed = - ySpeed;
 
         if(xAlea == 0) {
@@ -62,12 +79,21 @@ public class Alien extends Spacecraft {
 
         if(getPosX() > Gdx.graphics.getWidth() - getPicture().getWidth())
             setPosX(Gdx.graphics.getWidth() - getPicture().getWidth());
+
+
+        if(!(this instanceof Boss )){//les petits aliens
+            if(new Collision().checkCollision(getPosX(),getPosY(),getPicture().getWidth(),getPicture().getHeight(),
+                                            spacecraft.getPosX(),spacecraft.posY,spacecraft.getPicture().getWidth(),spacecraft.getPicture().getHeight())){
+                ySpeed = - ySpeed;
+                xSpeed = - xSpeed;
+            }
+
+        }
+
     }
 
-    public int shotBy(int shot) {
-        shot = (this.getPuissance() - shot) >= 0 ? shot : this.getPuissance();
-        setPuissance(this.getPuissance() - 1);
-        return shot;
+    public void shotBy(Ammo ammo) {// qund il a ete tire
+        setPuissance(getPuissance() - ammo.getDegats());
     }
 
 

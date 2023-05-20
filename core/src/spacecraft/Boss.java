@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Boss extends Alien{
 
     private static final String DEFAULT_NAME = "Boss";
-    private static final int DEFAULT_MAX_LIFE = 60;
+    private static final int DEFAULT_MAX_LIFE = 150;
     private int ratio = 2;
 
     public int getRatio() {
