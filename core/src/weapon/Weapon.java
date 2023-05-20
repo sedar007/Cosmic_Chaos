@@ -8,9 +8,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 import helpers.Collision;
 import spacecraft.Spacecraft;
 import weapon.ammo.Ammo;
-import weapon.ammo.Ammo1;
-import weapon.ammo.Ammo2;
 import weapon.ammo.Laser;
+import weapon.ammo.Rocket;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,7 +21,7 @@ public class Weapon {
     HashSet<Ammo> munitions;
     public SpriteBatch batch;
     Spacecraft spacecraft;
-    long lastAmmoTime;
+    private static long lastAmmoTime;
 
 
     public Weapon(SpriteBatch batch, Spacecraft spacecraft){
@@ -44,7 +43,7 @@ public class Weapon {
             if (new Collision().checkCollision(ammo.getxPosition(), ammo.getyPosition(), ammo.getImage().getWidth(), ammo.getImage().getHeight(), ennemi.getPosX(),
                     ennemi.getPosY(), ennemi.getPicture().getWidth(), ennemi.getPicture().getHeight())) {
                 Texture boom = new Texture("pictures/explosion/boom06.png");
-                batch.draw(boom,ammo.getxPosition() - boom.getWidth()/2,ammo.getyPosition()-boom.getHeight()/2);
+                batch.draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
                 iterator.remove();
 
 
@@ -63,9 +62,9 @@ public class Weapon {
     }
 
     private void spawnAmmo(){
-        float xPosition = spacecraft.getPosX() + (spacecraft.getPicture().getWidth()/2 ) ;
+        float xPosition = spacecraft.getPosX() + ((float) spacecraft.getPicture().getWidth() /2 ) ;
         float yPosition = spacecraft.getPosY() + spacecraft.getPicture().getHeight();
-        Ammo1 ammo = new Ammo1(xPosition,yPosition);
+        Rocket ammo = new Rocket(xPosition,yPosition);
 //        Laser ammo = new Laser(xPosition,yPosition);
 
         Texture boom = new Texture("pictures/explosion/explosion-5.png");
@@ -73,18 +72,14 @@ public class Weapon {
 
 
 
-//        for(int i = 0; i< 2; i++){
-//            munitions.add(new Ammo1(xPosition + (i)*15, yPosition));
-//
-//        }
-
 
         munitions.add(ammo);
         lastAmmoTime = TimeUtils.nanoTime();
-        Music soungShoot;
-        soungShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+         Music soundShoot;
 
-        soungShoot.play();
+        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+
+        soundShoot.play();
     }
 
 

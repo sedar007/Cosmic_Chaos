@@ -6,12 +6,21 @@ import com.badlogic.gdx.graphics.Texture;
 
 abstract public class Ammo {
     protected int degats;
+    private int speed;
     protected Texture image;
     protected String name;
     private float xPosition, yPosition;
 
-    public static String DEFAULT_PICTURE = "pictures/projectiles/rocket.png";
-    public static String DEFAULT_NAME = "ammo";
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public static final String DEFAULT_PICTURE = "pictures/projectiles/rocket.png";
+    public static final String DEFAULT_NAME = "ammo";
 
     private void setDegats(int degats) {
         this.degats = degats;
@@ -53,12 +62,13 @@ abstract public class Ammo {
         this.yPosition = yPosition;
     }
 
-    public Ammo(String name, String image, int degats, float xPosition, float yPosition) {
+    public Ammo(String name, String image, int degats, int speed, float xPosition, float yPosition) {
         setName(name);
         setImage(new Texture(image));
         setDegats(degats);
-        setxPosition(xPosition - this.getImage().getWidth() / 2);
+        setxPosition(xPosition - (float) this.getImage().getWidth() / 2);
         setyPosition(yPosition);
+        setSpeed(speed);
     }
 
     public Ammo() {

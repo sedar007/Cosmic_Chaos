@@ -9,23 +9,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.TimeUtils;
 import shoot_em_up.ShootEmUP;
 import spacecraft.Boss;
 import spacecraft.Captain;
 import spacecraft.Monster3;
-import spacecraft.Spacecraft;
 import weapon.Weapon;
-import weapon.ammo.Ammo;
-import weapon.ammo.Ammo1;
-import helpers.Collision;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 
 public class GameScreen implements Screen {
     final ShootEmUP game;
@@ -161,7 +152,7 @@ public class GameScreen implements Screen {
     }
 
     public void stats(int captainLife, int alienLife, Double stat, int levelStat){
-        lifeStats(imageCaptain,alienLife,imageAlien,alienLife);
+        lifeStats(imageCaptain,captainLife,imageAlien,alienLife);
         scoreStat(stat);
         level(levelStat);
     }

@@ -3,6 +3,7 @@ package screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import shoot_em_up.ShootEmUP;
@@ -10,6 +11,7 @@ import shoot_em_up.ShootEmUP;
 public class MainMenuScreen implements Screen {
     final ShootEmUP game;
     OrthographicCamera camera;
+    Texture backgroundTexture;
 
 
     BitmapFont fontBoutton;
@@ -22,7 +24,7 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
-
+        backgroundTexture = new Texture(Gdx.files.internal("pictures/logogame.jpeg"));
 
     }
 
@@ -39,8 +41,10 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+        backgroundTexture.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
+        game.batch.draw(backgroundTexture,0,0,Gdx.graphics.getWidth()-200,Gdx.graphics.getHeight()-500);
+        game.font.draw(game.batch, "Tap anywhere to begin!", 50, 40);
+
         game.batch.end();
 
         if (Gdx.input.isTouched()) {
