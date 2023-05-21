@@ -1,19 +1,16 @@
 package gift;
 
-import spacecraft.Captain;
+import com.badlogic.gdx.graphics.Texture;
+import spacecraft.Skyblade;
 
 import java.util.Random;
 
 public class BonusPower extends Gift {
-    public Captain captain;
-
-    public BonusPower(String name, Captain captain) {
-        super(name);
-        this.captain = captain;
+    private static final String DEFAULT_NAME = " BONUS DU PUISSANCE " ;
+    private static final String DEFAULT_IMAGE = "" ;
+    public BonusPower( Skyblade captain) {
+        super(DEFAULT_NAME,DEFAULT_IMAGE);
+        captain.setPuissance(captain.getPuissance() + 250);
     }
 
-    public void EnhanceVessel(){Random random = new Random();
-         Random nb_aleatoire = new Random();
-       // this.captain.setStamina( this.captain.getStamina() + 5 + random.nextInt(5) );//nombre entre 5 et 10
-    }
 }

@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import shoot_em_up.ShootEmUP;
 import spacecraft.Alien;
 import spacecraft.BossChaosbaneDestructor;
-import spacecraft.Captain;
+import spacecraft.Skyblade;
 import spacecraft.TyrantOfDesolation;
 import weapon.WeaponAlien;
 import weapon.ammo.RocketStorm;
@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
     OrthographicCamera camera;
 
     Background background;
-    Captain captain;
+    Skyblade captain;
     SpriteBatch batch;
     Music backgroundMusic;
 
@@ -49,7 +49,7 @@ public class GameScreen implements Screen {
 
 
         background = new Background("pictures/stars_1.png", 50.1f, camera);
-        captain = new Captain();
+        captain = new Skyblade();
 //        System.out.println(captain.getPicture().getWidth());
         System.out.println(Gdx.graphics.getWidth());
         batch = new SpriteBatch();

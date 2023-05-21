@@ -2,7 +2,7 @@ package testGame;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import spacecraft.Captain;
+import spacecraft.Skyblade;
 
 public class Test extends Game {
     public SpriteBatch batch;
@@ -13,7 +13,7 @@ public class Test extends Game {
         /*Boss monster = new Boss();
         System.out.println(monster);*/
 
-        Captain captain = new Captain("Captain");
+        Skyblade captain = new Skyblade("Captain");
        System.out.println(captain.getPuissance());
         captain.equipShield();
        System.out.println(captain.getPuissance());

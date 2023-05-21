@@ -1,6 +1,7 @@
 package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import gift.BonusScore;
 import gift.Gift;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.Gdx;
@@ -9,21 +10,18 @@ import java.util.HashSet;
 
 import gift.Shield;
 
-public class Captain extends Spacecraft {
-    private static int DEFAULT_MAX_PUISSANCE = 1000 ;
-    private static int DEFAULT_PUISSANCE = 1000 ;
-    private static String DEFAULT_PICTURE ="pictures/ships/blueships1_small.png";
-    private static String DEFAULT_NAME = "captain";
+public class Skyblade extends Spacecraft {
+    private static final int DEFAULT_MAX_PUISSANCE = 1000 ;
+    private static final int DEFAULT_PUISSANCE = 1000 ;
+    private static final String DEFAULT_PICTURE ="pictures/ships/blueships1_small.png";
+    private static final String DEFAULT_NAME = "captain";
 
    /* public HashSet<Ammo> Ammos ;*/
     public Shield shield;//bouclier du Capitaine.
-
-    private HashSet<Gift> gifts ;//pour stocker les recompenses recues !
-
     private Double score;
-
     private boolean Protected;//si le vaisseau du Héro possède un bouclier !
 
+    public BonusScore bonusScore;
 
     public Double getScore() {
         return score;
@@ -33,42 +31,22 @@ public class Captain extends Spacecraft {
         this.score = score;
     }
 
-    public Captain(String name){
+    public void protect(boolean value){ this.Protected = value;}
+
+    public Skyblade(String name){
         super(name,DEFAULT_PICTURE);
        // Ammos=new HashSet<>();
         setPuissance(DEFAULT_PUISSANCE);
         setMaxPuissance( DEFAULT_MAX_PUISSANCE );
         setPosX(0);
         setPosY(0);
-        setScore(0.0);
-        this.Protected = false;
+        protect(false);
+
     }
 
-    public Captain(){
+    public Skyblade(){
        this(DEFAULT_NAME);
     }
-
-    /*public void pushAmmo(Ammo b){
-        this.Ammos.add(b);
-    }
-
-    /*public Ammo getAmmo(){
-        for(Ammo ammo : this.Ammos){
-            this.Ammos.remove(ammo);
-          return ammo;
-        }
-        return null;
-    }
-
-/*
-public void setArmorItem(ArmorItem item, int slot){
-		int index = slot-1 ;
-		if(index >=0 && index < MAX_ARMOR_PIECES){
-			armor[index] = item ;
-		}
-	}
-
- */
 
     @Override
     public void move(SpriteBatch spriteBatch,Spacecraft spacecraft) {

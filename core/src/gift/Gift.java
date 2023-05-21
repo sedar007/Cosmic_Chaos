@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 public class Gift {
     protected String name;
     protected Texture picture;
-
     public String getName() {
         return name;
     }
@@ -16,15 +15,11 @@ public class Gift {
     public Texture getPicture() {
         return picture;
     }
-    public void setPicture(Texture picture) {
-        this.picture = picture;
-    }
-
     public Gift(String name) {
        setName(name);
     }
-    public Gift(String name, Texture picture) {
+    public Gift(String name, String picture) {
         setName(name);
-        setPicture(picture);
+        this.picture = new Texture(picture);
     }
 }
