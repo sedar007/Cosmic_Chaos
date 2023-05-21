@@ -4,10 +4,10 @@ import spacecraft.Captain;
 
 import java.util.Random;
 
-public class GainEnergy extends Gift {
+public class BonusPower extends Gift {
     public Captain captain;
 
-    public GainEnergy(String name, Captain captain) {
+    public BonusPower(String name, Captain captain) {
         super(name);
         this.captain = captain;
     }
