@@ -1,10 +1,7 @@
 package testGame;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.MainMenuScreen;
-import spacecraft.Boss;
 import spacecraft.Captain;
 
 public class Test extends Game {

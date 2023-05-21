@@ -1,10 +1,6 @@
 package spacecraft;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.TextureData;
-import com.badlogic.gdx.graphics.Texture;
-public class Boss extends Alien{
+public class BossChaosbaneDestructor extends Alien{
 
     private static final String DEFAULT_NAME = "Boss";
     private static final int DEFAULT_MAX_LIFE = 150;
@@ -16,7 +12,7 @@ public class Boss extends Alien{
 
     private static final String DEFAULT_PICTURE = "pictures/ships/roundysh_large.png" ;
 
-    public Boss(){
+    public BossChaosbaneDestructor(){
         super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_MAX_LIFE);
     }
 

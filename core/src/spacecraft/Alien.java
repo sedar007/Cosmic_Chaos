@@ -1,10 +1,7 @@
 package spacecraft;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.TimeUtils;
 import helpers.Collision;
 import weapon.ammo.Ammo;
 
@@ -81,7 +78,7 @@ public class Alien extends Spacecraft {
             setPosX(Gdx.graphics.getWidth() - getPicture().getWidth());
 
 
-        if(!(this instanceof Boss )){//les petits aliens
+        if(!(this instanceof BossChaosbaneDestructor)){//les petits aliens
             if(new Collision().checkCollision(getPosX(),getPosY(),getPicture().getWidth(),getPicture().getHeight(),
                                             spacecraft.getPosX(),spacecraft.posY,spacecraft.getPicture().getWidth(),spacecraft.getPicture().getHeight())){
                 ySpeed = - ySpeed;

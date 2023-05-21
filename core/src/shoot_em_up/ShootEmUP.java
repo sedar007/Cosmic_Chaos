@@ -4,7 +4,6 @@ import screen.MainMenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import spacecraft.Boss;
 
 public class ShootEmUP extends Game {
     public BitmapFont font;//pour les textes

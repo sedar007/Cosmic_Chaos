@@ -10,15 +10,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import helpers.Collision;
 import shoot_em_up.ShootEmUP;
 import spacecraft.Alien;
-import spacecraft.Boss;
+import spacecraft.BossChaosbaneDestructor;
 import spacecraft.Captain;
-import spacecraft.Monster3;
-import weapon.Weapon;
+import spacecraft.TyrantOfDesolation;
 import weapon.WeaponAlien;
-import weapon.ammo.Ammo;
 import weapon.ammo.RocketStorm;
 
 import java.util.HashSet;
@@ -35,7 +32,7 @@ public class GameScreen implements Screen {
     Music backgroundMusic;
 
     HashSet<Alien> monsters = new HashSet<>();
-    Boss boss;
+    BossChaosbaneDestructor boss;
 
     Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
     Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
@@ -59,11 +56,11 @@ public class GameScreen implements Screen {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
 
-        boss = new Boss();
+        boss = new BossChaosbaneDestructor();
 
 
         for (int i = 0; i < 10; i++) {
-            Alien monster = new Monster3();
+            Alien monster = new TyrantOfDesolation();
             monster.setWeapon(new WeaponAlien(batch,monster));
             monsters.add(monster);
         }
