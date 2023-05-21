@@ -12,6 +12,7 @@ public class Monster3 extends Alien {
     public Monster3() {
         super(DEFAULT_NAME, DEFAULT_PICTURE, DEFAULT_MAX_LIFE);
         setPoints(DEFAULT_POINTS);
+//        setWeapon(new );
 
     }
 }

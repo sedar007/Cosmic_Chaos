@@ -10,8 +10,8 @@ import java.util.HashSet;
 import gift.Shield;
 
 public class Captain extends Spacecraft {
-    private static int DEFAULT_MAX_PUISSANCE = 100 ;
-    private static int DEFAULT_PUISSANCE = 100 ;
+    private static int DEFAULT_MAX_PUISSANCE = 1000 ;
+    private static int DEFAULT_PUISSANCE = 1000 ;
     private static String DEFAULT_PICTURE ="pictures/ships/blueships1_small.png";
     private static String DEFAULT_NAME = "captain";
 

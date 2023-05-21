@@ -12,11 +12,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import helpers.Collision;
 import shoot_em_up.ShootEmUP;
+import spacecraft.Alien;
 import spacecraft.Boss;
 import spacecraft.Captain;
 import spacecraft.Monster3;
 import weapon.Weapon;
+import weapon.WeaponAlien;
 import weapon.ammo.Ammo;
+import weapon.ammo.RocketStorm;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -31,7 +34,7 @@ public class GameScreen implements Screen {
     SpriteBatch batch;
     Music backgroundMusic;
 
-    HashSet<Monster3> monsters = new HashSet<>();
+    HashSet<Alien> monsters = new HashSet<>();
     Boss boss;
 
     Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
@@ -60,10 +63,13 @@ public class GameScreen implements Screen {
 
 
         for (int i = 0; i < 10; i++) {
-            monsters.add(new Monster3());
+            Alien monster = new Monster3();
+            monster.setWeapon(new WeaponAlien(batch,monster));
+            monsters.add(monster);
         }
+//        monsters.add(new Boss());
 
-        captain.setWeapon(new Weapon(batch,captain));
+        captain.setWeapon(new RocketStorm(batch,captain));
     }
 
     @Override
@@ -86,15 +92,18 @@ public class GameScreen implements Screen {
         batch.begin();
 
 
-            captain.getWeapon().spawnAllAmmo();
+        captain.getWeapon().spawnAllAmmo();
 
 
-        Iterator<Monster3> iterator = monsters.iterator();
+        Iterator<Alien> iterator = monsters.iterator();
 
         while (iterator.hasNext()) {
-            Monster3 monster = iterator.next();
+            Alien monster = iterator.next();
+            monster.getWeapon().spawnAllAmmo();
+
             monster.move(batch,captain);
             captain.getWeapon().shoot(monster);
+            monster.getWeapon().shoot(captain);
             if(!monster.isNotDestroyed()){
                 captain.setScore(captain.getScore() + monster.getPoints());
                 iterator.remove();
@@ -102,7 +111,7 @@ public class GameScreen implements Screen {
         }
 
         float sum = 0;
-        for(Monster3 monster : monsters){
+        for(Alien monster : monsters){
             float pctg = (float) (monster.getPuissance() * 100) / monster.getMaxPuissance();
             sum += pctg;
         }
