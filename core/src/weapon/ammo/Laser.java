@@ -1,22 +1,20 @@
 package weapon.ammo;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class Laser extends Ammo{
+    // Static
     public static final String DEFAULT_PICTURE = "pictures/projectiles/laser.png";
     public static final String DEFAULT_NAME = "laser";
     public static final int DEFAULT_DEGATS = 15;
     private final static int DEFAULT_SPEED = 99999;
 
-
-
-
-    public Laser(float xPosition, float yPosition) {
-        super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition);
-
+    // Constructor
+    public Laser(float xPosition, float yPosition, SpriteBatch batch) {
+        super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch);
     }
 
-    @Override
-    public void move(){
-        setyPosition(getyPosition() + getSpeed());
+    // Methodes
 
-    }
+
 }

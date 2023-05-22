@@ -15,7 +15,7 @@ public class Ammo2 extends Ammo {
         this.batch = batch;
         munitions = new Ammo[3];
         for(int i = 0; i<3; i++) {
-            munitions[i] = new Rocket(xPosition + i, yPosition);
+            munitions[i] = new Rocket(xPosition + i, yPosition,batch);
             batch.draw( munitions[i].getImage(),  munitions[i].getxPosition(),  munitions[i].getyPosition());
 
         }

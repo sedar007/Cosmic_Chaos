@@ -15,8 +15,9 @@ import spacecraft.Alien;
 import spacecraft.BossChaosbaneDestructor;
 import spacecraft.Skyblade;
 import spacecraft.TyrantOfDesolation;
-import weapon.WeaponAlien;
-import weapon.ammo.RocketStorm;
+import weapon.InfernoOrbs;
+import weapon.RocketCyclone;
+import weapon.RocketStorm;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -61,12 +62,12 @@ public class GameScreen implements Screen {
 
         for (int i = 0; i < 10; i++) {
             Alien monster = new TyrantOfDesolation();
-            monster.setWeapon(new WeaponAlien(batch,monster));
+            monster.setWeapon(new InfernoOrbs(batch,monster));
             monsters.add(monster);
         }
 //        monsters.add(new Boss());
 
-        captain.setWeapon(new RocketStorm(batch,captain));
+        captain.setWeapon(new RocketCyclone(batch,captain));
     }
 
     @Override
@@ -96,11 +97,11 @@ public class GameScreen implements Screen {
 
         while (iterator.hasNext()) {
             Alien monster = iterator.next();
-            monster.getWeapon().spawnAllAmmo();
+//            monster.getWeapon().spawnAllAmmo();
 
             monster.move(batch,captain);
             captain.getWeapon().shoot(monster);
-            monster.getWeapon().shoot(captain);
+//            monster.getWeapon().shoot(captain);
             if(!monster.isNotDestroyed()){
                 captain.setScore(captain.getScore() + monster.getPoints());
                 iterator.remove();
