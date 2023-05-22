@@ -58,18 +58,19 @@ abstract public class Weapon {
 
 
     // Methodes
-    public void shoot(Spacecraft ennemi) {
+    public void shoot(Spacecraft opponent) {
         /* Methode qui permet de verifier s'il y a des collisions entre l'ennemi et une munition */
         Iterator<Ammo> iterator = this.munitions.iterator();
 
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();
-            if (new Collision().checkCollision(ammo.getxPosition(), ammo.getyPosition(), ammo.getImage().getWidth(), ammo.getImage().getHeight(), ennemi.getPosX(),
-                    ennemi.getPosY(), ennemi.getPicture().getWidth(), ennemi.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
+            if (new Collision().checkCollision(ammo.getxPosition(), ammo.getyPosition(), ammo.getImage().getWidth(), ammo.getImage().getHeight(), opponent.getPosX(),
+                    opponent.getPosY(), opponent.getPicture().getWidth(), opponent.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
                 Texture boom = new Texture("pictures/explosion/boom06.png");
                 getBatch().draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
-                ennemi.shotBy(ammo);//il a ete tire !!
+                opponent.shotBy(ammo);//il a ete tire !!
                 iterator.remove();
+
             }
         }
     }

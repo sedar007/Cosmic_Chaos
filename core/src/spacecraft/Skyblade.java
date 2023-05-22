@@ -89,9 +89,6 @@ public class Skyblade extends Spacecraft {
        }
     }
 
-    public void shoot(){
-
-    }
 
 
 

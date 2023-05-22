@@ -62,9 +62,6 @@ abstract public class Spacecraft {
         this.picture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // optionnel : améliore la qualité de l'image redimensionnée
     }
 
-    public int shotWith(Ammo ammo){//Le vaisseau tiré avec l ammo
-        return ammo.getDegats();
-    }
 
     //Affichage des statistiques
     @Override
