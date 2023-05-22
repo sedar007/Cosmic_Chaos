@@ -41,8 +41,9 @@ public class Alien extends Spacecraft {
     @Override
     public void move(SpriteBatch spriteBatch,Spacecraft spacecraft) {
 
+        spriteBatch.begin();
         spriteBatch.draw(getPicture(), getPosX(), getPosY());
-
+        spriteBatch.end();
 
         setPosX(getPosX() + xSpeed);
         setPosY(getPosY() + ySpeed);
