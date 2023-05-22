@@ -80,8 +80,6 @@ public class GameScreen implements Screen {
 
     }
 
-
-
     @Override
     public void show() {
         backgroundMusic.play();
@@ -90,6 +88,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
+
         // tell the camera to update its matrices.
         background.update(game.batch,Gdx.graphics.getDeltaTime());
         camera.update();
@@ -110,10 +109,9 @@ public class GameScreen implements Screen {
                     captain.getPicture().getWidth(), captain.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
                 bonusScore.collect();
                 String text =" + " + bonusScore.getBonus() + " POINTS ";
-
                 GlyphLayout layout = new GlyphLayout();
+                fontScore.setColor(Color.GREEN);
                 layout.setText(fontScore, text);
-
                 float x = ((Gdx.graphics.getWidth() - layout.width) / 2)  + 180;
                 float y = Gdx.graphics.getHeight() - 10 ;
                 batch.begin();
@@ -122,16 +120,6 @@ public class GameScreen implements Screen {
                 iteratorGift.remove();
             }
         }
-
-        /*BitmapFont ScoreStat = new BitmapFont();
-        String text =" SCORE: " + score;
-        GlyphLayout layout = new GlyphLayout();
-        layout.setText(ScoreStat, text);
-        float x = (Gdx.graphics.getWidth() - layout.width) / 2;
-        float y = (Gdx.graphics.getHeight() + layout.height) / 2;
-        batch.begin();
-        ScoreStat.draw(batch, layout, x, Gdx.graphics.getHeight() - 10);
-        batch.end();*/
 
 
         //Pour l affichage des aliens et aussi leur disparition une fois qu'ils sont touchés par les tirs !
@@ -191,6 +179,7 @@ public class GameScreen implements Screen {
         batch.begin();
         batch.draw( alienPicture,Gdx.graphics.getWidth() - 40,15, 40,40);
         batch.end();
+
 
         shapestyle.begin(ShapeRenderer.ShapeType.Filled);
         shapestyle.setColor(Color.WHITE);
