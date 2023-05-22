@@ -46,7 +46,7 @@ public class FireballStorm  extends Weapon{
 
     @Override
     public void create() {
-        if (TimeUtils.nanoTime() - lastAmmoTime > 100005500)
+        if (TimeUtils.nanoTime() - lastAmmoTime > 100055500)
             createAmmo();
     }
 }

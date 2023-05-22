@@ -22,6 +22,7 @@ import spacecraft.BossChaosbaneDestructor;
 import spacecraft.Skyblade;
 import spacecraft.TyrantOfDesolation;
 import weapon.AlienWeapons.InfernoOrbs;
+import weapon.AlienWeapons.SingleRocket;
 import weapon.SkyBladeWeapons.RocketStorm3X;
 
 import java.util.HashSet;
@@ -67,10 +68,11 @@ public class GameScreen implements Screen {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
         boss = new BossChaosbaneDestructor(batch);
+        monsters.add(boss);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 1; i++) {
             Alien monster = new TyrantOfDesolation(batch);
-            monster.setWeapon(new InfernoOrbs(batch,monster));
+            monster.setWeapon(new SingleRocket(batch,monster));
             monsters.add(monster);
         }
 
