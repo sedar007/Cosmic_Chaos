@@ -26,7 +26,7 @@ public class RocketEventail{
             this.AmmosTab[0].setyPosition(this.AmmosTab[0].getyPosition() + this.AmmosTab[0].getSpeed());
             this.AmmosTab[0].setxPosition(this.AmmosTab[0].getxPosition() - this.AmmosTab[0].getSpeed());
             this.AmmosTab[0].getBatch().draw(this.AmmosTab[0].getImage(),  this.AmmosTab[0].getxPosition(),this.AmmosTab[0].getyPosition(),
-                    this.AmmosTab[0].getImage().getWidth() / 2, this.AmmosTab[0].getImage().getHeight() / 2, this.AmmosTab[0].getImage().getWidth(), this.AmmosTab[0].getImage().getHeight(), 1, 1, 90, 0, 0, this.AmmosTab[0].getImage().getWidth(), this.AmmosTab[0].getImage().getHeight(), false, false);
+                    (float) this.AmmosTab[0].getImage().getWidth() / 2, (float) this.AmmosTab[0].getImage().getHeight() / 2, this.AmmosTab[0].getImage().getWidth(), this.AmmosTab[0].getImage().getHeight(), 1, 1, 90, 0, 0, this.AmmosTab[0].getImage().getWidth(), this.AmmosTab[0].getImage().getHeight(), false, false);
         }
 
         if(this.AmmosTab[1] != null) {
@@ -38,7 +38,7 @@ public class RocketEventail{
             this.AmmosTab[2].setyPosition(this.AmmosTab[2].getyPosition() + this.AmmosTab[2].getSpeed());
             this.AmmosTab[2].setxPosition(this.AmmosTab[2].getxPosition() + this.AmmosTab[2].getSpeed());
             this.AmmosTab[2].getBatch().draw(this.AmmosTab[2].getImage(),  this.AmmosTab[2].getxPosition(),this.AmmosTab[2].getyPosition(),
-                    this.AmmosTab[2].getImage().getWidth() / 2, this.AmmosTab[2].getImage().getHeight() / 2, this.AmmosTab[2].getImage().getWidth(), this.AmmosTab[2].getImage().getHeight(), 1, 1, 30, 0, 0, this.AmmosTab[2].getImage().getWidth(), this.AmmosTab[2].getImage().getHeight(), false, false);
+                    (float) this.AmmosTab[2].getImage().getWidth() / 2, (float) this.AmmosTab[2].getImage().getHeight() / 2, this.AmmosTab[2].getImage().getWidth(), this.AmmosTab[2].getImage().getHeight(), 1, 1, 340, 0, 0, this.AmmosTab[2].getImage().getWidth(), this.AmmosTab[2].getImage().getHeight(), false, false);
         }
     }
 
