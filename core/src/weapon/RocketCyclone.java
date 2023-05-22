@@ -42,7 +42,9 @@ public class RocketCyclone extends Weapon{
         RocketEventail rocketEventail = new RocketEventail(x1Position,  y1Position, x2Position, y2Position, x3Position, y3Position, getBatch());
 
         Texture boom = new Texture("pictures/explosion/explosion-5.png");
+        getBatch().begin();
         getBatch().draw(boom,x2Position-rocketEventail.AmmosTab[0].getImage().getWidth()-10,y2Position-rocketEventail.AmmosTab[0].getImage().getHeight());
+        getBatch().end();
 
         munitionsTab.add(rocketEventail);
 

@@ -6,7 +6,7 @@ import spacecraft.Skyblade;
 
 abstract public class Gift {
     protected String name;
-    protected Texture picture;
+    private Texture picture;
     protected Skyblade skyblade;
 
     protected SpriteBatch batch;
@@ -55,8 +55,6 @@ abstract public class Gift {
         setPosY(y);
         this.picture = new Texture(picture);
         this.batch = batch;
-
-
     }
     //methodes abstraites
     abstract public void collect();
