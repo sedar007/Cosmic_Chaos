@@ -50,7 +50,12 @@ public class Skyblade extends Spacecraft {
 
     @Override
     public void move(SpriteBatch spriteBatch,Spacecraft spacecraft) {
+
+        spriteBatch.begin();
         spriteBatch.draw(getPicture(), getPosX(), getPosY());
+        spriteBatch.end();
+
+
         float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);
 
         if(positionX < 0)

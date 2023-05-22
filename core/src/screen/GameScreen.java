@@ -94,8 +94,6 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
 
-        batch.begin();
-
 
         captain.getWeapon().spawnAllAmmo();
 
@@ -121,13 +119,14 @@ public class GameScreen implements Screen {
                         captain.getPosY(),
                         captain.getPicture().getWidth(), captain.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
                     bonusScore.collect();
+                      if(bonusScore != null)
+                bonusScore.draw();
+            batch.begin();
 
                 }*/
                 iterator.remove();
             }
-            if(bonusScore != null)
-                bonusScore.draw();
-            batch.begin();
+
 
         }
 
@@ -138,7 +137,7 @@ public class GameScreen implements Screen {
         }
         int means = (int) (sum / 10 );
         captain.move(batch,null);
-        batch.end();
+
         stats( means,  1);
 
     }
