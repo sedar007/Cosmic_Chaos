@@ -135,7 +135,6 @@ public class GameScreen implements Screen {
 
     public void scoreStat(Double score){
         BitmapFont ScoreStat = new BitmapFont();
-
         String text =" SCORE: " + score;
         GlyphLayout layout = new GlyphLayout();
         layout.setText(ScoreStat, text);

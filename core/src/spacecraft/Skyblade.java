@@ -40,8 +40,8 @@ public class Skyblade extends Spacecraft {
         setMaxPuissance( DEFAULT_MAX_PUISSANCE );
         setPosX(0);
         setPosY(0);
+        setScore(0.0);
         protect(false);
-
     }
 
     public Skyblade(){
@@ -89,6 +89,9 @@ public class Skyblade extends Spacecraft {
        }
     }
 
+    public void shoot(){
+
+    }
 
 
 
