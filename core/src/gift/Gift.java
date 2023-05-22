@@ -12,6 +12,8 @@ abstract public class Gift {
     protected SpriteBatch batch;
 
     private float posX,posY;
+
+    private int bonus;
     public String getName() {
         return name;
     }
@@ -59,10 +61,17 @@ abstract public class Gift {
     //methodes abstraites
     abstract public void collect();
 
+
     public void draw(){
         this.batch.begin();
         this.batch.draw(getPicture(),getPosX(),getPosY());
         this.batch.end();
     }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
+
+    public int getBonus() { return bonus;}
 
 }
