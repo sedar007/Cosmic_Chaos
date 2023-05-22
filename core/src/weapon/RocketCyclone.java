@@ -88,7 +88,10 @@ public class RocketCyclone extends Weapon{
                     if (new Collision().checkCollision(ammo.AmmosTab[i].getxPosition(), ammo.AmmosTab[i].getyPosition(), ammo.AmmosTab[i].getImage().getWidth(), ammo.AmmosTab[i].getImage().getHeight(), ennemi.getPosX(),
                             ennemi.getPosY(), ennemi.getPicture().getWidth(), ennemi.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
                         Texture boom = new Texture("pictures/explosion/boom06.png");
+                        getBatch().begin();
                         getBatch().draw(boom,ammo.AmmosTab[i].getxPosition() - (float) boom.getWidth() /2,ammo.AmmosTab[i].getyPosition()- (float) boom.getHeight() /2);
+                        getBatch().end();
+
                         ennemi.shotBy(ammo.AmmosTab[i]);//il a ete tire !!
                         ammo.AmmosTab[i] = null;
                     }

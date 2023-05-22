@@ -22,13 +22,19 @@ public class InfernoOrbs extends Weapon{
        // munition 1
         EnergyOrbs ammo = new EnergyOrbs(getSpacecraft().getPosX() + 15,getSpacecraft().getPosY(),getBatch());
         Texture boom = new Texture("pictures/explosion/explosion-5.png");
+        getBatch().begin();
         getBatch().draw(boom,ammo.getxPosition()-ammo.getImage().getWidth()-8,ammo.getyPosition()-ammo.getImage().getHeight());
+        getBatch().end();
         munitions.add(ammo);
 
         // munition 2
         EnergyOrbs ammo2 = new EnergyOrbs(getSpacecraft().getPosX() + getSpacecraft().getPicture().getWidth() - 15,getSpacecraft().getPosY(), getBatch());
         Texture boom2 = new Texture("pictures/explosion/explosion-5.png");
+        getBatch().begin();
+
         getBatch().draw(boom2,ammo2.getxPosition()-ammo2.getImage().getWidth()-8,ammo2.getyPosition()-ammo2.getImage().getHeight());
+        getBatch().end();
+
         munitions.add(ammo2);
 
         lastAmmoTime = TimeUtils.nanoTime();
