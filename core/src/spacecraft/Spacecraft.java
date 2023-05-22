@@ -14,6 +14,8 @@ abstract public class Spacecraft {
     protected float posX,posY;
     protected Texture picture;
     private Weapon weapon;
+    private SpriteBatch batch;
+
 
 
     //Les méthodes associées
@@ -21,6 +23,14 @@ abstract public class Spacecraft {
     public void setName(String name){ this.name = name;}
     public int getPuissance() {
         return puissance;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
     }
 
     public void setPuissance(int puissance) {
@@ -52,14 +62,15 @@ abstract public class Spacecraft {
     public boolean isNotDestroyed(){ return getPuissance()>0;} //si le vaisseau est detruit ou pas !
 
     //Les méthodes abstraites
-    public abstract void move(SpriteBatch spriteBatch,Spacecraft spacecraft);
+    public abstract void move(Spacecraft spacecraft);
     abstract public void shotBy(Ammo ammo);//car le vaisseau du héro peut avoir un bouclier
 
     //Le constructeur
-    public Spacecraft(String name,String picture){
+    public Spacecraft(String name,String picture, SpriteBatch batch){
         setName(name);
         this.picture = new Texture(picture);
         this.picture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // optionnel : améliore la qualité de l'image redimensionnée
+        setBatch(batch);
     }
 
 

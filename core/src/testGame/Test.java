@@ -13,7 +13,7 @@ public class Test extends Game {
         /*Boss monster = new Boss();
         System.out.println(monster);*/
 
-        Skyblade captain = new Skyblade("Captain");
+        Skyblade captain = new Skyblade(batch);
        System.out.println(captain.getPuissance());
         captain.equipShield();
        System.out.println(captain.getPuissance());

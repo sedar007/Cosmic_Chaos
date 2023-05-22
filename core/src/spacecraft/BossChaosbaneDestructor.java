@@ -1,5 +1,7 @@
 package spacecraft;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class BossChaosbaneDestructor extends Alien{
 
     private static final String DEFAULT_NAME = "Boss";
@@ -12,8 +14,8 @@ public class BossChaosbaneDestructor extends Alien{
 
     private static final String DEFAULT_PICTURE = "pictures/ships/roundysh_large.png" ;
 
-    public BossChaosbaneDestructor(){
-        super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_MAX_LIFE);
+    public BossChaosbaneDestructor(SpriteBatch batch){
+        super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_MAX_LIFE, batch);
     }
 
 

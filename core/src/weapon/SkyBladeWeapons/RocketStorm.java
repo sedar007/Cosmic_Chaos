@@ -1,4 +1,4 @@
-package weapon;
+package weapon.SkyBladeWeapons;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;

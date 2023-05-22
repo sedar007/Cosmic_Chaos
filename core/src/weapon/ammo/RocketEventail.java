@@ -13,9 +13,9 @@ public class RocketEventail{
     // Constructor
     public RocketEventail(float x1Position, float y1Position,float x2Position, float y2Position, float x3Position, float y3Position, SpriteBatch batch){
         this.AmmosTab = new Ammo[3];
-        this.AmmosTab[0] = new Ammo("pai", DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x1Position, y1Position, batch);
-        this.AmmosTab[1] = new Ammo("pai", DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x2Position, y2Position, batch);
-        this.AmmosTab[2] = new Ammo("pai", DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x3Position, y3Position, batch);
+        this.AmmosTab[0] = new Ammo(DEFAULT_NAME, DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x1Position, y1Position, batch);
+        this.AmmosTab[1] = new Ammo(DEFAULT_NAME, DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x2Position, y2Position, batch);
+        this.AmmosTab[2] = new Ammo(DEFAULT_NAME, DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x3Position, y3Position, batch);
 
     }
 

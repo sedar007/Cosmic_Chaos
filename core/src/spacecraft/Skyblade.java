@@ -33,8 +33,8 @@ public class Skyblade extends Spacecraft {
 
     public void protect(boolean value){ this.Protected = value;}
 
-    public Skyblade(String name){
-        super(name,DEFAULT_PICTURE);
+    public Skyblade(String name, SpriteBatch batch){
+        super(name,DEFAULT_PICTURE, batch);
        // Ammos=new HashSet<>();
         setPuissance(DEFAULT_PUISSANCE);
         setMaxPuissance( DEFAULT_MAX_PUISSANCE );
@@ -44,16 +44,16 @@ public class Skyblade extends Spacecraft {
         protect(false);
     }
 
-    public Skyblade(){
-       this(DEFAULT_NAME);
+    public Skyblade(SpriteBatch batch){
+       this(DEFAULT_NAME, batch);
     }
 
     @Override
-    public void move(SpriteBatch spriteBatch,Spacecraft spacecraft) {
+    public void move(Spacecraft spacecraft) {
 
-        spriteBatch.begin();
-        spriteBatch.draw(getPicture(), getPosX(), getPosY());
-        spriteBatch.end();
+        getBatch().begin();
+        getBatch().draw(getPicture(), getPosX(), getPosY());
+        getBatch().end();
 
 
         float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);

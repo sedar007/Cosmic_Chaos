@@ -1,5 +1,7 @@
 package spacecraft;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class VenomclawRavager extends Alien{
 
     private static final String DEFAULT_PICTURE = "";
@@ -7,7 +9,7 @@ public class VenomclawRavager extends Alien{
     private static final String DEFAULT_NAME = "monster 1";
 
 
-    public VenomclawRavager() {
-        super(DEFAULT_NAME,DEFAULT_PICTURE, DEFAULT_MAX_LIFE);
+    public VenomclawRavager(SpriteBatch batch) {
+        super(DEFAULT_NAME,DEFAULT_PICTURE, DEFAULT_MAX_LIFE, batch);
     }
 }

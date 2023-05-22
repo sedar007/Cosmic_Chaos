@@ -1,20 +1,18 @@
-package weapon;
+package weapon.SkyBladeWeapons;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import helpers.Collision;
 import spacecraft.Spacecraft;
-import weapon.ammo.Ammo;
-import weapon.ammo.Rocket;
+import weapon.Weapon;
 import weapon.ammo.RocketEventail;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class RocketCyclone extends Weapon{
+public class RocketCyclone extends Weapon {
     // Static
     private static final String DEFAULT_NAME = "Rocket Cyclone";
 

@@ -23,8 +23,8 @@ public class Alien extends Spacecraft {
         this.points = points;
     }
 
-    public Alien(String name, String picture, int maxPuissance){
-        super(name,picture);
+    public Alien(String name, String picture, int maxPuissance, SpriteBatch batch){
+        super(name,picture, batch);
        setMaxPuissance(maxPuissance);
        setPuissance(maxPuissance);
 
@@ -39,11 +39,11 @@ public class Alien extends Spacecraft {
     }
 
     @Override
-    public void move(SpriteBatch spriteBatch,Spacecraft spacecraft) {
+    public void move(Spacecraft spacecraft) {
 
-        spriteBatch.begin();
-        spriteBatch.draw(getPicture(), getPosX(), getPosY());
-        spriteBatch.end();
+        getBatch().begin();
+        getBatch().draw(getPicture(), getPosX(), getPosY());
+        getBatch().end();
 
         setPosX(getPosX() + xSpeed);
         setPosY(getPosY() + ySpeed);

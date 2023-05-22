@@ -21,9 +21,8 @@ import spacecraft.Alien;
 import spacecraft.BossChaosbaneDestructor;
 import spacecraft.Skyblade;
 import spacecraft.TyrantOfDesolation;
-import weapon.InfernoOrbs;
-import weapon.RocketCyclone;
-import weapon.RocketStorm;
+import weapon.AlienWeapons.InfernoOrbs;
+import weapon.SkyBladeWeapons.RocketStorm3X;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -59,22 +58,23 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         background = new Background("pictures/stars_1.png", 50.1f, camera);
-        captain = new Skyblade();
+        batch = new SpriteBatch();
+
+        captain = new Skyblade(batch);
 
 //        System.out.println(captain.getPicture().getWidth());
         System.out.println(Gdx.graphics.getWidth());
-        batch = new SpriteBatch();
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
-        boss = new BossChaosbaneDestructor();
+        boss = new BossChaosbaneDestructor(batch);
 
         for (int i = 0; i < 20; i++) {
-            Alien monster = new TyrantOfDesolation();
+            Alien monster = new TyrantOfDesolation(batch);
             monster.setWeapon(new InfernoOrbs(batch,monster));
             monsters.add(monster);
         }
 
-        captain.setWeapon(new RocketCyclone(batch,captain));
+        captain.setWeapon(new RocketStorm3X(batch,captain));
         bonus = new HashSet<>();
         fontScore =  new BitmapFont();
 
@@ -128,7 +128,7 @@ public class GameScreen implements Screen {
             Alien monster = iterator.next();
             monster.getWeapon().spawnAllAmmo();
 
-            monster.move(batch,captain);
+            monster.move(captain);
             captain.getWeapon().shoot(monster);
             monster.getWeapon().shoot(captain);
 
@@ -155,7 +155,7 @@ public class GameScreen implements Screen {
             sum += pctg;
         }
         int means = (int) (sum / 10 );
-        captain.move(batch,null);
+        captain.move(null);
         stats( means,  1);
 
     }

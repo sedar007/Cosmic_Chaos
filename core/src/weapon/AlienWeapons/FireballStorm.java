@@ -1,25 +1,26 @@
-package weapon;
-
+package weapon.AlienWeapons;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import spacecraft.Spacecraft;
+import weapon.Weapon;
 import weapon.ammo.EnergyOrbs;
 
-public class InfernoOrbs extends Weapon{
+public class FireballStorm  extends Weapon{
+
     // Static
     private static final String DEFAULT_NAME = "InfernoOrbs";
 
     // Constructor
-    public InfernoOrbs(SpriteBatch batch, Spacecraft spacecraft){
+    public FireballStorm(SpriteBatch batch, Spacecraft spacecraft){
         super(batch,spacecraft);
         setName(DEFAULT_NAME);
     }
 
     // Methodes
     public void createAmmo(){//creer un seul pair de munition
-       // munition 1
+        // munition 1
         EnergyOrbs ammo = new EnergyOrbs(getSpacecraft().getPosX() + 15,getSpacecraft().getPosY(),getBatch());
         Texture boom = new Texture("pictures/explosion/explosion-5.png");
         getBatch().begin();
@@ -48,6 +49,9 @@ public class InfernoOrbs extends Weapon{
         if (TimeUtils.nanoTime() - lastAmmoTime > 100005500)
             createAmmo();
     }
-
-
 }
+
+
+
+
+
