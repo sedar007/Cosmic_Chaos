@@ -28,7 +28,11 @@ public class RocketStorm extends Weapon {
 
         // Explosions a la creation du munition
         Texture boom = new Texture("pictures/explosion/explosion-5.png");
+        getBatch().begin();
+
         getBatch().draw(boom,ammo.getxPosition()-ammo.getImage().getWidth()-8,ammo.getyPosition()-ammo.getImage().getHeight());
+        getBatch().end();
+
 
         // sound du shoots
         Music soundShoot;
