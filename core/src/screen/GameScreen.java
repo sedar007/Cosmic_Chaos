@@ -69,9 +69,9 @@ public class GameScreen implements Screen {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
         boss = new BossChaosbaneDestructor(batch);
-        monsters.add(boss);
+       // monsters.add(boss);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
             Alien monster = new TyrantOfDesolation(batch);
             monster.setWeapon(new SingleRocket(batch,monster));
             monsters.add(monster);
@@ -111,15 +111,20 @@ public class GameScreen implements Screen {
                     captain.getPosY(),
                     captain.getPicture().getWidth(), captain.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
                 collectible.collect();
-               /* String text =" + " + collectible.getBonus() + " POINTS ";
+                String text =" + " + collectible.getBonus() + " POINTS ";
                 GlyphLayout layout = new GlyphLayout();
                 fontScore.setColor(Color.GREEN);
                 layout.setText(fontScore, text);
-                float x = ((Gdx.graphics.getWidth() - layout.width) / 2)  + 180;
-                float y = Gdx.graphics.getHeight() - 10 ;
-                batch.begin();
-                fontScore.draw(batch, layout, x , y );
-                batch.end();*/
+                if(collectible instanceof BonusScore){
+                    batch.begin();
+                    fontScore.draw(batch, layout, ((Gdx.graphics.getWidth() - layout.width) / 2)  + 180 ,  Gdx.graphics.getHeight() - 10 );
+                    batch.end();
+                }
+                else if(collectible instanceof BonusPower){
+                    batch.begin();
+                    fontScore.draw(batch, layout, 200 , 50);
+                    batch.end();
+                }
                 iteratorGift.remove();
             }
         }
