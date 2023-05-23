@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import screen.TestButton;
+import screen.TestLoading;
 
 public class ShootEmUP extends Game {
     public BitmapFont font;//pour les textes

@@ -1,30 +1,29 @@
 package screen;
 
 
-        import com.badlogic.gdx.Gdx;
-        import com.badlogic.gdx.Screen;
-        import com.badlogic.gdx.graphics.Color;
-        import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-        import com.badlogic.gdx.scenes.scene2d.Stage;
-        import com.badlogic.gdx.scenes.scene2d.ui.Image;
-        import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-        import com.badlogic.gdx.scenes.scene2d.ui.Table;
-        import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-        import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-        import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import shoot_em_up.ShootEmUP;
 
 public class TestButton implements Screen{
 
-
     private Stage stage;
     final ShootEmUP game;
     OrthographicCamera camera;
-    Texture backgroundTexture;
+    //Texture backgroundTexture;
     BitmapFont fontBoutton;
     Image image ;
 
@@ -33,12 +32,12 @@ public class TestButton implements Screen{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
-        backgroundTexture = new Texture(Gdx.files.internal("pictures/logogame.jpeg"));
-      image = new Image(backgroundTexture);
+        /*backgroundTexture = new Texture(Gdx.files.internal("pictures/logogame.jpeg"));
+        image = new Image(backgroundTexture);*/
         stage = new Stage(new ScreenViewport());
 
-        image.setWidth(stage.getWidth());
-        image.setHeight(stage.getHeight());
+        /*image.setWidth(stage.getWidth());
+        image.setHeight(stage.getHeight());*/
 
         /// create stage and set it as input processor
 
@@ -49,7 +48,7 @@ public class TestButton implements Screen{
     @Override
     public void show() {
         // Create a table that fills the screen. Everything else will go inside this table.
-        stage.addActor(image);
+       // stage.addActor(image);
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -61,13 +60,13 @@ public class TestButton implements Screen{
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
-        TextButton preferences = new TextButton("Preferences", skin);
+        //TextButton preferences = new TextButton("Preferences", skin);
         TextButton exit = new TextButton("Exit", skin);
 //newGame.setColor(Color.RED);
         //add buttons to table
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
-        table.add(preferences).fillX().uniformX();
+       // table.add(preferences).fillX().uniformX();
         table.row();
         table.add(exit).fillX().uniformX();
 
@@ -82,16 +81,10 @@ public class TestButton implements Screen{
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new  GameScreen(game));
+                game.setScreen(new MainMenuScreen(game));
             }
         });
 
-        preferences.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new  GameScreen(game));
-            }
-        });
 
     }
 
