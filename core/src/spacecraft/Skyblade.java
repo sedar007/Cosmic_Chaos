@@ -31,6 +31,14 @@ public class Skyblade extends Spacecraft {
         this.score = score;
     }
 
+    public Shield getShield() {
+        return shield;
+    }
+
+    public void setShield(Shield shield) {
+        this.shield = shield;
+    }
+
     public void protect(boolean value){ this.Protected = value;}
 
     public Skyblade(String name, SpriteBatch batch){
@@ -42,6 +50,9 @@ public class Skyblade extends Spacecraft {
         setPosY(0);
         setScore(0.0);
         protect(false);
+        this.shield = new Shield(this, getPosX(), getPosY(), getBatch());
+
+
     }
 
     public Skyblade(SpriteBatch batch){
@@ -53,6 +64,9 @@ public class Skyblade extends Spacecraft {
 
         getBatch().begin();
         getBatch().draw(getPicture(), getPosX(), getPosY());
+        getBatch().end();
+        getBatch().begin();
+        getBatch().draw(getShield().getPicture(), getPosX()- 25, getPosY() );
         getBatch().end();
 
 

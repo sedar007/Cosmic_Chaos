@@ -7,7 +7,7 @@ import spacecraft.Skyblade;
 public class Shield extends Gift {
     public int charge = 10;//le nombre de charge du bouclier !!
     private static final String DEFAULT_NAME = " BOUCLIER " ;
-    private static final String DEFAULT_IMAGE = "" ;
+    private static final String DEFAULT_IMAGE = "pictures/shield/shield.png" ;
 
     public Shield(Skyblade skyblade, float x ,float y, SpriteBatch batch) {
         super(DEFAULT_NAME,DEFAULT_IMAGE,skyblade,x,y,batch);
@@ -18,8 +18,11 @@ public class Shield extends Gift {
         }
         else{
             this.charge = 0;
-            this.skyblade.protect(false);
         }
+        if(isBroken())
+            this.skyblade.protect(false);
+
+
     }
     public boolean isBroken(){
        return this.charge == 0;
