@@ -1,11 +1,9 @@
 package shoot_em_up;
 
-import screen.MainMenuScreen;
+import screen.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.TestButton;
-import screen.TestLoading;
 
 public class ShootEmUP extends Game {
     public BitmapFont font;//pour les textes
@@ -14,7 +12,7 @@ public class ShootEmUP extends Game {
     public void create () {//l'initialisation
         batch = new SpriteBatch();
         font = new BitmapFont(); // use libGDX's default Arial font
-        this.setScreen(new TestButton(this));
+        this.setScreen(new GameScreen(this));
     }
     @Override
     public void render () {// produit les affichages à chaque itération !

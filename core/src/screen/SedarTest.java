@@ -6,24 +6,19 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import gift.BonusPower;
-import gift.BonusScore;
-import gift.ChangeWeapon;
-import gift.Gift;
+import gift.*;
 import helpers.Collision;
 import shoot_em_up.ShootEmUP;
 import spacecraft.Alien;
 import spacecraft.BossChaosbaneDestructor;
 import spacecraft.Skyblade;
 import spacecraft.TyrantOfDesolation;
-import weapon.AlienWeapons.InfernoOrbs;
 import weapon.AlienWeapons.SingleRocket;
 import weapon.SkyBladeWeapons.RocketStorm3X;
 
@@ -31,12 +26,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 
-public class GameScreen implements Screen {
+public class SedarTest  implements Screen{
     final ShootEmUP game;
-    final static Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
-    final static Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
-    boolean play;
-
     OrthographicCamera camera;
     Background background;
     Skyblade captain;
@@ -44,21 +35,24 @@ public class GameScreen implements Screen {
     Music backgroundMusic;
     HashSet<Alien> monsters = new HashSet<>();
     BossChaosbaneDestructor boss;
+    Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
+    Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
     ShapeRenderer shapestyle;
     BonusScore bonusScore = null;
     HashSet<Gift> bonus ;
 
     BitmapFont fontScore;
     int numberALienKilled = 0 ;
+    private boolean pause;
 
 
 
-    public GameScreen(final ShootEmUP game) {
+    public SedarTest(final ShootEmUP game) {
 
         //AFFFICHAGE DES STATISTIQUES
         this.shapestyle = new ShapeRenderer();
         this.game = game;
-        play = true;
+        this.pause = false;
 
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
@@ -73,9 +67,9 @@ public class GameScreen implements Screen {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
         boss = new BossChaosbaneDestructor(batch);
-       // monsters.add(boss);
+        monsters.add(boss);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             Alien monster = new TyrantOfDesolation(batch);
             monster.setWeapon(new SingleRocket(batch,monster));
             monsters.add(monster);
@@ -84,6 +78,9 @@ public class GameScreen implements Screen {
         captain.setWeapon(new RocketStorm3X(batch,captain));
         bonus = new HashSet<>();
         fontScore =  new BitmapFont();
+        bonus.add(new Shield(captain, 150, 150, batch));
+        bonus.add(new Shield(captain, 15, 150, batch));
+        bonus.add(new ChangeWeapon(captain,50,50,batch));
 
     }
 
@@ -94,19 +91,15 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            if(play) {
-                pause();
-            }
-            else
-                resume();
-
-            play = !play;
-        }
-        if(!play)
-            return;
         ScreenUtils.clear(0, 0, 0, 0);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            if(pause)
+                resume();
+            else
+                pause();
+            pause = !pause;
+        }
+
 
         // tell the camera to update its matrices.
         background.update(game.batch,Gdx.graphics.getDeltaTime());
@@ -114,54 +107,78 @@ public class GameScreen implements Screen {
 
         // coordinate system specified by the camera.
         game.batch.setProjectionMatrix(camera.combined);
-        if(play) {
-            this.pause();
 
-            captain.getWeapon().spawnAllAmmo();
+        captain.getWeapon().spawnAllAmmo();
 
-            //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
-            collectible();
-
-
-
-            //Pour l affichage des aliens et aussi leur disparition une fois qu'ils sont touchés par les tirs !
-            Iterator<Alien> iterator = monsters.iterator();
-            while (iterator.hasNext()) {
-                Alien monster = iterator.next();
-                monster.getWeapon().spawnAllAmmo();
-
-                monster.move(captain);
-                captain.getWeapon().shoot(monster);
-                monster.getWeapon().shoot(captain);
-
-                if (!monster.isNotDestroyed()) {
-                    numberALienKilled += 1;
-                    captain.setScore(captain.getScore() + monster.getPoints());
-                    bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch));
-                    if (numberALienKilled == 10) {
-                        float x = new Random().nextInt(Gdx.graphics.getWidth());
-                        float y = new Random().nextInt(Gdx.graphics.getHeight() / 2);
-                        bonus.add(new BonusPower(captain, x, y, batch));
-                        numberALienKilled = 0;//pour chaque 10
-                    }
-
-                    iterator.remove();
-                }
+        //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
+        Iterator<Gift> iteratorGift = bonus.iterator();
+        while (iteratorGift.hasNext()) {
+            Gift collectible = iteratorGift.next();
+            collectible.draw();
+            if (new Collision().checkCollision(collectible.getPosX(), collectible.getPosY(), collectible.getPicture().getWidth(), collectible.getPicture().getHeight(),
+                    captain.getPosX(),
+                    captain.getPosY(),
+                    captain.getPicture().getWidth(), captain.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
+                collectible.collect();
+               /* String text =" + " + collectible.getBonus() + " POINTS ";
+                GlyphLayout layout = new GlyphLayout();
+                fontScore.setColor(Color.GREEN);
+                layout.setText(fontScore, text);
+                float x = ((Gdx.graphics.getWidth() - layout.width) / 2)  + 180;
+                float y = Gdx.graphics.getHeight() - 10 ;
+                batch.begin();
+                fontScore.draw(batch, layout, x , y );
+                batch.end();*/
+                iteratorGift.remove();
             }
-
-            captain.move(null);
-            stats(1);
-
         }
+
+        bonus.add(new ChangeWeapon(captain,50,50,batch));
+        //Pour l affichage des aliens et aussi leur disparition une fois qu'ils sont touchés par les tirs !
+        Iterator<Alien> iterator = monsters.iterator();
+        while (iterator.hasNext()) {
+            Alien monster = iterator.next();
+            monster.getWeapon().spawnAllAmmo();
+
+            monster.move(captain);
+            captain.getWeapon().shoot(monster);
+            monster.getWeapon().shoot(captain);
+
+            if(!monster.isNotDestroyed()){
+                numberALienKilled += 1;
+                captain.setScore(captain.getScore() +  monster.getPoints());
+                bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch));
+                if( numberALienKilled == 10 ){
+                    float x  = new Random().nextInt(Gdx.graphics.getWidth()) ;
+                    float y = new Random().nextInt(Gdx.graphics.getHeight() / 2);
+                    bonus.add(new BonusPower(captain, x, y, batch));
+                    numberALienKilled = 0 ;//pour chaque 10
+                }
+
+                iterator.remove();
+            }
+        }
+
+
+        //Calcul du nombre moyenne de vaisseau en pourcentage !
+        float sum = 0;
+        for(Alien monster : monsters){
+            float pctg = (float) (monster.getPuissance() * 100) / monster.getMaxPuissance();
+            sum += pctg;
+        }
+        int means = (int) (sum / 10 );
+        captain.move(null);
+        stats( means,  1);
+
 
     }
 
 
-    public void powerStats( int captainStat, int alienStat){
+    public void powerStats(Texture captainPicture, int captainStat,  Texture alienPicture, int alienStat){
         //AFFICHAGES DES STATISTIQUES
 
         batch.begin();
-        batch.draw( imageCaptain,0,15, 40,40);
+        batch.draw( captainPicture,0,15, 40,40);
         batch.end();
 
         shapestyle.begin(ShapeRenderer.ShapeType.Filled);
@@ -173,7 +190,7 @@ public class GameScreen implements Screen {
         shapestyle.end();
 
         batch.begin();
-        batch.draw( imageAlien,Gdx.graphics.getWidth() - 40,15, 40,40);
+        batch.draw( alienPicture,Gdx.graphics.getWidth() - 40,15, 40,40);
         batch.end();
 
 
@@ -207,48 +224,11 @@ public class GameScreen implements Screen {
         batch.end();
     }
 
-    public void stats( int levelStat){
-        //Calcul du nombre moyenne de vaisseau en pourcentage !
-        float sum = 0;
-        for (Alien monster : monsters) {
-            float pctg = (float) (monster.getPuissance() * 100) / monster.getMaxPuissance();
-            sum += pctg;
-        }
-        int alienLife = (int) (sum / 10);
-
+    public void stats( int alienLife, int levelStat){
         int pourcentagePuissance = (captain.getPuissance() * 100)/ captain.getMaxPuissance();
-        powerStats(pourcentagePuissance,alienLife);
+        powerStats(imageCaptain,pourcentagePuissance,imageAlien,alienLife);
         scoreStat(captain.getScore());
         level(levelStat);
-    }
-
-    public void collectible(){
-        //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
-        Iterator<Gift> iteratorGift = bonus.iterator();
-        while (iteratorGift.hasNext()) {
-            Gift collectible = iteratorGift.next();
-            collectible.draw();
-            if (new Collision().checkCollision(collectible.getPosX(), collectible.getPosY(), collectible.getPicture().getWidth(), collectible.getPicture().getHeight(),
-                    captain.getPosX(),
-                    captain.getPosY(),
-                    captain.getPicture().getWidth(), captain.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
-                collectible.collect();
-                String text = " + " + collectible.getBonus() + " POINTS ";
-                GlyphLayout layout = new GlyphLayout();
-                fontScore.setColor(Color.GREEN);
-                layout.setText(fontScore, text);
-                if (collectible instanceof BonusScore) {
-                    batch.begin();
-                    fontScore.draw(batch, layout, ((Gdx.graphics.getWidth() - layout.width) / 2) + 180, Gdx.graphics.getHeight() - 10);
-                    batch.end();
-                } else if (collectible instanceof BonusPower) {
-                    batch.begin();
-                    fontScore.draw(batch, layout, 200, 50);
-                    batch.end();
-                }
-                iteratorGift.remove();
-            }
-        }
     }
 
     @Override
@@ -278,3 +258,5 @@ public class GameScreen implements Screen {
 
     }
 }
+
+

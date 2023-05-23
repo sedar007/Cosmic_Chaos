@@ -1,6 +1,8 @@
 package weapon.AlienWeapons;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -39,9 +41,9 @@ public class InfernoOrbs extends Weapon {
         munitions.add(ammo2);
 
         lastAmmoTime = TimeUtils.nanoTime();
-//        Music soundShoot;
-//        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-//        soundShoot.play();
+        Music soundShoot;
+        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+        soundShoot.play();
     }
 
     @Override

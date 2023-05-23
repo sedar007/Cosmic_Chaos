@@ -83,10 +83,10 @@ public class Alien extends Spacecraft {
         xAlea -= 1;
         yAlea--;
 
-        if(getPosX()<0 || getPosX() > Gdx.graphics.getWidth() - getPicture().getWidth())
+        if(getPosX()<=0 || getPosX() >= Gdx.graphics.getWidth() - getPicture().getWidth())
             xSpeed = - xSpeed;
 
-        if(getPosY()< (float) Gdx.graphics.getHeight() /2 || getPosY() > Gdx.graphics.getHeight() - getPicture().getHeight())
+        if(getPosY()<= (float) Gdx.graphics.getHeight() /2 || getPosY() >= Gdx.graphics.getHeight() - getPicture().getHeight())
             ySpeed = - ySpeed;
 
         if(xAlea == 0) {

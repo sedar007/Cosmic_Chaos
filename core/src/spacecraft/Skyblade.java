@@ -50,8 +50,7 @@ public class Skyblade extends Spacecraft {
         setPosY(0);
         setScore(0.0);
         protect(false);
-        this.shield = new Shield(this, getPosX(), getPosY(), getBatch());
-
+        setShield(new Shield(this, getPosX(), getPosY(), getBatch()));
 
     }
 
@@ -63,11 +62,14 @@ public class Skyblade extends Spacecraft {
     public void move(Spacecraft spacecraft) {
 
         getBatch().begin();
+
         getBatch().draw(getPicture(), getPosX(), getPosY());
+        if(isProtected())
+            getBatch().draw(getShield().getShieldPicture(), getPosX()- 25, getPosY() );
+
         getBatch().end();
-        getBatch().begin();
-        getBatch().draw(getShield().getPicture(), getPosX()- 25, getPosY() );
-        getBatch().end();
+
+
 
 
         float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);
