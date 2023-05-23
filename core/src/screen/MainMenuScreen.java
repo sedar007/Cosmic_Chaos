@@ -32,18 +32,10 @@ public class MainMenuScreen implements Screen {
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
         backgroundTexture = new Texture(Gdx.files.internal("pictures/logogame.jpeg"));
-
-
-
-
-
-
-
     }
 
     @Override
     public void show() {
-
     }
 
     @Override

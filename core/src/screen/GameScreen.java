@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import gift.BonusPower;
 import gift.BonusScore;
+import gift.ChangeWeapon;
 import gift.Gift;
 import helpers.Collision;
 import shoot_em_up.ShootEmUP;
@@ -103,14 +104,14 @@ public class GameScreen implements Screen {
         //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
         Iterator<Gift> iteratorGift = bonus.iterator();
         while (iteratorGift.hasNext()) {
-            Gift bonusScore = iteratorGift.next();
-            bonusScore.draw();
-            if (new Collision().checkCollision(bonusScore.getPosX(), bonusScore.getPosY(), bonusScore.getPicture().getWidth(), bonusScore.getPicture().getHeight(),
+            Gift collectible = iteratorGift.next();
+            collectible.draw();
+            if (new Collision().checkCollision(collectible.getPosX(), collectible.getPosY(), collectible.getPicture().getWidth(), collectible.getPicture().getHeight(),
                     captain.getPosX(),
                     captain.getPosY(),
                     captain.getPicture().getWidth(), captain.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
-                bonusScore.collect();
-                String text =" + " + bonusScore.getBonus() + " POINTS ";
+                collectible.collect();
+               /* String text =" + " + collectible.getBonus() + " POINTS ";
                 GlyphLayout layout = new GlyphLayout();
                 fontScore.setColor(Color.GREEN);
                 layout.setText(fontScore, text);
@@ -118,12 +119,12 @@ public class GameScreen implements Screen {
                 float y = Gdx.graphics.getHeight() - 10 ;
                 batch.begin();
                 fontScore.draw(batch, layout, x , y );
-                batch.end();
+                batch.end();*/
                 iteratorGift.remove();
             }
         }
 
-
+        bonus.add(new ChangeWeapon(captain,50,50,batch));
         //Pour l affichage des aliens et aussi leur disparition une fois qu'ils sont touchés par les tirs !
         Iterator<Alien> iterator = monsters.iterator();
         while (iterator.hasNext()) {
@@ -159,6 +160,7 @@ public class GameScreen implements Screen {
         int means = (int) (sum / 10 );
         captain.move(null);
         stats( means,  1);
+
 
     }
 
