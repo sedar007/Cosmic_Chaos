@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
         import com.badlogic.gdx.scenes.scene2d.Stage;
+        import com.badlogic.gdx.scenes.scene2d.ui.Image;
         import com.badlogic.gdx.scenes.scene2d.ui.Skin;
         import com.badlogic.gdx.scenes.scene2d.ui.Table;
         import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -25,6 +26,7 @@ public class TestButton implements Screen{
     OrthographicCamera camera;
     Texture backgroundTexture;
     BitmapFont fontBoutton;
+    Image image ;
 
     public TestButton(final ShootEmUP game){
         this.game = game;
@@ -32,30 +34,36 @@ public class TestButton implements Screen{
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
         backgroundTexture = new Texture(Gdx.files.internal("pictures/logogame.jpeg"));
+      image = new Image(backgroundTexture);
+        stage = new Stage(new ScreenViewport());
 
+        image.setWidth(stage.getWidth());
+        image.setHeight(stage.getHeight());
 
         /// create stage and set it as input processor
-        stage = new Stage(new ScreenViewport());
+
         Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
     public void show() {
         // Create a table that fills the screen. Everything else will go inside this table.
+        stage.addActor(image);
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/skin-composer-ui.json"));
-         skin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
+         skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
 
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
         TextButton preferences = new TextButton("Preferences", skin);
         TextButton exit = new TextButton("Exit", skin);
-
+//newGame.setColor(Color.RED);
         //add buttons to table
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
