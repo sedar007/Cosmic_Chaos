@@ -19,10 +19,7 @@ import gift.ChangeWeapon;
 import gift.Gift;
 import helpers.Collision;
 import shoot_em_up.ShootEmUP;
-import spacecraft.Alien;
-import spacecraft.BossChaosbaneDestructor;
-import spacecraft.Skyblade;
-import spacecraft.TyrantOfDesolation;
+import spacecraft.*;
 import weapon.AlienWeapons.InfernoOrbs;
 import weapon.AlienWeapons.SingleRocket;
 import weapon.SkyBladeWeapons.RocketStorm3X;
@@ -35,7 +32,6 @@ public class GameScreen implements Screen {
     final ShootEmUP game;
     final static Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
     final static Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
-    boolean play;
 
     OrthographicCamera camera;
     Background background;
@@ -43,13 +39,14 @@ public class GameScreen implements Screen {
     SpriteBatch batch;
     Music backgroundMusic;
     HashSet<Alien> monsters = new HashSet<>();
-    BossChaosbaneDestructor boss;
     ShapeRenderer shapestyle;
     BonusScore bonusScore = null;
     HashSet<Gift> bonus ;
 
     BitmapFont fontScore;
     int numberALienKilled = 0 ;
+    boolean play;
+
 
 
 
@@ -68,18 +65,16 @@ public class GameScreen implements Screen {
 
         captain = new Skyblade(batch);
 
-//        System.out.println(captain.getPicture().getWidth());
-        System.out.println(Gdx.graphics.getWidth());
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
-        boss = new BossChaosbaneDestructor(batch);
-       // monsters.add(boss);
 
-        for (int i = 0; i < 10; i++) {
-            Alien monster = new TyrantOfDesolation(batch);
-            monster.setWeapon(new SingleRocket(batch,monster));
-            monsters.add(monster);
-        }
+
+//        for (int i = 0; i < 10; i++) {
+//            Alien monster = new TyrantOfDesolation(batch);
+//            monsters.add(monster);
+//
+//        }
+        monsters.add(new VenomclawRavager(batch));
 
         captain.setWeapon(new RocketStorm3X(batch,captain));
         bonus = new HashSet<>();
@@ -96,13 +91,12 @@ public class GameScreen implements Screen {
     public void render(float delta) {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            if(play) {
+            if( (play = !play) ) {
                 pause();
             }
             else
                 resume();
 
-            play = !play;
         }
         if(!play)
             return;
