@@ -1,101 +1,128 @@
 package screen;
 
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import shoot_em_up.ShootEmUP;
 
-import javax.swing.*;
+public class MainMenuScreen implements Screen{
 
-public class MainMenuScreen extends ScreenAdapter implements Screen {
+    private final Stage stage;
     final ShootEmUP game;
     OrthographicCamera camera;
     Texture backgroundTexture;
     BitmapFont fontBoutton;
-////////////////////////////////////////////
+    Image image ;
+    Skin skin;
 
-    private Stage stage;
-    private Viewport viewport;
-
-
-
-    public MainMenuScreen(final ShootEmUP game) {
-       this.game = game;
-    camera = new OrthographicCamera();
+    public MainMenuScreen(final ShootEmUP game){
+        this.game = game;
+        camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
-        backgroundTexture = new Texture(Gdx.files.internal("pictures/logogame.jpeg"));
-        ////////////////////////////////////////////
 
+        backgroundTexture = new Texture(Gdx.files.internal("pictures/fond.jpg"));
+        image = new Image(backgroundTexture);
+        stage = new Stage(new ScreenViewport());
+
+        image.setWidth(stage.getWidth());
+        image.setHeight(stage.getHeight());
+
+        /// create stage and set it as input processor
+
+        Gdx.input.setInputProcessor(stage);
 
     }
 
     @Override
     public void show() {
-        stage = new Stage();
-        viewport = new ExtendViewport(1280,720);
+        // Create a table that fills the screen. Everything else will go inside this table.
+        stage.addActor(image);
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        // temporary until we have asset manager in
+        skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
+
+
+        //create buttons
+        TextButton newGame = new TextButton("START GAME", skin);
+        //TextButton preferences = new TextButton("Preferences", skin);
+        TextButton exit = new TextButton("Exit", skin);
+        newGame.setColor(Color.RED);
+        exit.setColor(Color.RED);
+        //add buttons to table
+        table.add(newGame).fillX().uniformX();
+        table.row().pad(10, 0, 10, 0);
+        table.row();
+        table.add(exit).fillX().uniformX();
+
+        // create button listeners
+        exit.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
+
+        newGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new Loading(game));
+            }
+        });
+
+
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-      camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-        game.batch.begin();
-        backgroundTexture.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
-        game.batch.draw(backgroundTexture,0,0,Gdx.graphics.getWidth()-200,Gdx.graphics.getHeight()-500);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 50, 40);
-        game.batch.end();
-       if (Gdx.input.isTouched()) {
-            game.setScreen(new  GameScreen(game));
-            dispose();
-        }
-        ////////////////////////////////////////////
-
-
-
-
-
-
+        // tell our stage to do actions and draw itself
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        // change the stage's viewport when teh screen size is changed
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
     public void pause() {
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void resume() {
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void hide() {
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void dispose() {
-
+        // dispose of assets when not needed anymore
+        stage.dispose();
     }
+
 }

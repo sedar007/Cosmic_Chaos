@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -46,8 +45,6 @@ public class GameScreen implements Screen {
     BitmapFont fontScore;
     int numberALienKilled = 0 ;
     boolean play;
-
-
 
 
     public GameScreen(final ShootEmUP game) {
