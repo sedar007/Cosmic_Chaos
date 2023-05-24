@@ -21,6 +21,8 @@ import shoot_em_up.ShootEmUP;
 import spacecraft.*;
 import weapon.AlienWeapons.InfernoOrbs;
 import weapon.AlienWeapons.SingleRocket;
+import weapon.SkyBladeWeapons.PredatorFury;
+import weapon.SkyBladeWeapons.RocketStorm;
 import weapon.SkyBladeWeapons.RocketStorm3X;
 
 import java.util.HashSet;
@@ -39,6 +41,7 @@ public class GameScreen implements Screen {
     Music backgroundMusic;
     HashSet<Alien> monsters = new HashSet<>();
     ShapeRenderer shapestyle;
+    Alien alienForPredator;
     BonusScore bonusScore = null;
     HashSet<Gift> bonus ;
 
@@ -80,10 +83,17 @@ public class GameScreen implements Screen {
 
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
+        monsters = new HashSet<>();
+//        monsters.add(new BossChaosbaneDestructor(batch));
 
-      //  monsters.add(new BossChaosbaneDestructor(batch));
+        for(int i = 0; i< 10; i++){
+            Alien alien = new VenomclawRavager(batch);
+            monsters.add(alien);
+            alienForPredator = alien;
 
-        captain.setWeapon(new RocketStorm3X(batch,captain));
+        }
+        captain.setWeapon(new RocketStorm(batch, captain));
+
         bonus = new HashSet<>();
         fontScore =  new BitmapFont();
         setScore(0.0);
@@ -126,8 +136,10 @@ public class GameScreen implements Screen {
 
 
         /* --- Game Play --- */
-
             captain.getWeapon().spawnAllAmmo();
+            captain.getPredatorFury().spawnAllAmmo(alienForPredator);
+            captain.getPredatorFury().shoot(alienForPredator);
+
 
             //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
             collectible();
@@ -143,6 +155,8 @@ public class GameScreen implements Screen {
                 monster.move(captain);
                 captain.getWeapon().shoot(monster);
                 monster.getWeapon().shoot(captain);
+                alienForPredator = monster;
+
 
                 if (!monster.isNotDestroyed()) {
                     numberALienKilled += 1;

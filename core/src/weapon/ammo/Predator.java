@@ -30,7 +30,7 @@ public class Predator extends Ammo{
         Texture cible = new Texture("pictures/target/aim.png");
 
         getBatch().begin();
-//        getBatch().draw(cible, target.getPosX(), target.getPosY());
+        getBatch().draw(cible, target.getPosX() + (float) (target.getPicture().getWidth() /2) - (float) cible.getWidth() /2, target.getPosY() - (float) cible.getHeight() /2);
         getBatch().draw(getImage(), getxPosition(), getyPosition());
         getBatch().end();
 
