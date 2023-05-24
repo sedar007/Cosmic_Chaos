@@ -90,6 +90,8 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
+
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             if( (play = !play) ) {
                 pause();
@@ -98,18 +100,25 @@ public class GameScreen implements Screen {
                 resume();
 
         }
-        if(!play)
+
+        if(!play){
+            pause();
             return;
+
+        }
         ScreenUtils.clear(0, 0, 0, 0);
 
         // tell the camera to update its matrices.
         background.update(game.batch,Gdx.graphics.getDeltaTime());
         camera.update();
 
+
+
         // coordinate system specified by the camera.
         game.batch.setProjectionMatrix(camera.combined);
         if(play) {
-            this.pause();
+
+
 
             captain.getWeapon().spawnAllAmmo();
 
@@ -147,6 +156,7 @@ public class GameScreen implements Screen {
             stats(1);
 
         }
+
 
     }
 
@@ -254,11 +264,31 @@ public class GameScreen implements Screen {
     public void pause() {
         backgroundMusic.pause();
 
+        BitmapFont pauseFont = new BitmapFont();
+        String textPause =" PAUSED " ;
+        GlyphLayout layoutPause = new GlyphLayout();
+        layoutPause.setText(pauseFont, textPause);
+
+        BitmapFont pauseFontMessage = new BitmapFont();
+        String textPauseMessage =" Press P to continue " ;
+        GlyphLayout layoutPauseMessage = new GlyphLayout();
+        layoutPauseMessage.setText(pauseFontMessage, textPauseMessage);
+
+
+        batch.begin();
+
+        pauseFont.draw(batch, layoutPause, (Gdx.graphics.getWidth() - layoutPause.width) / 2, (Gdx.graphics.getHeight() - layoutPause.height) / 2);
+        pauseFontMessage.draw(batch, layoutPauseMessage, (Gdx.graphics.getWidth() - layoutPauseMessage.width) / 2,  ( (Gdx.graphics.getHeight() - layoutPauseMessage.height) / 2) - 20);
+
+        batch.end();
+
+
     }
 
     @Override
     public void resume() {
         backgroundMusic.play();
+
 
     }
 
