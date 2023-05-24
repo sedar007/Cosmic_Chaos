@@ -90,33 +90,36 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            if( (play = !play) ) {
-                pause();
-            }
+        // Permet de mettre en pause le jeu
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) { // Si on appuie sur la touche P
+            if( !(play = !play) )  // On change la valeur de play et on verifie si elle est a false
+                pause(); // on fait appel a la methode pause ( Mettre en pause la musique, affiche un message ... )
             else
-                resume();
-
+                resume(); // On fait appel a la methode resume pour mettre en marche la musique ...
         }
 
-        if(!play){
+        // Permet de continuer le jeu avec la touche R
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            play = true;
+            resume();
+        }
+
+        if(!play){ // Permet de mettre en pause a chaque render si play est false
             pause();
             return;
-
         }
-        ScreenUtils.clear(0, 0, 0, 0);
 
-        // tell the camera to update its matrices.
+
+        ScreenUtils.clear(0, 0, 0, 0); // Nettoyer l'ecran
+
+       // Permet de faire la mise a jour
         background.update(game.batch,Gdx.graphics.getDeltaTime());
         camera.update();
-
-
-
-        // coordinate system specified by the camera.
         game.batch.setProjectionMatrix(camera.combined);
-        if(play) {
+
+
+        /* --- Game Play --- */
+
 
 
 
@@ -155,7 +158,7 @@ public class GameScreen implements Screen {
             captain.move(null);
             stats(1);
 
-        }
+
 
 
     }
@@ -270,7 +273,7 @@ public class GameScreen implements Screen {
         layoutPause.setText(pauseFont, textPause);
 
         BitmapFont pauseFontMessage = new BitmapFont();
-        String textPauseMessage =" Press P to continue " ;
+        String textPauseMessage =" Press P or R to continue " ;
         GlyphLayout layoutPauseMessage = new GlyphLayout();
         layoutPauseMessage.setText(pauseFontMessage, textPauseMessage);
 
