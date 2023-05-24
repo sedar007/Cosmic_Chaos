@@ -1,6 +1,7 @@
 package weapon.SkyBladeWeapons;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -45,7 +46,7 @@ public class RocketStorm extends Weapon {
     @Override
     public void create() {
         /* Creer les ammos quand on appuie sur la souris */
-        if (Gdx.input.isTouched())
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             if (TimeUtils.nanoTime() - lastAmmoTime > 100000000 )
                 createAmmo();
     }
