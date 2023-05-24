@@ -74,7 +74,7 @@ public class GameScreen implements Screen {
 //            monsters.add(monster);
 //
 //        }
-        monsters.add(new VenomclawRavager(batch));
+        monsters.add(new BossChaosbaneDestructor(batch));
 
         captain.setWeapon(new RocketStorm3X(batch,captain));
         bonus = new HashSet<>();
