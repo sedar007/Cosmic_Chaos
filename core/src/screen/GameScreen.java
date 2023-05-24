@@ -43,9 +43,25 @@ public class GameScreen implements Screen {
     HashSet<Gift> bonus ;
 
     BitmapFont fontScore;
+
+    private Double score;
+
+
     int numberALienKilled = 0 ;
     boolean play;
 
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public void setMonsters(Alien alien) {
+            monsters.add(alien);
+    }
 
     public GameScreen(final ShootEmUP game) {
 
@@ -65,17 +81,12 @@ public class GameScreen implements Screen {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
 
-
-//        for (int i = 0; i < 10; i++) {
-//            Alien monster = new TyrantOfDesolation(batch);
-//            monsters.add(monster);
-//
-//        }
-        monsters.add(new BossChaosbaneDestructor(batch));
+      //  monsters.add(new BossChaosbaneDestructor(batch));
 
         captain.setWeapon(new RocketStorm3X(batch,captain));
         bonus = new HashSet<>();
         fontScore =  new BitmapFont();
+        setScore(0.0);
 
     }
 
@@ -83,7 +94,6 @@ public class GameScreen implements Screen {
     public void show() {
         backgroundMusic.play();
     }
-
     @Override
     public void render(float delta) {
 
@@ -117,9 +127,6 @@ public class GameScreen implements Screen {
 
         /* --- Game Play --- */
 
-
-
-
             captain.getWeapon().spawnAllAmmo();
 
             //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
@@ -139,8 +146,8 @@ public class GameScreen implements Screen {
 
                 if (!monster.isNotDestroyed()) {
                     numberALienKilled += 1;
-                    captain.setScore(captain.getScore() + monster.getPoints());
-                    bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch));
+                    //captain.setScore(captain.getScore() + monster.getPoints());
+                    bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch, this));
                     if (numberALienKilled == 10) {
                         float x = new Random().nextInt(Gdx.graphics.getWidth());
                         float y = new Random().nextInt(Gdx.graphics.getHeight() / 2);
@@ -154,8 +161,6 @@ public class GameScreen implements Screen {
 
             captain.move(null);
             stats(1);
-
-
 
 
     }
@@ -222,7 +227,7 @@ public class GameScreen implements Screen {
 
         int pourcentagePuissance = (captain.getPuissance() * 100)/ captain.getMaxPuissance();
         powerStats(pourcentagePuissance,alienLife);
-        scoreStat(captain.getScore());
+        scoreStat(getScore());
         level(levelStat);
     }
 
@@ -255,6 +260,18 @@ public class GameScreen implements Screen {
         }
     }
 
+    public void showLevelText(int level){
+        BitmapFont levelText = new BitmapFont();
+        String text =" LEVEL " + level ;
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(levelText, text);
+        float x = (Gdx.graphics.getWidth() - layout.width) / 2;
+        float y = (Gdx.graphics.getHeight() - layout.height) / 2;
+        batch.begin();
+        levelText.draw(batch, layout, x,y );
+        batch.end();
+    }
+
     @Override
     public void resize(int width, int height) {
 
@@ -274,9 +291,7 @@ public class GameScreen implements Screen {
         GlyphLayout layoutPauseMessage = new GlyphLayout();
         layoutPauseMessage.setText(pauseFontMessage, textPauseMessage);
 
-
         batch.begin();
-
         pauseFont.draw(batch, layoutPause, (Gdx.graphics.getWidth() - layoutPause.width) / 2, (Gdx.graphics.getHeight() - layoutPause.height) / 2);
         pauseFontMessage.draw(batch, layoutPauseMessage, (Gdx.graphics.getWidth() - layoutPauseMessage.width) / 2,  ( (Gdx.graphics.getHeight() - layoutPauseMessage.height) / 2) - 20);
 

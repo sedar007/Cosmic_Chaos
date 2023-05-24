@@ -18,18 +18,10 @@ public class Skyblade extends Spacecraft {
 
    /* public HashSet<Ammo> Ammos ;*/
     public Shield shield;//bouclier du Capitaine.
-    private Double score;
+
     private boolean Protected;//si le vaisseau du Héro possède un bouclier !
 
     public BonusScore bonusScore;
-
-    public Double getScore() {
-        return score;
-    }
-
-    public void setScore(Double score) {
-        this.score = score;
-    }
 
     public Shield getShield() {
         return shield;
@@ -48,7 +40,7 @@ public class Skyblade extends Spacecraft {
         setMaxPuissance( DEFAULT_MAX_PUISSANCE );
         setPosX(0);
         setPosY(0);
-        setScore(0.0);
+
         protect(false);
         setShield(new Shield(this, getPosX(), getPosY(), getBatch()));
 
