@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 import helpers.Collision;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
@@ -46,6 +47,8 @@ public class RocketCyclone extends Weapon {
         getBatch().end();
 
         munitionsTab.add(rocketEventail);
+        lastAmmoTime = TimeUtils.nanoTime(); // dernier ammo creer
+
 
 //        Music soundShoot;
 //        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
@@ -105,7 +108,8 @@ public class RocketCyclone extends Weapon {
     @Override
     public void create() {
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-            createAmmo();
+            if (TimeUtils.nanoTime() - lastAmmoTime > 100000000 )
+                createAmmo();
     }
 
 }
