@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -50,6 +51,10 @@ public class GameScreen implements Screen {
     int numberALienKilled = 0 ;
     boolean play;
 
+    Level level;
+    int numLevel;
+    private float elapsedTime;
+    private float displayDuration;
 
     public Double getScore() {
         return score;
@@ -81,6 +86,11 @@ public class GameScreen implements Screen {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
         backgroundMusic.setLooping(true);
 
+       // POUR LE LEVEL !!
+        numLevel = 0 ;
+        level = new Level(numLevel,this.game,batch);//Au debut !!
+        this.monsters = level.getMonsters();
+
       //  monsters.add(new BossChaosbaneDestructor(batch));
 
         captain.setWeapon(new RocketStorm3X(batch,captain));
@@ -88,15 +98,36 @@ public class GameScreen implements Screen {
         fontScore =  new BitmapFont();
         setScore(0.0);
 
+        elapsedTime = 0f;
+        displayDuration = 5f; // Durée d'affichage en secondes
+
+
     }
 
     @Override
     public void show() {
         backgroundMusic.play();
     }
+
     @Override
     public void render(float delta) {
 
+       elapsedTime += Gdx.graphics.getDeltaTime();
+        if(monsters.size() == 0 ){
+            elapsedTime = 0f;
+            numLevel += 1;
+            showLevelText(numLevel);
+            level = new Level(numLevel,this.game,batch);
+            this.monsters = level.getMonsters();
+        }
+
+        if (elapsedTime >= displayDuration) {
+            play();
+        }
+
+    }
+
+    public void play(){
         // Permet de mettre en pause le jeu
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) { // Si on appuie sur la touche P
             if( !(play = !play) )  // On change la valeur de play et on verifie si elle est a false
@@ -119,7 +150,7 @@ public class GameScreen implements Screen {
 
         ScreenUtils.clear(0, 0, 0, 0); // Nettoyer l'ecran
 
-       // Permet de faire la mise a jour
+        // Permet de faire la mise a jour
         background.update(game.batch,Gdx.graphics.getDeltaTime());
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
@@ -127,40 +158,40 @@ public class GameScreen implements Screen {
 
         /* --- Game Play --- */
 
-            captain.getWeapon().spawnAllAmmo();
+        captain.getWeapon().spawnAllAmmo();
 
-            //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
-            collectible();
+        //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
+        collectible();
 
 
 
-            //Pour l affichage des aliens et aussi leur disparition une fois qu'ils sont touchés par les tirs !
-            Iterator<Alien> iterator = monsters.iterator();
-            while (iterator.hasNext()) {
-                Alien monster = iterator.next();
-                monster.getWeapon().spawnAllAmmo();
+        //Pour l affichage des aliens et aussi leur disparition une fois qu'ils sont touchés par les tirs !
+        Iterator<Alien> iterator = monsters.iterator();
+        while (iterator.hasNext()) {
+            Alien monster = iterator.next();
+            monster.getWeapon().spawnAllAmmo();
 
-                monster.move(captain);
-                captain.getWeapon().shoot(monster);
-                monster.getWeapon().shoot(captain);
+            monster.move(captain);
+            captain.getWeapon().shoot(monster);
+            monster.getWeapon().shoot(captain);
 
-                if (!monster.isNotDestroyed()) {
-                    numberALienKilled += 1;
-                    //captain.setScore(captain.getScore() + monster.getPoints());
-                    bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch, this));
-                    if (numberALienKilled == 10) {
-                        float x = new Random().nextInt(Gdx.graphics.getWidth());
-                        float y = new Random().nextInt(Gdx.graphics.getHeight() / 2);
-                        bonus.add(new BonusPower(captain, x, y, batch));
-                        numberALienKilled = 0;//pour chaque 10
-                    }
-
-                    iterator.remove();
+            if (!monster.isNotDestroyed()) {
+                numberALienKilled += 1;
+                //captain.setScore(captain.getScore() + monster.getPoints());
+                bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch, this));
+                if (numberALienKilled == 10) {
+                    float x = new Random().nextInt(Gdx.graphics.getWidth());
+                    float y = new Random().nextInt(Gdx.graphics.getHeight() / 2);
+                    bonus.add(new BonusPower(captain, x, y, batch));
+                    numberALienKilled = 0;//pour chaque 10
                 }
-            }
 
-            captain.move(null);
-            stats(1);
+                iterator.remove();
+            }
+        }
+
+        captain.move(null);
+        stats(1);
 
 
     }
@@ -261,6 +292,10 @@ public class GameScreen implements Screen {
     }
 
     public void showLevelText(int level){
+
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         BitmapFont levelText = new BitmapFont();
         String text =" LEVEL " + level ;
         GlyphLayout layout = new GlyphLayout();
