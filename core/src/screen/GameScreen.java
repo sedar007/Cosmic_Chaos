@@ -128,8 +128,12 @@ public class GameScreen implements Screen {
             play();
         }
 
-    }
+        if(numLevel > 5){//fin du jeu
+            game.setScreen(new MainMenuScreen(game));
+            dispose();
+        }
 
+    }
 
 
     public void play(){
@@ -186,6 +190,13 @@ public class GameScreen implements Screen {
                     bonus.add(new BonusPower(captain, x, y, batch));
                     numberALienKilled = 0;//pour chaque 10
                 }
+               for(int i = 10 ; i >= 1 ; i--){
+                   String boom =String.format("boom%02d.png",i) ;
+                   Texture texture = new Texture("pictures/explosion/" + boom);
+                   batch.begin();
+                   batch.draw(texture,monster.getPosX() , monster.getPosY());
+                   batch.end();
+               }
 
                 iterator.remove();
             }
@@ -197,7 +208,7 @@ public class GameScreen implements Screen {
     }
 
 
-    public void powerStats( int captainStat, int alienStat){
+    public void powerStats( float captainStat, float alienStat){
         //AFFICHAGES DES STATISTIQUES
 
         batch.begin();
@@ -256,7 +267,7 @@ public class GameScreen implements Screen {
         }
         int alienLife = (int) (sum / 10);
 
-        int pourcentagePuissance = (captain.getPuissance() * 100)/ captain.getMaxPuissance();
+        float pourcentagePuissance = (captain.getPuissance() * 100)/ captain.getMaxPuissance();
         powerStats(pourcentagePuissance,alienLife);
         scoreStat(getScore());
         level(levelStat);

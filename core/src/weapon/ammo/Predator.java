@@ -8,7 +8,7 @@ public class Predator extends Ammo{
     // Static
     public final static String DEFAULT_PICTURE = "pictures/projectiles/predator.png";
     public final static String DEFAULT_NAME = "Predator";
-    public final static float DEFAULT_DEGATS = 5;
+    public final static float DEFAULT_DEGATS = 10;
     private final static int DEFAULT_SPEED = 5;
 
     // Constructor
@@ -21,7 +21,7 @@ public class Predator extends Ammo{
     public void move(Spacecraft target) {
         if(target.getPosX() + (float) target.getPicture().getWidth() /2 < getxPosition())
             setxPosition(getxPosition() - getSpeed());
-        if (target.getPosX() + (float) target.getPicture().getHeight() /2> getxPosition())
+        else
             setxPosition(getxPosition() + getSpeed());
 
         if (target.getPosY() + (float) target.getPicture().getHeight() /2> getyPosition())

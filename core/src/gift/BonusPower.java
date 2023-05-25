@@ -9,7 +9,7 @@ import java.util.Random;
 public class BonusPower extends Gift {
     private static final String DEFAULT_NAME = " BONUS DU PUISSANCE " ;
     private static final String DEFAULT_IMAGE = "pictures/bonus/puissance.png" ;
-    private static final int BONUS = 250 ;
+    private static final float BONUS = 250f ;
 
     public BonusPower( Skyblade skyblade, float x ,float y, SpriteBatch batch) {
         super(DEFAULT_NAME,DEFAULT_IMAGE,skyblade,x,y,batch);
@@ -17,6 +17,6 @@ public class BonusPower extends Gift {
     }
 
     public void collect() {
-        this.skyblade.setPuissance((this.skyblade.getPuissance() + BONUS > this.skyblade.getMaxPuissance()) ? this.skyblade.getMaxPuissance() : this.skyblade.getPuissance() + BONUS);
+        this.skyblade.setPuissance((this.skyblade.getPuissance() +  BONUS > this.skyblade.getMaxPuissance()) ? this.skyblade.getMaxPuissance() : this.skyblade.getPuissance() + BONUS);
     }
 }

@@ -7,7 +7,7 @@ import spacecraft.Skyblade;
 public class BonusScore extends Gift {
     private static final String DEFAULT_NAME = " BONUS DE SCORE " ;
     private static final String DEFAULT_IMAGE = "pictures/bonus/Score.png" ;
-    private static final int BONUS = 250 ;
+    private static final float BONUS = 250f ;
     GameScreen gameScreen;
     public BonusScore(Skyblade skyblade, float x , float y, SpriteBatch batch, GameScreen gameScreen) {
         super(DEFAULT_NAME,DEFAULT_IMAGE,skyblade,x,y,batch);
@@ -18,7 +18,7 @@ public class BonusScore extends Gift {
         //this.skyblade.setScore(this.skyblade.getScore() + BONUS);
         this.gameScreen.setScore(this.gameScreen.getScore() + BONUS);
     }
-    public int getBonus(){
+    public float getBonus(){
         return BONUS;
     }
 
