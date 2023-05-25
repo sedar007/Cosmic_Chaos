@@ -13,8 +13,7 @@ import java.util.HashSet;
 import gift.Shield;
 
 public class Skyblade extends Spacecraft {
-    private static final int DEFAULT_MAX_PUISSANCE = 10 ;
-    private static final int DEFAULT_PUISSANCE = 10;
+    private static final int DEFAULT_PUISSANCE = 1000;
     private static final String DEFAULT_PICTURE ="pictures/ships/skyblade.png";
     private static final String DEFAULT_NAME = "captain";
 
@@ -49,7 +48,7 @@ public class Skyblade extends Spacecraft {
         super(name,DEFAULT_PICTURE, batch);
        // Ammos=new HashSet<>();
         setPuissance(DEFAULT_PUISSANCE);
-        setMaxPuissance( DEFAULT_MAX_PUISSANCE );
+        setMaxPuissance( DEFAULT_PUISSANCE );
         setPosX(0);
         setPosY(0);
 

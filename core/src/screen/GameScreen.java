@@ -42,6 +42,7 @@ public class GameScreen implements Screen {
     ShapeRenderer shapestyle;
     BonusScore bonusScore = null;
     HashSet<Gift> bonus ;
+    int nbMonstres = 0;
 
     BitmapFont fontScore;
 
@@ -134,6 +135,7 @@ public class GameScreen implements Screen {
                 showLevelText(numLevel);
                 level = new Level(numLevel,this.game,batch);
                 this.monsters = level.getMonsters();
+                nbMonstres = level.getMonsters().size();
             }
 
             if (elapsedTimeLevelText >= durationTimeLevelText ) {
@@ -246,6 +248,12 @@ public class GameScreen implements Screen {
         shapestyle.rect(50, 20, captainStat,20);
         shapestyle.end();
 
+        for(int i=0; i<captain.getPredatorFury().getNbAmmo(); i++) {
+            Texture predatorPic = new Texture("pictures/projectiles/predator.png");
+            batch.begin();
+            batch.draw(predatorPic, 60 + 100 + i*10, 20);
+            batch.end();
+        }
         batch.begin();
         batch.draw( imageAlien,Gdx.graphics.getWidth() - 40,15, 40,40);
         batch.end();
@@ -288,7 +296,7 @@ public class GameScreen implements Screen {
             float pctg = (float) (monster.getPuissance() * 100) / monster.getMaxPuissance();
             sum += pctg;
         }
-        int alienLife = (int) (sum / 10);
+        int alienLife = (int) (sum / nbMonstres);
 
         float pourcentagePuissance = (captain.getPuissance() * 100)/ captain.getMaxPuissance();
         powerStats(pourcentagePuissance,alienLife);

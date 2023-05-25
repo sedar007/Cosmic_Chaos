@@ -24,6 +24,8 @@ public class PredatorFury extends Weapon {
     private boolean fire;
     private final int maxAmmos = 5;
     private int nbAmmo;
+    private  float times, duration;
+    private  float times2, duration2;
 
     public int getMaxAmmos() {
         return maxAmmos;
@@ -51,7 +53,13 @@ public class PredatorFury extends Weapon {
         setName(DEFAULT_NAME);
         this.predators = new HashSet<>();
         this.fire = true;
-        setNbAmmo(0);
+        setNbAmmo(maxAmmos);
+        times = 0f;
+        duration = 10f;
+
+        times2 = 0f;
+        duration2 = 1f;
+
     }
 
     // Methodes
@@ -77,17 +85,22 @@ public class PredatorFury extends Weapon {
 //        soundShoot.play();
     }
     public void spawnAllAmmo(Alien target){
-        /* Methode qui permet de creer les munitions, de supprimer les munitions hors de l'ecran et d'afficher les munitions */
-        create(); // Create les ammos
-        Iterator<Predator> iterator = predators.iterator();
+        if(target == null){
+            spawnAllAmmo();
+        }
+        else {
+            /* Methode qui permet de creer les munitions, de supprimer les munitions hors de l'ecran et d'afficher les munitions */
+            create(); // Create les ammos
+            Iterator<Predator> iterator = predators.iterator();
 
-        while (iterator.hasNext()) {
-            Predator ammo = iterator.next();
-            ammo.move(target); // gerer les deplacement des ammos
+            while (iterator.hasNext()) {
+                Predator ammo = iterator.next();
+                ammo.move(target); // gerer les deplacement des ammos
 
-            if( (ammo.getyPosition() > Gdx.graphics.getHeight() + 2) || ( ammo.getyPosition() < 0)
-                    || (ammo.getxPosition() < 0) || (ammo.getxPosition() > Gdx.graphics.getWidth()) ) // Supprimer les ammos
-                iterator.remove();
+                if ((ammo.getyPosition() > Gdx.graphics.getHeight() + 2) || (ammo.getyPosition() < 0)
+                        || (ammo.getxPosition() < 0) || (ammo.getxPosition() > Gdx.graphics.getWidth())) // Supprimer les ammos
+                    iterator.remove();
+            }
         }
     }
 
@@ -113,17 +126,29 @@ public class PredatorFury extends Weapon {
     public boolean isFull(){
         return getNbAmmo() >= getMaxAmmos();
     }
-
+    public boolean isEmpty(){
+        return getNbAmmo() <= 0 ;
+    }
     public void reload(){
 
     }
 
     @Override
     public void create() {
-       if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
+
+        times += Gdx.graphics.getDeltaTime();
+        times2 += Gdx.graphics.getDeltaTime();
+
+       if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && !isEmpty() && times2 >= duration2 ){
            createAmmo();
-           this.fire = ! this.fire;
+           setNbAmmo(getNbAmmo() - 1);
+           times2 = 0;
       }
+
+        if (times >= duration && !isFull()) {
+            setNbAmmo(getNbAmmo() + 1);
+            times = 0;
+        }
 
 
     }
