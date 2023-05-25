@@ -22,6 +22,20 @@ public class PredatorFury extends Weapon {
     private static final String DEFAULT_NAME = "Predator Fury";
     protected HashSet<Predator> predators; // Hashset de munitions
     private boolean fire;
+    private final int maxAmmos = 5;
+    private int nbAmmo;
+
+    public int getMaxAmmos() {
+        return maxAmmos;
+    }
+
+    public int getNbAmmo() {
+        return nbAmmo;
+    }
+
+    public void setNbAmmo(int nbAmmo) {
+        this.nbAmmo = nbAmmo;
+    }
 
     public boolean isFire() {
         return fire;
@@ -37,6 +51,7 @@ public class PredatorFury extends Weapon {
         setName(DEFAULT_NAME);
         this.predators = new HashSet<>();
         this.fire = true;
+        setNbAmmo(0);
     }
 
     // Methodes
@@ -95,9 +110,17 @@ public class PredatorFury extends Weapon {
         }
     }
 
+    public boolean isFull(){
+        return getNbAmmo() >= getMaxAmmos();
+    }
+
+    public void reload(){
+
+    }
+
     @Override
     public void create() {
-       if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && this.fire){
+       if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
            createAmmo();
            this.fire = ! this.fire;
       }
