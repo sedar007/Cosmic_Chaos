@@ -115,32 +115,36 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        elapsedTimeLevelText += Gdx.graphics.getDeltaTime();
-
-        if(monsters.size() == 0 && bonus.size() == 0){
-            elapsedTimeLevelText = 0f;
-            numLevel += 1;
-            showLevelText(numLevel);
-            level = new Level(numLevel,this.game,batch);
-            this.monsters = level.getMonsters();
+        if( !captain.isNotDestroyed() ){//qd il est mort !
+            finalStat(numLevel,getScore(),Lost());
+            return;
+        }
+        if( numLevel > 3){//il a fini la partie
+            finalStat(numLevel-1,getScore(),Win());
+            return;
         }
 
-        if (elapsedTimeLevelText >= durationTimeLevelText ) {
-            play();
-        }
+        if(captain.isNotDestroyed()){
+
+            elapsedTimeLevelText += Gdx.graphics.getDeltaTime();
+
+            if(monsters.size() == 0 && bonus.size() == 0){
+                elapsedTimeLevelText = 0f;
+                numLevel += 1;
+                showLevelText(numLevel);
+                level = new Level(numLevel,this.game,batch);
+                this.monsters = level.getMonsters();
+            }
+
+            if (elapsedTimeLevelText >= durationTimeLevelText ) {
+                play();
+            }
 
         /*if(numLevel > 5 ){//fin du jeu
             game.setScreen(new MainMenuScreen(game));
             dispose();
-        }
-
-        if( !captain.isNotDestroyed()){
-            Lost(numLevel);
         }*/
-
-
-
-
+        }
 
     }
 
@@ -337,20 +341,34 @@ public class GameScreen implements Screen {
         batch.end();
     }
 
-    public void Lost(int level){
+    public String Lost(){
+       return " GAME OVER \n YOU LOSE :( ! ";
+    }
+    public String Win(){
+        return " CONGRATULATIONS :) ! " ;
+    }
+
+    public void finalStat(int level,Double score,String comment ){
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         BitmapFont levelText = new BitmapFont();
-        String text =" GAME OVER \n YOU LOSE :( ! " + level ;
+
+        String text =String.format(" %s \n STATISTICS  :\n  LEVEL -> %d \n SCORE -> %.2f ", comment,level,score);
+
         GlyphLayout layout = new GlyphLayout();
         layout.setText(levelText, text);
         float x = (Gdx.graphics.getWidth() - layout.width) / 2;
         float y = (Gdx.graphics.getHeight() - layout.height) / 2;
+
+
         batch.begin();
         levelText.draw(batch, layout, x,y );
         batch.end();
     }
+
+
+
 
     @Override
     public void resize(int width, int height) {
