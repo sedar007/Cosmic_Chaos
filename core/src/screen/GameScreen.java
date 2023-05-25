@@ -30,8 +30,8 @@ import java.util.Random;
 
 public class GameScreen implements Screen {
     final ShootEmUP game;
-    final static Texture imageCaptain = new Texture("pictures/ships/blueships1_small.png");
-    final static Texture imageAlien = new Texture("pictures/ships/roundysh_small.png");
+    final static Texture imageCaptain = new Texture("pictures/ships/skyblade.png");
+    final static Texture imageAlien = new Texture("pictures/ships/boss_small.png");
 
     OrthographicCamera camera;
     Background background;
@@ -53,8 +53,10 @@ public class GameScreen implements Screen {
 
     Level level;
     int numLevel;
-    private float elapsedTime;
-    private float displayDuration;
+    private float elapsedTimeLevelText;
+    private final float durationTimeLevelText;
+
+
 
     public Double getScore() {
         return score;
@@ -80,7 +82,6 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, 800, 480);
         background = new Background("pictures/stars_1.png", 50.1f, camera);
         batch = new SpriteBatch();
-
         captain = new Skyblade(batch);
 
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
@@ -98,8 +99,9 @@ public class GameScreen implements Screen {
         fontScore =  new BitmapFont();
         setScore(0.0);
 
-        elapsedTime = 0f;
-        displayDuration = 5f; // Durée d'affichage en secondes
+        elapsedTimeLevelText = 0f;
+        durationTimeLevelText = 5f; // Durée d'affichage en secondes
+
 
 
     }
@@ -112,20 +114,23 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-       elapsedTime += Gdx.graphics.getDeltaTime();
-        if(monsters.size() == 0 ){
-            elapsedTime = 0f;
+        elapsedTimeLevelText += Gdx.graphics.getDeltaTime();
+
+        if(monsters.size() == 0 && bonus.size() == 0){
+            elapsedTimeLevelText = 0f;
             numLevel += 1;
             showLevelText(numLevel);
             level = new Level(numLevel,this.game,batch);
             this.monsters = level.getMonsters();
         }
 
-        if (elapsedTime >= displayDuration) {
+        if (elapsedTimeLevelText >= durationTimeLevelText ) {
             play();
         }
 
     }
+
+
 
     public void play(){
         // Permet de mettre en pause le jeu
@@ -147,7 +152,6 @@ public class GameScreen implements Screen {
             return;
         }
 
-
         ScreenUtils.clear(0, 0, 0, 0); // Nettoyer l'ecran
 
         // Permet de faire la mise a jour
@@ -155,15 +159,12 @@ public class GameScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
-
         /* --- Game Play --- */
 
         captain.getWeapon().spawnAllAmmo();
 
         //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
         collectible();
-
-
 
         //Pour l affichage des aliens et aussi leur disparition une fois qu'ils sont touchés par les tirs !
         Iterator<Alien> iterator = monsters.iterator();
@@ -192,7 +193,6 @@ public class GameScreen implements Screen {
 
         captain.move(null);
         stats(1);
-
 
     }
 

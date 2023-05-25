@@ -15,7 +15,7 @@ import gift.Shield;
 public class Skyblade extends Spacecraft {
     private static final int DEFAULT_MAX_PUISSANCE = 1000 ;
     private static final int DEFAULT_PUISSANCE = 1000 ;
-    private static final String DEFAULT_PICTURE ="pictures/ships/blueships1_small.png";
+    private static final String DEFAULT_PICTURE ="pictures/ships/skyblade.png";
     private static final String DEFAULT_NAME = "captain";
 
    /* public HashSet<Ammo> Ammos ;*/

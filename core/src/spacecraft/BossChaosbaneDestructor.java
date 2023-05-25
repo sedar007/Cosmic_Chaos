@@ -20,7 +20,7 @@ public class BossChaosbaneDestructor extends Alien{
     }
 
 
-    private static final String DEFAULT_PICTURE = "pictures/ships/roundysh_large.png" ;
+    private static final String DEFAULT_PICTURE = "pictures/ships/boss_large.png" ;
 
     public BossChaosbaneDestructor(SpriteBatch batch){
         super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_MAX_LIFE, batch);
