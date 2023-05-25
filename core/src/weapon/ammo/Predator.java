@@ -8,7 +8,7 @@ public class Predator extends Ammo{
     // Static
     public final static String DEFAULT_PICTURE = "pictures/projectiles/predator.png";
     public final static String DEFAULT_NAME = "Predator";
-    public final static float DEFAULT_DEGATS = 1;
+    public final static float DEFAULT_DEGATS = 5;
     private final static int DEFAULT_SPEED = 5;
 
     // Constructor

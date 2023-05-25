@@ -6,7 +6,7 @@ public class Rocket extends Ammo{
     // Static
     public final static String DEFAULT_PICTURE = "pictures/projectiles/rocket.png";
     public final static String DEFAULT_NAME = "Rocket";
-    public final static float DEFAULT_DEGATS = 10f;
+    public final static float DEFAULT_DEGATS = 0.9f;
     private final static int DEFAULT_SPEED = 5;
 
     // Constructor
