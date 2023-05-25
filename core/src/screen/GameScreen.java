@@ -46,7 +46,7 @@ public class GameScreen implements Screen {
     BitmapFont fontScore;
 
     private Double score;
-
+    private Alien targetPredator;
 
     int numberALienKilled = 0 ;
     boolean play;
@@ -103,6 +103,7 @@ public class GameScreen implements Screen {
         durationTimeLevelText = 5f; // Durée d'affichage en secondes
 
 
+        targetPredator = null;
 
     }
 
@@ -128,10 +129,18 @@ public class GameScreen implements Screen {
             play();
         }
 
-        if(numLevel > 5){//fin du jeu
+        /*if(numLevel > 5 ){//fin du jeu
             game.setScreen(new MainMenuScreen(game));
             dispose();
         }
+
+        if( !captain.isNotDestroyed()){
+            Lost(numLevel);
+        }*/
+
+
+
+
 
     }
 
@@ -175,7 +184,8 @@ public class GameScreen implements Screen {
         while (iterator.hasNext()) {
             Alien monster = iterator.next();
             monster.getWeapon().spawnAllAmmo();
-
+            if(targetPredator == null)
+                targetPredator = monster;
             monster.move(captain);
             captain.getWeapon().shoot(monster);
             monster.getWeapon().shoot(captain);
@@ -200,6 +210,15 @@ public class GameScreen implements Screen {
 
                 iterator.remove();
             }
+        }
+        if(targetPredator != null  ){
+            captain.getPredatorFury().spawnAllAmmo(targetPredator);
+        }
+        if(targetPredator != null){
+            captain.getPredatorFury().shoot(targetPredator);
+            targetPredator = null;
+
+
         }
 
         captain.move(null);
@@ -309,6 +328,21 @@ public class GameScreen implements Screen {
 
         BitmapFont levelText = new BitmapFont();
         String text =" LEVEL " + level ;
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(levelText, text);
+        float x = (Gdx.graphics.getWidth() - layout.width) / 2;
+        float y = (Gdx.graphics.getHeight() - layout.height) / 2;
+        batch.begin();
+        levelText.draw(batch, layout, x,y );
+        batch.end();
+    }
+
+    public void Lost(int level){
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        BitmapFont levelText = new BitmapFont();
+        String text =" GAME OVER \n YOU LOSE :( ! " + level ;
         GlyphLayout layout = new GlyphLayout();
         layout.setText(levelText, text);
         float x = (Gdx.graphics.getWidth() - layout.width) / 2;
