@@ -3,6 +3,8 @@ package spacecraft;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import gift.BonusScore;
 import gift.Gift;
+import weapon.SkyBladeWeapons.PredatorFury;
+import weapon.Weapon;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 
@@ -22,16 +24,26 @@ public class Skyblade extends Spacecraft {
     private boolean Protected;//si le vaisseau du Héro possède un bouclier !
 
     public BonusScore bonusScore;
+    private PredatorFury predatorFury; // Missiles tete chercheuses
 
     public Shield getShield() {
         return shield;
     }
+
 
     public void setShield(Shield shield) {
         this.shield = shield;
     }
 
     public void protect(boolean value){ this.Protected = value;}
+
+    public PredatorFury getPredatorFury() {
+        return predatorFury;
+    }
+
+    public void setPredatorFury(PredatorFury predatorFury) {
+        this.predatorFury = predatorFury;
+    }
 
     public Skyblade(String name, SpriteBatch batch){
         super(name,DEFAULT_PICTURE, batch);
@@ -43,6 +55,7 @@ public class Skyblade extends Spacecraft {
 
         protect(false);
         setShield(new Shield(this, getPosX(), getPosY(), getBatch()));
+        setPredatorFury(new PredatorFury(batch, this));
 
     }
 
