@@ -6,7 +6,7 @@ public class EnergyOrbs extends Ammo{
     // Static
     public final static String DEFAULT_PICTURE = "pictures/projectiles/shotbig.png";
     public final static String DEFAULT_NAME = "Energy Orbs";
-    public final static int DEFAULT_DEGATS = 3;
+    public final static float DEFAULT_DEGATS = 0.3f;
     private final static int DEFAULT_SPEED = -5;
 
     // Constructor

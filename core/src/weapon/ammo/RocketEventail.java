@@ -6,7 +6,7 @@ public class RocketEventail{
     // Static
     public final static String DEFAULT_PICTURE = "pictures/projectiles/rocket.png";
     public final static String DEFAULT_NAME = "Rocket Eventail";
-    public final static int DEFAULT_DEGATS = 10;
+    public final static float DEFAULT_DEGATS = 0.3f;
     private final static int DEFAULT_SPEED = 5;
      public Ammo[] AmmosTab ;
 
