@@ -23,7 +23,13 @@ public class PredatorFury extends Weapon {
     protected HashSet<Predator> predators; // Hashset de munitions
     private boolean fire;
 
+    public boolean isFire() {
+        return fire;
+    }
 
+    public void setFire(boolean fire) {
+        this.fire = fire;
+    }
 
     // Methode
     public PredatorFury(SpriteBatch batch, Spacecraft spacecraft) {
@@ -91,13 +97,11 @@ public class PredatorFury extends Weapon {
 
     @Override
     public void create() {
-//        if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && this.fire){
-//            createAmmo();
-//            this.fire = ! this.fire;
-//        }
-        if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT) )
-            if (TimeUtils.nanoTime() - lastAmmoTime > 100000000 )
-                createAmmo();
+       if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && this.fire){
+           createAmmo();
+           this.fire = ! this.fire;
+      }
+
 
     }
 

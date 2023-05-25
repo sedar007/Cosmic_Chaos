@@ -2,6 +2,7 @@ package weapon.SkyBladeWeapons;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import helpers.Collision;
@@ -103,7 +104,7 @@ public class RocketCyclone extends Weapon {
 
     @Override
     public void create() {
-        if (Gdx.input.isTouched())
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             createAmmo();
     }
 

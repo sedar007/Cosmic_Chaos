@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import helpers.MoveManager;
 
     public class Ammo implements MoveManager {
-    protected int degats;
+    protected float degats;
     private int speed;
     private Texture image;
     private String name;
@@ -25,10 +25,10 @@ import helpers.MoveManager;
         this.speed = speed;
     }
 
-    private void setDegats(int degats) {
+    private void setDegats(float degats) {
         this.degats = degats;
     }
-    public int getDegats() {
+    public float getDegats() {
         return this.degats;
     }
     private void setImage(Texture image) {
@@ -64,7 +64,7 @@ import helpers.MoveManager;
 
 
     // Constructors
-    public Ammo(String name, String image, int degats, int speed, float xPosition, float yPosition, SpriteBatch batch) {
+    public Ammo(String name, String image, float degats, int speed, float xPosition, float yPosition, SpriteBatch batch) {
         setName(name);
         setImage(new Texture(image));
         setDegats(degats);

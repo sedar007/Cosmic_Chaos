@@ -8,7 +8,7 @@ public class Predator extends Ammo{
     // Static
     public final static String DEFAULT_PICTURE = "pictures/projectiles/predator.png";
     public final static String DEFAULT_NAME = "Predator";
-    public final static int DEFAULT_DEGATS = 10;
+    public final static float DEFAULT_DEGATS = 1;
     private final static int DEFAULT_SPEED = 5;
 
     // Constructor
@@ -24,7 +24,10 @@ public class Predator extends Ammo{
         if (target.getPosX() + (float) target.getPicture().getHeight() /2> getxPosition())
             setxPosition(getxPosition() + getSpeed());
 
-        setyPosition(getyPosition() + getSpeed());
+        if (target.getPosY() + (float) target.getPicture().getHeight() /2> getyPosition())
+            setyPosition(getyPosition() + getSpeed());
+        else
+            setyPosition(getyPosition() - getSpeed());
 
         // aim sur le target
         Texture cible = new Texture("pictures/target/aim.png");
@@ -37,6 +40,23 @@ public class Predator extends Ammo{
 
     }
 }
+
+/*
+*  if(targetPredator == null)
+                targetPredator = monster;
+                *
+                *
+                if(targetPredator != null  ){
+            captain.getPredatorFury().spawnAllAmmo(targetPredator);
+        }
+        if(targetPredator != null){
+            captain.getPredatorFury().shoot(targetPredator);
+            targetPredator = null;
+
+
+        }
+        *
+        * */
 
 
 
