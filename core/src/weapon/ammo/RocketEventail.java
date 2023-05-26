@@ -28,7 +28,7 @@ public class RocketEventail{
             this.AmmosTab[0].setxPosition(this.AmmosTab[0].getxPosition() - this.AmmosTab[0].getSpeed());
             this.AmmosTab[0].getBatch().begin();
             this.AmmosTab[0].getBatch().draw(this.AmmosTab[0].getImage(),  this.AmmosTab[0].getxPosition(),this.AmmosTab[0].getyPosition(),
-                    (float) this.AmmosTab[0].getImage().getWidth() / 2, (float) this.AmmosTab[0].getImage().getHeight() / 2, this.AmmosTab[0].getImage().getWidth(), this.AmmosTab[0].getImage().getHeight(), 1, 1, 90, 0, 0, this.AmmosTab[0].getImage().getWidth(), this.AmmosTab[0].getImage().getHeight(), false, false);
+                    (float) this.AmmosTab[0].getImage().getWidth() / 2, (float) this.AmmosTab[0].getImage().getHeight() / 2, this.AmmosTab[0].getImage().getWidth(), this.AmmosTab[0].getImage().getHeight(), 1, 1, 270, 0, 0, this.AmmosTab[0].getImage().getWidth(), this.AmmosTab[0].getImage().getHeight(), false, false);
             this.AmmosTab[0].getBatch().end();
 
         }
