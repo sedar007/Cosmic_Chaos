@@ -8,7 +8,7 @@ import weapon.ammo.Laser;
 
 public class InfernoReaper extends Alien{
     private static final String DEFAULT_NAME = "monster 1";
-    private static final String DEFAULT_PICTURE = "pictures/ships/enemy_2_1.png" ;
+    private static final String DEFAULT_PICTURE = "pictures/ships/InfernoReaper.png" ;
 
     private static final int DEFAULT_MAX_LIFE = 10;
 

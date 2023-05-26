@@ -7,7 +7,7 @@ public class InfernalBlaze extends Ammo{
     // Static
     public final static String DEFAULT_PICTURE = "pictures/projectiles/shotoval.png";
     public final static String DEFAULT_NAME = "InfernalBlaze";
-    public final static int DEFAULT_DEGATS = 15;
+    public final static float DEFAULT_DEGATS = 0.15f;
     private final static int DEFAULT_SPEED = -10;
 
     private int xSpeed =  DEFAULT_SPEED /2;

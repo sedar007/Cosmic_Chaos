@@ -6,7 +6,7 @@ public class RocketEventail{
     // Static
     public final static String DEFAULT_PICTURE = "pictures/projectiles/rocket.png";
     public final static String DEFAULT_NAME = "Rocket Eventail";
-    public final static int DEFAULT_DEGATS = 10;
+    public final static float DEFAULT_DEGATS = 0.9f;
     private final static int DEFAULT_SPEED = 5;
      public Ammo[] AmmosTab ;
 
@@ -23,7 +23,7 @@ public class RocketEventail{
     public void move() {
 
 
-        if(this.AmmosTab[0] != null){
+        if(this.AmmosTab[0] != null){//la gauche
             this.AmmosTab[0].setyPosition(this.AmmosTab[0].getyPosition() + this.AmmosTab[0].getSpeed());
             this.AmmosTab[0].setxPosition(this.AmmosTab[0].getxPosition() - this.AmmosTab[0].getSpeed());
             this.AmmosTab[0].getBatch().begin();
@@ -33,7 +33,7 @@ public class RocketEventail{
 
         }
 
-        if(this.AmmosTab[1] != null) {
+        if(this.AmmosTab[1] != null) {//milieu
             this.AmmosTab[1].setyPosition(this.AmmosTab[1].getyPosition() + this.AmmosTab[1].getSpeed());
             this.AmmosTab[1].getBatch().begin();
             this.AmmosTab[1].getBatch().draw(this.AmmosTab[1].getImage(), this.AmmosTab[1].getxPosition(), this.AmmosTab[1].getyPosition());
@@ -41,7 +41,7 @@ public class RocketEventail{
 
         }
 
-        if(this.AmmosTab[2] != null){
+        if(this.AmmosTab[2] != null){//droite
             this.AmmosTab[2].setyPosition(this.AmmosTab[2].getyPosition() + this.AmmosTab[2].getSpeed());
             this.AmmosTab[2].setxPosition(this.AmmosTab[2].getxPosition() + this.AmmosTab[2].getSpeed());
             this.AmmosTab[2].getBatch().begin();

@@ -13,7 +13,7 @@ abstract public class Gift {
 
     private float posX,posY;
 
-    private int bonus;
+    private float bonus;
     public String getName() {
         return name;
     }
@@ -68,10 +68,10 @@ abstract public class Gift {
         this.batch.end();
     }
 
-    public void setBonus(int bonus) {
+    public void setBonus(float bonus) {
         this.bonus = bonus;
     }
 
-    public int getBonus() { return bonus;}
+    public float getBonus() { return bonus;}
 
 }

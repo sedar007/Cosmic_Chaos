@@ -19,7 +19,7 @@ public class Background {
         this.scrollSpeed = scrollSpeed;
         this.camera = camera;
         layer1 = 0;
-        layer2 = texture.getWidth() ;
+        layer2 = texture.getWidth();
     }
 
     public void update(SpriteBatch batch, float delta) {
@@ -36,7 +36,6 @@ public class Background {
         batch.draw(backgroundP,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         batch.draw(texture, 0, layer1,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.draw(texture, 0, layer2,Gdx.graphics.getWidth(), texture.getHeight());
-
         batch.end();
     }
 

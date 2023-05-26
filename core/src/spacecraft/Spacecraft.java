@@ -10,7 +10,7 @@ abstract public class Spacecraft {
 
     //Les attributs
     protected String name;
-    protected int puissance ,maxPuissance;
+    protected float puissance ,maxPuissance;
     protected float posX,posY;
     protected Texture picture;
     private Weapon weapon;
@@ -21,7 +21,7 @@ abstract public class Spacecraft {
     //Les méthodes associées
     public String getName(){ return this.name;}
     public void setName(String name){ this.name = name;}
-    public int getPuissance() {
+    public float getPuissance() {
         return puissance;
     }
 
@@ -33,11 +33,11 @@ abstract public class Spacecraft {
         this.batch = batch;
     }
 
-    public void setPuissance(int puissance) {
+    public void setPuissance(float puissance) {
         this.puissance = (puissance < 0) ? 0 : puissance;
     }
 
-    public int getMaxPuissance() {
+    public float getMaxPuissance() {
         return maxPuissance;
     }
 

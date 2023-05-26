@@ -3,6 +3,8 @@ package spacecraft;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import gift.BonusScore;
 import gift.Gift;
+import weapon.SkyBladeWeapons.PredatorFury;
+import weapon.Weapon;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 
@@ -11,37 +13,49 @@ import java.util.HashSet;
 import gift.Shield;
 
 public class Skyblade extends Spacecraft {
-    private static final int DEFAULT_MAX_PUISSANCE = 1000 ;
-    private static final int DEFAULT_PUISSANCE = 1000 ;
-    private static final String DEFAULT_PICTURE ="pictures/ships/blueships1_small.png";
+    private static final int DEFAULT_PUISSANCE = 1000;
+    private static final String DEFAULT_PICTURE ="pictures/ships/skyblade.png";
     private static final String DEFAULT_NAME = "captain";
 
    /* public HashSet<Ammo> Ammos ;*/
     public Shield shield;//bouclier du Capitaine.
-    private Double score;
+
     private boolean Protected;//si le vaisseau du Héro possède un bouclier !
 
     public BonusScore bonusScore;
+    private PredatorFury predatorFury; // Missiles tete chercheuses
 
-    public Double getScore() {
-        return score;
+    public Shield getShield() {
+        return shield;
     }
 
-    public void setScore(Double score) {
-        this.score = score;
+
+    public void setShield(Shield shield) {
+        this.shield = shield;
     }
 
     public void protect(boolean value){ this.Protected = value;}
+
+    public PredatorFury getPredatorFury() {
+        return predatorFury;
+    }
+
+    public void setPredatorFury(PredatorFury predatorFury) {
+        this.predatorFury = predatorFury;
+    }
 
     public Skyblade(String name, SpriteBatch batch){
         super(name,DEFAULT_PICTURE, batch);
        // Ammos=new HashSet<>();
         setPuissance(DEFAULT_PUISSANCE);
-        setMaxPuissance( DEFAULT_MAX_PUISSANCE );
+        setMaxPuissance( DEFAULT_PUISSANCE );
         setPosX(0);
         setPosY(0);
-        setScore(0.0);
+
         protect(false);
+        setShield(new Shield(this, getPosX(), getPosY(), getBatch()));
+        setPredatorFury(new PredatorFury(batch, this));
+
     }
 
     public Skyblade(SpriteBatch batch){
@@ -52,8 +66,14 @@ public class Skyblade extends Spacecraft {
     public void move(Spacecraft spacecraft) {
 
         getBatch().begin();
+
         getBatch().draw(getPicture(), getPosX(), getPosY());
+        if(isProtected())
+            getBatch().draw(getShield().getShieldPicture(), getPosX()- 25, getPosY() );
+
         getBatch().end();
+
+
 
 
         float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);

@@ -8,7 +8,7 @@ public class VenomclawRavager extends Alien{
 
 
     private static final int DEFAULT_MAX_LIFE = 20;
-    private static final String DEFAULT_PICTURE = "pictures/ships/spco_small.png";
+    private static final String DEFAULT_PICTURE = "pictures/ships/VenomclawRavager.png";
     private static final String DEFAULT_NAME = "monster 1";
 
 

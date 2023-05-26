@@ -20,7 +20,7 @@ public class BossChaosbaneDestructor extends Alien{
     }
 
 
-    private static final String DEFAULT_PICTURE = "pictures/ships/roundysh_large.png" ;
+    private static final String DEFAULT_PICTURE = "pictures/ships/boss_large.png" ;
 
     public BossChaosbaneDestructor(SpriteBatch batch){
         super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_MAX_LIFE, batch);
@@ -37,13 +37,13 @@ public class BossChaosbaneDestructor extends Alien{
 //        setPosY(getPosY() + ySpeed);
 
 //        xAlea -= 1;
-        setxAlea(getyAlea() - 1);
+        setxAlea(getxAlea() - 1);
 //        yAlea--;
 
-        if(getPosX()<0 || getPosX() > Gdx.graphics.getWidth() - getPicture().getWidth())
+        if(getPosX()<=0 || getPosX() >= Gdx.graphics.getWidth() - getPicture().getWidth())
             setxSpeed(- getxSpeed());
 
-        if(getPosY()< (float) Gdx.graphics.getHeight() /2 || getPosY() > Gdx.graphics.getHeight() - getPicture().getHeight())
+        if(getPosY()<= (float) Gdx.graphics.getHeight() /2 || getPosY() >= Gdx.graphics.getHeight() - getPicture().getHeight())
             setySpeed(- getySpeed());
 
 
