@@ -85,7 +85,12 @@ abstract public class Weapon {
 
         while (iterator.hasNext()) {
             Ammo ammo = iterator.next();
-            ammo.move(); // gerer les deplacement des ammos
+            if(ammo instanceof Laser){
+                Laser laser = (Laser) ammo;
+                laser.move(getSpacecraft());
+            }
+            else
+                ammo.move(); // gerer les deplacement des ammos
 
             if( (ammo.getyPosition() > Gdx.graphics.getHeight() + 2) || ( ammo.getyPosition() < 0)
                     || (ammo.getxPosition() < 0) || (ammo.getxPosition() > Gdx.graphics.getWidth()) ) // Supprimer les ammos

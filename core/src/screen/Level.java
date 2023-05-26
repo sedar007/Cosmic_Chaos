@@ -15,7 +15,7 @@ public class Level {
         if(level == 1 ){
             for (int i = 0; i < 10; i++) {
                Alien monster = new TyrantOfDesolation(batch);
-               setMonsters(monster);
+                setMonsters(monster);
             }
         }
 

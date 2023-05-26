@@ -2,6 +2,9 @@ package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import weapon.AlienWeapons.FireballStorm;
+import weapon.AlienWeapons.InfernoOrbs;
+import weapon.AlienWeapons.MegaInferno;
+import weapon.AlienWeapons.SingleRocket;
 import weapon.ammo.EnergyOrbs;
 
 public class VenomclawRavager extends Alien{
@@ -14,7 +17,7 @@ public class VenomclawRavager extends Alien{
 
     public VenomclawRavager(SpriteBatch batch) {
         super(DEFAULT_NAME,DEFAULT_PICTURE, DEFAULT_MAX_LIFE, batch);
-        setWeapon(new FireballStorm(batch,this));
+        setWeapon(new SingleRocket(batch,this));
 
     }
 }
