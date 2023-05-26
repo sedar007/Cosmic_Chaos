@@ -2,7 +2,7 @@ package exceptions;
 
 
 public class SpacecraftException extends Exception {
-    public SpacecraftException(String message) {
-        super(message);
+    public SpacecraftException() {
+        super("No spacecraft is empty");
     }
 }

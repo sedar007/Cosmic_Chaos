@@ -1,4 +1,7 @@
 package exceptions;
 
-public class VenomclawRavagerException {
+public class VenomclawRavagerException extends Exception{
+    public VenomclawRavagerException() {
+        super("No VenomclawRavager");
+    }
 }

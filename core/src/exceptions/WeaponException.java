@@ -1,4 +1,7 @@
 package exceptions;
 
-public class WeaponException {
+public class WeaponException extends Exception{
+    public WeaponException() {
+        super("Weapon is broken");
+    }
 }
