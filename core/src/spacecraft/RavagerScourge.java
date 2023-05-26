@@ -13,6 +13,6 @@ public class RavagerScourge extends Alien{
     public RavagerScourge(SpriteBatch batch){
         super(DEFAULT_NAME,DEFAULT_PICTURE, DEFAULT_MAX_LIFE, batch);
 
-        setWeapon(new MegaInferno(batch,this));
+        setWeapon(new SingleRocket(batch,this));
     }
 }

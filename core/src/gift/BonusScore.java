@@ -15,7 +15,6 @@ public class BonusScore extends Gift {
         this.gameScreen = gameScreen;
     }
     public void collect(){
-        //this.skyblade.setScore(this.skyblade.getScore() + BONUS);
         this.gameScreen.setScore(this.gameScreen.getScore() + BONUS);
     }
     public float getBonus(){

@@ -17,7 +17,6 @@ public class Skyblade extends Spacecraft {
     private static final String DEFAULT_PICTURE ="pictures/ships/skyblade.png";
     private static final String DEFAULT_NAME = "captain";
 
-   /* public HashSet<Ammo> Ammos ;*/
     public Shield shield;//bouclier du Capitaine.
 
     private boolean Protected;//si le vaisseau du Héro possède un bouclier !
@@ -46,7 +45,6 @@ public class Skyblade extends Spacecraft {
 
     public Skyblade(String name, SpriteBatch batch){
         super(name,DEFAULT_PICTURE, batch);
-       // Ammos=new HashSet<>();
         setPuissance(DEFAULT_PUISSANCE);
         setMaxPuissance( DEFAULT_PUISSANCE );
         setPosX(0);
@@ -72,8 +70,6 @@ public class Skyblade extends Spacecraft {
             getBatch().draw(getShield().getShieldPicture(), getPosX()- 25, getPosY() );
 
         getBatch().end();
-
-
 
 
         float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);

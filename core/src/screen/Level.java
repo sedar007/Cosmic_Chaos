@@ -13,9 +13,9 @@ public class Level {
     public Level(int level, ShootEmUP game, SpriteBatch batch){
 
         if(level == 1 ){
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 1; i++) {
                Alien monster = new TyrantOfDesolation(batch);
-               setMonsters(monster);
+                setMonsters(monster);
             }
         }
 
