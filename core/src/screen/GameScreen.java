@@ -11,7 +11,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import gift.BonusPower;
 import gift.BonusScore;
@@ -55,9 +59,10 @@ public class GameScreen implements Screen {
     Level level;
     int numLevel;
     private float elapsedTimeLevelText;
+    private float times, times1;
     private final float durationTimeLevelText;
 
-
+    Skin skin;
 
     public Double getScore() {
         return score;
@@ -72,6 +77,8 @@ public class GameScreen implements Screen {
     }
 
     public GameScreen(final ShootEmUP game) {
+
+        skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
 
         //AFFFICHAGE DES STATISTIQUES
         this.shapestyle = new ShapeRenderer();
@@ -102,9 +109,10 @@ public class GameScreen implements Screen {
 
         elapsedTimeLevelText = 0f;
         durationTimeLevelText = 5f; // Durée d'affichage en secondes
-
-
         targetPredator = null;
+
+        times = 0f;
+        times1 = 5f; // Durée d'affichage en secondes
 
     }
 
@@ -117,12 +125,16 @@ public class GameScreen implements Screen {
     public void render(float delta) {
 
         if( !captain.isNotDestroyed() ){//qd il est mort !
-            finalStat(numLevel,getScore(),Lost());
-            return;
+            //finalStat(numLevel,getScore(),Lost());
+            //return;
+            game.setScreen(new Endgame(game,finalStat(numLevel,getScore(),Lost())));
+            dispose();
         }
-        if( numLevel > 3){//il a fini la partie
-            finalStat(numLevel-1,getScore(),Win());
-            return;
+        if( numLevel > 2){//il a fini la partie
+            //finalStat(numLevel-1,getScore(),Win());
+           // return;
+            game.setScreen(new Endgame(game,finalStat(numLevel-1,getScore(),Win())));
+            dispose();
         }
 
         if(captain.isNotDestroyed()){
@@ -181,6 +193,18 @@ public class GameScreen implements Screen {
         /* --- Game Play --- */
 
         captain.getWeapon().spawnAllAmmo();
+        times += Gdx.graphics.getDeltaTime();
+
+
+        if (times >= times1 ) {
+            times = 0;
+            bonus.add(new ChangeWeapon(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch));
+
+        }
+
+
+
+
 
         //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
         collectible();
@@ -195,6 +219,8 @@ public class GameScreen implements Screen {
             monster.move(captain);
             captain.getWeapon().shoot(monster);
             monster.getWeapon().shoot(captain);
+
+
 
             if (!monster.isNotDestroyed()) {
                 numberALienKilled += 1;
@@ -228,7 +254,7 @@ public class GameScreen implements Screen {
         }
 
         captain.move(null);
-        stats(1);
+        stats(numLevel);
 
     }
 
@@ -240,14 +266,22 @@ public class GameScreen implements Screen {
         batch.draw( imageCaptain,0,15, 40,40);
         batch.end();
 
+        float posX = 50;
+        float height = 20;
+        float posY = 20;
+
+        //  shape.rect(posX + 10,posY + 10 ,x - 20,height - 20);
+
         shapestyle.begin(ShapeRenderer.ShapeType.Filled);
+
         shapestyle.setColor(Color.WHITE);
-        shapestyle.rect(50, 20, 100,20);
+        shapestyle.rect(posX, posY, 100,height);
+
         if(captainStat <= 30 ) shapestyle.setColor(Color.RED);
         else shapestyle.setColor(Color.GREEN);
+
         shapestyle.rect(50, 20, captainStat,20);
         shapestyle.end();
-
         for(int i=0; i<captain.getPredatorFury().getNbAmmo(); i++) {
             Texture predatorPic = new Texture("pictures/projectiles/predator.png");
             batch.begin();
@@ -268,10 +302,31 @@ public class GameScreen implements Screen {
         shapestyle.rect(Gdx.graphics.getWidth() - 150, 20, alienStat,20);
         shapestyle.end();
 
+      /*  Image image1 = new Image(skin, "progress-bar-back");
+        image1.setPosition(55,60);
+
+        batch.begin();
+        image1.draw(batch,0.8f);
+        for(int i = 0 ; i < 5 ; i++ ){
+            Image image = new Image(skin, "progress-bar");
+            image.setPosition(70+(i*10),70);
+            image.draw(batch,1f);
+        }
+        batch.end();*/
+
     }
 
-    public void scoreStat(Double score){
-        BitmapFont ScoreStat = new BitmapFont();
+    public void scoreStat(){
+        Label label = new Label(String.format("SCORE : %.2f",getScore()),skin);
+        float x = (Gdx.graphics.getWidth() - label.getWidth()) / 2;
+        float y = Gdx.graphics.getHeight() - label.getHeight() - 5;
+        label.setPosition( x, y);
+
+        batch.begin();
+        label.draw(batch,1f);
+        batch.end();
+
+        /*BitmapFont ScoreStat = new BitmapFont();
         String text =" SCORE: " + score;
         GlyphLayout layout = new GlyphLayout();
         layout.setText(ScoreStat, text);
@@ -279,13 +334,14 @@ public class GameScreen implements Screen {
         float y = Gdx.graphics.getHeight() - 10;
         batch.begin();
         ScoreStat.draw(batch, layout, x,y );
-        batch.end();
+        batch.end();*/
     }
 
-    public void level(int level){
-        BitmapFont levelFont = new BitmapFont();
+    public void level(){
+        Label label = new Label(String.format("LEVEL : %d",numLevel),skin);
+        label.setPosition( 10, Gdx.graphics.getHeight() - label.getHeight() - 5);
         batch.begin();
-        levelFont.draw(batch, String.format("Level: %d",level),  1, Gdx.graphics.getHeight() - 10);
+        label.draw(batch,1f);
         batch.end();
     }
 
@@ -300,8 +356,8 @@ public class GameScreen implements Screen {
 
         float pourcentagePuissance = (captain.getPuissance() * 100)/ captain.getMaxPuissance();
         powerStats(pourcentagePuissance,alienLife);
-        scoreStat(getScore());
-        level(levelStat);
+        scoreStat();
+        level();
     }
 
     public void collectible(){
@@ -338,7 +394,18 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        BitmapFont levelText = new BitmapFont();
+        Label label = new Label(String.format("LEVEL %d",numLevel),skin);
+        float x = (float) (Gdx.graphics.getWidth() /2 )- (label.getWidth() / 2) ;
+        float y = (float)(Gdx.graphics.getHeight() /2) - (label.getHeight()/ 2) ;
+        label.setPosition( x,y);
+        label.setFontScale(1.5f, 1.5f);
+
+        batch.begin();
+        label.draw(batch,1f);
+        batch.end();
+
+
+        /*BitmapFont levelText = new BitmapFont();
         String text =" LEVEL " + level ;
         GlyphLayout layout = new GlyphLayout();
         layout.setText(levelText, text);
@@ -346,33 +413,21 @@ public class GameScreen implements Screen {
         float y = (Gdx.graphics.getHeight() - layout.height) / 2;
         batch.begin();
         levelText.draw(batch, layout, x,y );
-        batch.end();
+        batch.end();*/
+
+
     }
 
     public String Lost(){
-       return " GAME OVER \n YOU LOSE :( ! ";
+       return " GAME OVER \n YOU LOSE  ! ";
     }
     public String Win(){
-        return " CONGRATULATIONS :) ! " ;
+        return " CONGRATULATIONS  ! " ;
     }
 
-    public void finalStat(int level,Double score,String comment ){
-        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    public String finalStat(int level,Double score,String comment ){
+       return String.format(" %s \n STATISTICS  :\n  LEVEL -> %d \n SCORE -> %.2f ", comment,level,score);
 
-        BitmapFont levelText = new BitmapFont();
-
-        String text =String.format(" %s \n STATISTICS  :\n  LEVEL -> %d \n SCORE -> %.2f ", comment,level,score);
-
-        GlyphLayout layout = new GlyphLayout();
-        layout.setText(levelText, text);
-        float x = (Gdx.graphics.getWidth() - layout.width) / 2;
-        float y = (Gdx.graphics.getHeight() - layout.height) / 2;
-
-
-        batch.begin();
-        levelText.draw(batch, layout, x,y );
-        batch.end();
     }
 
 

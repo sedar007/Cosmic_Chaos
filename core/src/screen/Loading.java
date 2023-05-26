@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import shoot_em_up.ShootEmUP;
@@ -23,8 +25,10 @@ public class Loading extends ScreenAdapter implements Screen {
 
     private Viewport viewport;
 
-    int x ;
-    int y ;
+    int x,y ;
+
+    Skin skin;
+    Label label;
 
     public Loading(final ShootEmUP game) {
         this.game = game;
@@ -35,12 +39,26 @@ public class Loading extends ScreenAdapter implements Screen {
         ////////////////////////////////////////////
         shape = new ShapeRenderer();
         x = 0;
+        skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
     }
 
     @Override
     public void show() {
     }
 
+
+    /*
+      Label label = new Label(String.format("LEVEL %d",numLevel),skin);
+        float x = (Gdx.graphics.getWidth() - label.getWidth()) / 2;
+        float y = (Gdx.graphics.getHeight() - label.getHeight()) / 2;
+        label.setPosition( x,y);
+        label.setFontScale(1.5f, 1.5f);
+
+        batch.begin();
+        label.draw(batch,1f);
+        batch.end();
+
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -59,8 +77,12 @@ public class Loading extends ScreenAdapter implements Screen {
         float height = 40;
         float posY = height + 10;
 
+        label = new Label("LOADING "+ pourcentage +" % ",skin);
+        label.setPosition(posX + 85, posY );
+
         game.batch.begin();
-        game.font.draw(game.batch, "L O A D I N G  "+ pourcentage +" % ", posX + 100, posY + 10);
+        label.draw(game.batch,1f);
+        //game.font.draw(game.batch, "LOADING"+ pourcentage +" % ", posX + 100, posY + 10);
         game.batch.end();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);

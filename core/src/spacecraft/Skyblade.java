@@ -13,7 +13,7 @@ import java.util.HashSet;
 import gift.Shield;
 
 public class Skyblade extends Spacecraft {
-    private static final int DEFAULT_PUISSANCE = 1000;
+    private static final int DEFAULT_PUISSANCE = 100;
     private static final String DEFAULT_PICTURE ="pictures/ships/skyblade.png";
     private static final String DEFAULT_NAME = "captain";
 
