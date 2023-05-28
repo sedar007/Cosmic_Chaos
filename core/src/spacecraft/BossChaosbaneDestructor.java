@@ -3,6 +3,7 @@ package spacecraft;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import helpers.Collision;
+import screen.AllAssets;
 import weapon.AlienWeapons.InfernoOrbs;
 import weapon.AlienWeapons.MegaInferno;
 import weapon.Weapon;
@@ -11,20 +12,13 @@ import java.util.Random;
 
 public class BossChaosbaneDestructor extends Alien{
 
-    private static final String DEFAULT_NAME = "Boss";
+    private static final String DEFAULT_NAME = "Boss Chaos bane Destructor";
     private static final int DEFAULT_MAX_LIFE = 2500;
-    private int ratio = 2;
-
-    public int getRatio() {
-        return ratio;
-    }
 
 
-    private static final String DEFAULT_PICTURE = "pictures/ships/boss_large.png" ;
-
-    public BossChaosbaneDestructor(SpriteBatch batch){
-        super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_MAX_LIFE, batch);
-       setWeapon(new MegaInferno(batch, this));
+    public BossChaosbaneDestructor(SpriteBatch batch, AllAssets assets){
+        super(DEFAULT_NAME,DEFAULT_MAX_LIFE, batch,assets.getBossLarge());
+       setWeapon(new MegaInferno(batch, this, assets));
     }
     @Override
     public void move(Spacecraft spacecraft) {

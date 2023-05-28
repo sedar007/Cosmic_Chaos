@@ -19,6 +19,9 @@ import shoot_em_up.ShootEmUP;
 
 public class MainMenuScreen implements Screen{
 
+    private final AllAssets assets; // Toutes les images
+
+
     private final Stage stage;
     final ShootEmUP game;
     OrthographicCamera camera;
@@ -27,13 +30,25 @@ public class MainMenuScreen implements Screen{
     Image image ;
     Skin skin;
 
+    public AllAssets getAssets() {
+        return assets;
+    }
+
+    public AllAssets getAllPictures() {
+        return assets;
+    }
+
+
     public MainMenuScreen(final ShootEmUP game){
+        // Telecharge toutes les images
+        this.assets = new AllAssets();
+
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
 
-        backgroundTexture = new Texture(Gdx.files.internal("pictures/fond.jpg"));
+        backgroundTexture = getAllPictures().getMainMenuScreenPicture();
         image = new Image(backgroundTexture);
         stage = new Stage(new ScreenViewport());
 
@@ -54,8 +69,8 @@ public class MainMenuScreen implements Screen{
         table.setFillParent(true);
         stage.addActor(table);
 
-        // temporary until we have asset manager in
-        skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
+
+        skin = getAssets().getSkin();
 
 
         //create buttons
@@ -81,7 +96,7 @@ public class MainMenuScreen implements Screen{
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new Loading(game));
+                game.setScreen(new Loading(game, getAssets()));
             }
         });
 

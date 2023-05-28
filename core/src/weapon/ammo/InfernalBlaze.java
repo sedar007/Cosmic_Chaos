@@ -2,6 +2,7 @@ package weapon.ammo;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import screen.AllAssets;
 
 public class InfernalBlaze extends Ammo{
     // Static
@@ -21,8 +22,8 @@ public class InfernalBlaze extends Ammo{
     }
 
     // Constructor
-    public InfernalBlaze(float xPosition, float yPosition, SpriteBatch batch){
-        super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch);
+    public InfernalBlaze(float xPosition, float yPosition, SpriteBatch batch, AllAssets assets){
+        super(DEFAULT_NAME,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch, assets, assets.getRocketInversePicture());
 
     }
 

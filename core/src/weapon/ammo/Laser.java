@@ -2,6 +2,7 @@ package weapon.ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import screen.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
 
@@ -13,8 +14,8 @@ public class Laser extends Ammo{
     private final static int DEFAULT_SPEED = 9;
 
     // Constructor
-    public Laser(float xPosition, float yPosition, SpriteBatch batch) {
-        super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch);
+    public Laser(float xPosition, float yPosition, SpriteBatch batch, AllAssets assets) {
+        super(DEFAULT_NAME,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch, assets, assets.getLaserPicture());
     }
 
     // Methodes

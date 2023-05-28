@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import exceptions.NoWeaponExeption;
+import screen.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.AlienWeapons.SingleRocket;
 import weapon.Weapon;
@@ -20,10 +22,17 @@ public class LaserFury extends Weapon {
         private  float times, duration;
 
         // Constructor
-        public LaserFury(SpriteBatch batch, Spacecraft spacecraft){
-            super(batch,spacecraft);
+        public LaserFury(SpriteBatch batch, Spacecraft spacecraft, AllAssets assets){
+            super(batch,spacecraft, assets);
             setName(DEFAULT_NAME);
-            lastWeapon = spacecraft.getWeapon();
+            try {
+                lastWeapon = spacecraft.getWeapon();
+
+            }
+            catch (NoWeaponExeption e){
+                lastWeapon = new RocketStorm(getBatch(),spacecraft, getAssets());
+
+            }
             times = 0f;
             duration = 5f;
         }
@@ -33,13 +42,13 @@ public class LaserFury extends Weapon {
             // munition 1
             float xPosition = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) ;
             float yPosition = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
-            Laser laser = new Laser(xPosition,yPosition, getBatch());
+            Laser laser = new Laser(xPosition,yPosition, getBatch(), getAssets());
             munitions.add(laser);
 
             lastAmmoTime = TimeUtils.nanoTime();
             Music soundShoot;
-            soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-            soundShoot.play();
+//            soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+//            soundShoot.play();
         }
 
         @Override

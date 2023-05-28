@@ -11,21 +11,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
-import gift.BonusPower;
-import gift.BonusScore;
-import gift.ChangeWeapon;
-import gift.Gift;
+import bonus.BonusPower;
+import bonus.BonusScore;
+import bonus.ChangeWeapon;
+import bonus.Bonus;
+import exceptions.NoWeaponExeption;
 import helpers.Collision;
 import shoot_em_up.ShootEmUP;
 import spacecraft.*;
-import weapon.AlienWeapons.InfernoOrbs;
-import weapon.AlienWeapons.SingleRocket;
 import weapon.SkyBladeWeapons.RocketStorm3X;
 
 import java.util.HashSet;
@@ -34,8 +31,10 @@ import java.util.Random;
 
 public class GameScreen implements Screen {
     final ShootEmUP game;
-    final static Texture imageCaptain = new Texture("pictures/ships/skyblade.png");
-    final static Texture imageAlien = new Texture("pictures/ships/boss_small.png");
+    private final AllAssets assets;
+
+    final  Texture imageCaptain ;
+    final  Texture imageAlien;
 
     OrthographicCamera camera;
     Background background;
@@ -45,7 +44,7 @@ public class GameScreen implements Screen {
     HashSet<Alien> monsters = new HashSet<>();
     ShapeRenderer shapestyle;
     BonusScore bonusScore = null;
-    HashSet<Gift> bonus ;
+    HashSet<Bonus> bonus ;
     int nbMonstres = 0;
 
     BitmapFont fontScore;
@@ -76,33 +75,41 @@ public class GameScreen implements Screen {
             monsters.add(alien);
     }
 
-    public GameScreen(final ShootEmUP game) {
+    public AllAssets getAssets() {
+        return assets;
+    }
 
-        skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
+    public GameScreen(final ShootEmUP game, AllAssets assets) {
+        this.assets = assets;
+
+        skin = getAssets().getSkin();
 
         //AFFFICHAGE DES STATISTIQUES
         this.shapestyle = new ShapeRenderer();
         this.game = game;
         play = true;
 
+        imageCaptain = getAssets().getSkybladePicture();
+        imageAlien = getAssets().getBossSmallPicture();
+
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
-        background = new Background("pictures/stars_1.png", 50.1f, camera);
+        background = new Background(getAssets().getEtoilePicture(), 50.1f, camera, this.assets);
         batch = new SpriteBatch();
-        captain = new Skyblade(batch);
+        captain = new Skyblade(batch, getAssets());
 
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
+        backgroundMusic = getAssets().getBackgroundMusic();
         backgroundMusic.setLooping(true);
 
        // POUR LE LEVEL !!
         numLevel = 0 ;
-        level = new Level(numLevel,this.game,batch);//Au debut !!
+        level = new Level(numLevel,this.game,batch, getAssets());//Au debut !!
         this.monsters = level.getMonsters();
 
       //  monsters.add(new BossChaosbaneDestructor(batch));
 
-        captain.setWeapon(new RocketStorm3X(batch,captain));
+        captain.setWeapon(new RocketStorm3X(batch,captain, getAssets()));
         bonus = new HashSet<>();
         fontScore =  new BitmapFont();
         setScore(0.0);
@@ -127,13 +134,13 @@ public class GameScreen implements Screen {
         if( !captain.isNotDestroyed() ){//qd il est mort !
             //finalStat(numLevel,getScore(),Lost());
             //return;
-            game.setScreen(new Endgame(game,finalStat(numLevel,getScore(),Lost())));
+            game.setScreen(new Endgame(game,finalStat(numLevel,getScore(),Lost()), getAssets()));
             dispose();
         }
         if( numLevel > 2){//il a fini la partie
             //finalStat(numLevel-1,getScore(),Win());
            // return;
-            game.setScreen(new Endgame(game,finalStat(numLevel-1,getScore(),Win())));
+            game.setScreen(new Endgame(game,finalStat(numLevel-1,getScore(),Win()),getAssets()));
             dispose();
         }
 
@@ -145,7 +152,7 @@ public class GameScreen implements Screen {
                 elapsedTimeLevelText = 0f;
                 numLevel += 1;
                 showLevelText(numLevel);
-                level = new Level(numLevel,this.game,batch);
+                level = new Level(numLevel,this.game,batch, getAssets());
                 this.monsters = level.getMonsters();
                 nbMonstres = level.getMonsters().size();
             }
@@ -191,14 +198,19 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         /* --- Game Play --- */
+        try {
+            captain.getWeapon().spawnAllAmmo();
 
-        captain.getWeapon().spawnAllAmmo();
+        }
+        catch (NoWeaponExeption e){
+            e.printStackTrace();
+        }
         times += Gdx.graphics.getDeltaTime();
 
 
         if (times >= times1 ) {
             times = 0;
-            bonus.add(new ChangeWeapon(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch));
+            bonus.add(new ChangeWeapon(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
 
         }
 
@@ -213,23 +225,41 @@ public class GameScreen implements Screen {
         Iterator<Alien> iterator = monsters.iterator();
         while (iterator.hasNext()) {
             Alien monster = iterator.next();
-            monster.getWeapon().spawnAllAmmo();
+            try {
+                monster.getWeapon().spawnAllAmmo();
+
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
             if(targetPredator == null)
                 targetPredator = monster;
             monster.move(captain);
-            captain.getWeapon().shoot(monster);
-            monster.getWeapon().shoot(captain);
+            try {
+                captain.getWeapon().shoot(monster);
+            }
+            catch (NoWeaponExeption e){
+
+            }
+            try {
+                monster.getWeapon().shoot(captain);
+
+            }
+            catch (NoWeaponExeption e){
+
+            }
+
 
 
 
             if (!monster.isNotDestroyed()) {
                 numberALienKilled += 1;
                 //captain.setScore(captain.getScore() + monster.getPoints());
-                bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch, this));
+                bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch, this, getAssets()));
                 if (numberALienKilled == 10) {
                     float x = new Random().nextInt(Gdx.graphics.getWidth());
                     float y = new Random().nextInt(Gdx.graphics.getHeight() / 2);
-                    bonus.add(new BonusPower(captain, x, y, batch));
+                    bonus.add(new BonusPower(captain, x, y, batch, this.assets));
                     numberALienKilled = 0;//pour chaque 10
                 }
                for(int i = 10 ; i >= 1 ; i--){
@@ -244,7 +274,13 @@ public class GameScreen implements Screen {
             }
         }
         if(targetPredator != null  ){
-            captain.getPredatorFury().spawnAllAmmo(targetPredator);
+            try{
+                captain.getPredatorFury().spawnAllAmmo(targetPredator);
+
+            }
+            catch (Exception e){
+
+            }
         }
         if(targetPredator != null){
             captain.getPredatorFury().shoot(targetPredator);
@@ -283,7 +319,7 @@ public class GameScreen implements Screen {
         shapestyle.rect(50, 20, captainStat,20);
         shapestyle.end();
         for(int i=0; i<captain.getPredatorFury().getNbAmmo(); i++) {
-            Texture predatorPic = new Texture("pictures/projectiles/predator.png");
+            Texture predatorPic =getAssets().getPredatorPicture();
             batch.begin();
             batch.draw(predatorPic, 60 + 100 + i*10, 20);
             batch.end();
@@ -362,9 +398,9 @@ public class GameScreen implements Screen {
 
     public void collectible(){
         //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
-        Iterator<Gift> iteratorGift = bonus.iterator();
+        Iterator<Bonus> iteratorGift = bonus.iterator();
         while (iteratorGift.hasNext()) {
-            Gift collectible = iteratorGift.next();
+            Bonus collectible = iteratorGift.next();
             collectible.draw();
             if (new Collision().checkCollision(collectible.getPosX(), collectible.getPosY(), collectible.getPicture().getWidth(), collectible.getPicture().getHeight(),
                     captain.getPosX(),

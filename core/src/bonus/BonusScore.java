@@ -1,18 +1,19 @@
-package gift;
+package bonus;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import screen.AllAssets;
 import screen.GameScreen;
 import spacecraft.Skyblade;
 
-public class BonusScore extends Gift {
+public class BonusScore extends Bonus {
     private static final String DEFAULT_NAME = " BONUS DE SCORE " ;
-    private static final String DEFAULT_IMAGE = "pictures/bonus/Score.png" ;
     private static final float BONUS = 250f ;
     GameScreen gameScreen;
-    public BonusScore(Skyblade skyblade, float x , float y, SpriteBatch batch, GameScreen gameScreen) {
-        super(DEFAULT_NAME,DEFAULT_IMAGE,skyblade,x,y,batch);
+    public BonusScore(Skyblade skyblade, float x , float y, SpriteBatch batch, GameScreen gameScreen, AllAssets assets) {
+        super(DEFAULT_NAME,skyblade,x,y,batch);
         setBonus(BONUS);
         this.gameScreen = gameScreen;
+        setPicture(assets.getBonusScorePicture());
     }
     public void collect(){
         this.gameScreen.setScore(this.gameScreen.getScore() + BONUS);

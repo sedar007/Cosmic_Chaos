@@ -3,6 +3,7 @@ package weapon.AlienWeapons;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import screen.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
 import weapon.ammo.EnergyOrbs;
@@ -14,16 +15,16 @@ public class SingleRocket  extends Weapon{
         private static final String DEFAULT_NAME = "Single Rocket";
 
         // Constructor
-        public SingleRocket(SpriteBatch batch, Spacecraft spacecraft){
-            super(batch,spacecraft);
+        public SingleRocket(SpriteBatch batch, Spacecraft spacecraft, AllAssets assets){
+            super(batch,spacecraft, assets);
             setName(DEFAULT_NAME);
         }
 
         // Methodes
         public void createAmmo(){//creer un seul pair de munition
             // munition 1
-            RocketJet ammo = new RocketJet(getSpacecraft().getPosX() + getSpacecraft().getPicture().getWidth()/2,getSpacecraft().getPosY(),getBatch());
-            Texture boom = new Texture("pictures/explosion/explosion-5.png");
+            RocketJet ammo = new RocketJet(getSpacecraft().getPosX() + (float) getSpacecraft().getPicture().getWidth() /2,getSpacecraft().getPosY(),getBatch(), getAssets());
+            Texture boom = getAssets().getExplosion5();
             getBatch().begin();
             getBatch().draw(boom,ammo.getxPosition()-ammo.getImage().getWidth()-8,ammo.getyPosition()-ammo.getImage().getHeight());
             getBatch().end();

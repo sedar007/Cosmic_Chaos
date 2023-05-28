@@ -29,17 +29,23 @@ public class Loading extends ScreenAdapter implements Screen {
 
     Skin skin;
     Label label;
+    private final AllAssets assets;
 
-    public Loading(final ShootEmUP game) {
+    public AllAssets getAssets() {
+        return assets;
+    }
+
+    public Loading(final ShootEmUP game, AllAssets assets) {
+        this.assets = assets;
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
-        backgroundTexture = new Texture(Gdx.files.internal("pictures/logogame.jpeg"));
+        backgroundTexture = getAssets().getLogo();
         ////////////////////////////////////////////
         shape = new ShapeRenderer();
         x = 0;
-        skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
+        skin = getAssets().getSkin();
     }
 
     @Override
@@ -89,7 +95,7 @@ public class Loading extends ScreenAdapter implements Screen {
         shape.setColor(Color.WHITE);
         shape.rect(posX, posY, width,height);
         if(x == width ) {
-            game.setScreen(new  GameScreen(game));
+            game.setScreen(new  GameScreen(game, getAssets()));
             dispose();
         }
         else shape.setColor(Color.RED);

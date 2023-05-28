@@ -1,19 +1,17 @@
-package gift;
+package bonus;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import screen.AllAssets;
 import spacecraft.Skyblade;
 
-import java.util.Random;
-
-public class BonusPower extends Gift {
+public class BonusPower extends Bonus {
     private static final String DEFAULT_NAME = " BONUS DU PUISSANCE " ;
-    private static final String DEFAULT_IMAGE = "pictures/bonus/puissance.png" ;
     private static final float BONUS = 250f ;
 
-    public BonusPower( Skyblade skyblade, float x ,float y, SpriteBatch batch) {
-        super(DEFAULT_NAME,DEFAULT_IMAGE,skyblade,x,y,batch);
+    public BonusPower(Skyblade skyblade, float x , float y, SpriteBatch batch, AllAssets assets) {
+        super(DEFAULT_NAME,skyblade,x,y,batch);
         setBonus(BONUS);
+        setPicture(assets.getBonusScorePicture());
     }
 
     public void collect() {

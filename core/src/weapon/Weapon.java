@@ -5,7 +5,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import exceptions.NoWeaponExeption;
 import helpers.Collision;
+import screen.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.ammo.Ammo;
 import weapon.ammo.Laser;
@@ -21,7 +23,11 @@ abstract public class Weapon {
     private SpriteBatch batch; // Garder le SpriteBatch du jeu
     private Spacecraft spacecraft; // Savoir le Spacecraft qui utilise l'arme
     protected  long lastAmmoTime; // Le temps du dernier tire
+    private final AllAssets assets;
 
+    public AllAssets getAssets() {
+        return assets;
+    }
 
     // Getters et Setters
     public String getName() {
@@ -45,10 +51,11 @@ abstract public class Weapon {
 
 
     // Constructor
-    public Weapon(SpriteBatch batch, Spacecraft spacecraft){
+    public Weapon(SpriteBatch batch, Spacecraft spacecraft, AllAssets assets){
         this.munitions = new HashSet<>();
         setBatch(batch);
         setSpacecraft(spacecraft);
+        this.assets = assets;
 
     }
 
@@ -66,7 +73,7 @@ abstract public class Weapon {
             Ammo ammo = iterator.next();
             if (new Collision().checkCollision(ammo.getxPosition(), ammo.getyPosition(), ammo.getImage().getWidth(), ammo.getImage().getHeight(), opponent.getPosX(),
                     opponent.getPosY(), opponent.getPicture().getWidth(), opponent.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
-                Texture boom = new Texture("pictures/explosion/boom06.png");
+                Texture boom = getAssets().getBoom6();
                 getBatch().begin();
                 getBatch().draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
                 getBatch().end();
@@ -78,7 +85,9 @@ abstract public class Weapon {
     }
 
 
-    public void spawnAllAmmo(){
+    public void spawnAllAmmo() throws NoWeaponExeption {
+        if(getSpacecraft().getWeapon() == null)
+                throw new NoWeaponExeption();
         /* Methode qui permet de creer les munitions, de supprimer les munitions hors de l'ecran et d'afficher les munitions */
         create(); // Create les ammos
         Iterator<Ammo> iterator = this.munitions.iterator();

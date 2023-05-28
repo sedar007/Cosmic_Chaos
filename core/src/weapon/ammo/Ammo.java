@@ -4,17 +4,18 @@ package weapon.ammo;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import helpers.MoveManager;
+import screen.AllAssets;
 
-    public class Ammo implements MoveManager {
+public class Ammo implements MoveManager {
     protected float degats;
     private int speed;
     private Texture image;
     private String name;
     private float xPosition, yPosition;
     protected SpriteBatch batch;
+    private AllAssets assets;
 
     // Static
-    public static final String DEFAULT_PICTURE = "pictures/projectiles/rocket.png";
     public static final String DEFAULT_NAME = "ammo";
 
     // Getters et Setters
@@ -31,7 +32,7 @@ import helpers.MoveManager;
     public float getDegats() {
         return this.degats;
     }
-    private void setImage(Texture image) {
+    public void setImage(Texture image) {
         this.image = image;
     }
     public Texture getImage() {
@@ -62,12 +63,17 @@ import helpers.MoveManager;
         this.batch = batch;
     }
 
+    public AllAssets getAssets() {
+        return assets;
+    }
 
     // Constructors
-    public Ammo(String name, String image, float degats, int speed, float xPosition, float yPosition, SpriteBatch batch) {
+    public Ammo(String name, float degats, int speed, float xPosition, float yPosition, SpriteBatch batch, AllAssets assets, Texture picture) {
+        this.assets = assets;
         setName(name);
-        setImage(new Texture(image));
         setDegats(degats);
+        setImage(picture);
+
         setxPosition(xPosition - (float) this.getImage().getWidth() / 2);
         setyPosition(yPosition);
         setSpeed(speed);
@@ -76,7 +82,7 @@ import helpers.MoveManager;
 
     public Ammo() {
         setName(DEFAULT_NAME);
-        setImage(new Texture(DEFAULT_PICTURE));
+        setImage(getAssets().getRocketPicture());
         setDegats(0);
         setxPosition(0);
         setyPosition(0);

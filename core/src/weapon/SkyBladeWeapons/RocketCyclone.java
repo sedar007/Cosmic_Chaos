@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import helpers.Collision;
+import screen.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
 import weapon.ammo.RocketEventail;
@@ -24,8 +25,8 @@ public class RocketCyclone extends Weapon {
 
 
     // Methode
-    public RocketCyclone(SpriteBatch batch, Spacecraft spacecraft) {
-        super(batch, spacecraft);
+    public RocketCyclone(SpriteBatch batch, Spacecraft spacecraft, AllAssets assets) {
+        super(batch, spacecraft, assets);
         setName(DEFAULT_NAME);
         this.munitionsTab = new HashSet<>();
     }
@@ -39,9 +40,9 @@ public class RocketCyclone extends Weapon {
         float y2Position = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
         float x3Position = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) + 10;
         float y3Position = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
-        RocketEventail rocketEventail = new RocketEventail(x1Position,  y1Position, x2Position, y2Position, x3Position, y3Position, getBatch());
+        RocketEventail rocketEventail = new RocketEventail(x1Position,  y1Position, x2Position, y2Position, x3Position, y3Position, getBatch(), getAssets());
 
-        Texture boom = new Texture("pictures/explosion/explosion-5.png");
+        Texture boom = getAssets().getExplosion5();
         getBatch().begin();
         getBatch().draw(boom,x2Position-rocketEventail.AmmosTab[0].getImage().getWidth()-10,y2Position-rocketEventail.AmmosTab[0].getImage().getHeight());
         getBatch().end();
@@ -91,7 +92,7 @@ public class RocketCyclone extends Weapon {
                 if(ammo.AmmosTab[i] != null) {
                     if (new Collision().checkCollision(ammo.AmmosTab[i].getxPosition(), ammo.AmmosTab[i].getyPosition(), ammo.AmmosTab[i].getImage().getWidth(), ammo.AmmosTab[i].getImage().getHeight(), ennemi.getPosX(),
                             ennemi.getPosY(), ennemi.getPicture().getWidth(), ennemi.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
-                        Texture boom = new Texture("pictures/explosion/boom06.png");
+                        Texture boom = getAssets().getBoom6();
                         getBatch().begin();
                         getBatch().draw(boom,ammo.AmmosTab[i].getxPosition() - (float) boom.getWidth() /2,ammo.AmmosTab[i].getyPosition()- (float) boom.getHeight() /2);
                         getBatch().end();

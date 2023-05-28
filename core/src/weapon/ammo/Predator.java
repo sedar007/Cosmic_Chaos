@@ -2,6 +2,7 @@ package weapon.ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import screen.AllAssets;
 import spacecraft.Spacecraft;
 
 public class Predator extends Ammo{
@@ -12,8 +13,8 @@ public class Predator extends Ammo{
     private final static int DEFAULT_SPEED = 5;
 
     // Constructor
-    public Predator(float xPosition, float yPosition, SpriteBatch batch){
-        super(DEFAULT_NAME,DEFAULT_PICTURE,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch);
+    public Predator(float xPosition, float yPosition, SpriteBatch batch, AllAssets assets){
+        super(DEFAULT_NAME,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch, assets, assets.getPredatorPicture());
 
     }
 

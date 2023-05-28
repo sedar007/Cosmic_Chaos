@@ -9,23 +9,25 @@ import java.util.HashSet;
 public class Level {
 
     HashSet<Alien> monsters = new HashSet<>();
+    AllAssets assets;
 
-    public Level(int level, ShootEmUP game, SpriteBatch batch){
+    public Level(int level, ShootEmUP game, SpriteBatch batch, AllAssets assets){
+        this.assets = assets;
 
         if(level == 1 ){
             for (int i = 0; i < 10; i++) {
-               Alien monster = new TyrantOfDesolation(batch);
+               Alien monster = new TyrantOfDesolation(batch,assets);
                 setMonsters(monster);
             }
         }
 
         else if( level == 2 ){
             for (int i = 0; i < 5; i++) {
-                Alien monster = new TyrantOfDesolation(batch);
+                Alien monster = new TyrantOfDesolation(batch,assets);
                 setMonsters(monster);
             }
             for(int i= 0 ; i < 10 ; i++){
-                Alien monster = new DeathspikeMarauder(batch);
+                Alien monster = new DeathspikeMarauder(batch,assets);
                 setMonsters(monster);
             }
 
@@ -33,44 +35,44 @@ public class Level {
 
         else if( level == 3){
             for (int i = 0; i < 5; i++) {
-                Alien monster = new TyrantOfDesolation(batch);
+                Alien monster = new TyrantOfDesolation(batch,assets);
                 setMonsters(monster);
             }
             for(int i= 0 ; i < 5 ; i++){
-                Alien monster = new DeathspikeMarauder(batch);
+                Alien monster = new DeathspikeMarauder(batch,assets);
                 setMonsters(monster);
             }
             for(int i=0 ; i < 10 ; i++){
-                Alien monster = new RavagerScourge(batch);
+                Alien monster = new RavagerScourge(batch,assets);
                 setMonsters(monster);
             }
         }
 
         else if( level == 4){
             for (int i = 0; i < 5; i++) {
-                Alien monster = new TyrantOfDesolation(batch);
+                Alien monster = new TyrantOfDesolation(batch,assets);
                 setMonsters(monster);
             }
             for(int i= 0 ; i < 5 ; i++){
-                Alien monster = new DeathspikeMarauder(batch);
+                Alien monster = new DeathspikeMarauder(batch,assets);
                 setMonsters(monster);
             }
             for(int i=0 ; i < 5 ; i++){
-                Alien monster = new RavagerScourge(batch);
+                Alien monster = new RavagerScourge(batch,assets);
                 setMonsters(monster);
             }
             for(int i=0 ; i < 10 ; i++){
-                Alien monster = new InfernoReaper(batch);
+                Alien monster = new InfernoReaper(batch,assets);
                 setMonsters(monster);
             }
 
         }
         else if( level == 5){
             for(int i=0 ; i < 10 ; i++){
-                Alien monster = new VenomclawRavager(batch);
+                Alien monster = new VenomclawRavager(batch,assets);
                 setMonsters(monster);
             }
-            setMonsters(new BossChaosbaneDestructor(batch));
+            setMonsters(new BossChaosbaneDestructor(batch,assets));
         }
 
     }

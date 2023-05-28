@@ -1,6 +1,7 @@
 package spacecraft;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import helpers.Collision;
 import weapon.ammo.Ammo;
@@ -55,10 +56,11 @@ public class Alien extends Spacecraft {
         this.yAlea = yAlea;
     }
 
-    public Alien(String name, String picture, int maxPuissance, SpriteBatch batch){
-        super(name,picture, batch);
+    public Alien(String name, int maxPuissance, SpriteBatch batch, Texture pictureAlien){
+        super(name, batch);
        setMaxPuissance(maxPuissance);
        setPuissance(maxPuissance);
+       setPicture(pictureAlien);
 
         int xPos = 0;
         xPos = (new Random().nextInt(2) == 0 )? xPos : Gdx.graphics.getWidth() - getPicture().getWidth();

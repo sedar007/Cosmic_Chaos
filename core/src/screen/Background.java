@@ -6,15 +6,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Background {
-    private Texture texture;
+    private final Texture texture;
     private float scrollSpeed;
     private float layer1, layer2;
     private OrthographicCamera camera;
     private Texture backgroundP;
+    private AllAssets assets;
 
-    public Background(String texturePath, float scrollSpeed, OrthographicCamera camera) {
-        texture = new Texture(texturePath);
-        backgroundP = new Texture("pictures/background.png");
+    public Background(Texture texturePath, float scrollSpeed, OrthographicCamera camera, AllAssets assets) {
+        this.assets = assets;
+        texture = texturePath;
+        backgroundP = assets.getBackGroundPicture();
 
         this.scrollSpeed = scrollSpeed;
         this.camera = camera;

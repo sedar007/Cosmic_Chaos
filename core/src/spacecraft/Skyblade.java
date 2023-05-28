@@ -1,20 +1,16 @@
 package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import gift.BonusScore;
-import gift.Gift;
+import bonus.BonusScore;
+import screen.AllAssets;
 import weapon.SkyBladeWeapons.PredatorFury;
-import weapon.Weapon;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.Gdx;
 
-import java.util.HashSet;
-
-import gift.Shield;
+import bonus.Shield;
 
 public class Skyblade extends Spacecraft {
     private static final int DEFAULT_PUISSANCE = 100;
-    private static final String DEFAULT_PICTURE ="pictures/ships/skyblade.png";
     private static final String DEFAULT_NAME = "captain";
 
     public Shield shield;//bouclier du Capitaine.
@@ -23,6 +19,7 @@ public class Skyblade extends Spacecraft {
 
     public BonusScore bonusScore;
     private PredatorFury predatorFury; // Missiles tete chercheuses
+    private final AllAssets assets;
 
     public Shield getShield() {
         return shield;
@@ -43,21 +40,24 @@ public class Skyblade extends Spacecraft {
         this.predatorFury = predatorFury;
     }
 
-    public Skyblade(String name, SpriteBatch batch){
-        super(name,DEFAULT_PICTURE, batch);
+    public Skyblade(String name, SpriteBatch batch, AllAssets assets){
+        super(name, batch);
         setPuissance(DEFAULT_PUISSANCE);
         setMaxPuissance( DEFAULT_PUISSANCE );
         setPosX(0);
         setPosY(0);
+        this.assets = assets;
+        setPicture(getAssets().getSkybladePicture());
+
 
         protect(false);
-        setShield(new Shield(this, getPosX(), getPosY(), getBatch()));
-        setPredatorFury(new PredatorFury(batch, this));
+        setShield(new Shield(this, getPosX(), getPosY(), getBatch(), this.assets));
+        setPredatorFury(new PredatorFury(batch, this, assets));
 
     }
 
-    public Skyblade(SpriteBatch batch){
-       this(DEFAULT_NAME, batch);
+    public Skyblade(SpriteBatch batch, AllAssets assets){
+       this(DEFAULT_NAME, batch, assets);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class Skyblade extends Spacecraft {
        }
     }
 
-
-
-
+    public AllAssets getAssets() {
+        return assets;
+    }
 }

@@ -30,9 +30,11 @@ public class HighScore extends ScreenAdapter implements Screen{
     final ShootEmUP game;
     Skin skin;
     Double lastScoreGame;
-    public HighScore(final ShootEmUP game, Double lastScore ){
+    private AllAssets assets;
+    public HighScore(final ShootEmUP game, Double lastScore, AllAssets assets ){
         this.game = game;
-        skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
+        this.assets = assets;
+        skin = this.assets.getSkin();
        // jsonData = new HashMap<>();
 
        /* lastScoreGame = lastScore;

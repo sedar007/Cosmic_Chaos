@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import screen.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
 import weapon.ammo.Rocket;
@@ -15,8 +16,8 @@ public class RocketStorm3X  extends Weapon {
     private static final String DEFAULT_NAME = "Rocket Storm";
 
     // Constructor
-    public RocketStorm3X(SpriteBatch batch, Spacecraft spacecraft) {
-        super(batch, spacecraft);
+    public RocketStorm3X(SpriteBatch batch, Spacecraft spacecraft, AllAssets assets) {
+        super(batch, spacecraft, assets);
         setName(DEFAULT_NAME);
     }
 
@@ -24,19 +25,19 @@ public class RocketStorm3X  extends Weapon {
     // Methodes
     public void createAmmo(){//creer un seul munition
 
-        Rocket ammo = new Rocket(getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ),getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight(), getBatch());
+        Rocket ammo = new Rocket(getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ),getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight(), getBatch(), getAssets());
         munitions.add(ammo);
 
-        Rocket ammo1 = new Rocket(getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) - 10,getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight(), getBatch());
+        Rocket ammo1 = new Rocket(getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) - 10,getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight(), getBatch(), getAssets());
         munitions.add(ammo1);
 
-        Rocket ammo2 = new Rocket(getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) + 10,getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight(), getBatch());
+        Rocket ammo2 = new Rocket(getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) + 10,getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight(), getBatch(), getAssets());
         munitions.add(ammo2);
 
 
 
         // Explosions a la creation du munition
-        Texture boom = new Texture("pictures/explosion/explosion-5.png");
+        Texture boom = getAssets().getExplosion5();
         getBatch().begin();
 
         getBatch().draw(boom,ammo.getxPosition()-ammo.getImage().getWidth()-8,ammo.getyPosition()-ammo.getImage().getHeight());
@@ -45,8 +46,8 @@ public class RocketStorm3X  extends Weapon {
 
         // sound du shoots
         Music soundShoot;
-        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-        soundShoot.play();
+//        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+//        soundShoot.play();
 
         lastAmmoTime = TimeUtils.nanoTime(); // dernier ammo creer
     }

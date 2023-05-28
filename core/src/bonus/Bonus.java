@@ -1,10 +1,11 @@
-package gift;
+package bonus;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import screen.AllAssets;
 import spacecraft.Skyblade;
 
-abstract public class Gift {
+abstract public class Bonus {
     protected String name;
     private Texture picture;
     protected Skyblade skyblade;
@@ -47,15 +48,29 @@ abstract public class Gift {
         this.posY = posY;
     }
 
-    public Gift(String name) {
+    public void setPicture(Texture picture) {
+        this.picture = picture;
+    }
+
+
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
+    }
+
+    public Bonus(String name) {
        setName(name);
     }
-    public Gift(String name, String picture,Skyblade skyblade,float x,float y, SpriteBatch batch) {
+    public Bonus(String name, Skyblade skyblade, float x, float y, SpriteBatch batch) {
+        super();
         setName(name);
         setSkyblade(skyblade);
         setPosX(x);
         setPosY(y);
-        this.picture = new Texture(picture);
         this.batch = batch;
     }
     //methodes abstraites

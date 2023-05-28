@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import exceptions.NoWeaponExeption;
 import helpers.Collision;
+import screen.AllAssets;
 import spacecraft.Alien;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
@@ -48,8 +50,8 @@ public class PredatorFury extends Weapon {
     }
 
     // Methode
-    public PredatorFury(SpriteBatch batch, Spacecraft spacecraft) {
-        super(batch, spacecraft);
+    public PredatorFury(SpriteBatch batch, Spacecraft spacecraft, AllAssets assets) {
+        super(batch, spacecraft, assets);
         setName(DEFAULT_NAME);
         this.predators = new HashSet<>();
         this.fire = true;
@@ -67,11 +69,11 @@ public class PredatorFury extends Weapon {
 
         float xPosition = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) ;
         float yPosition = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
-        Predator predator = new Predator(xPosition,yPosition, getBatch());
+        Predator predator = new Predator(xPosition,yPosition, getBatch(), getAssets());
         munitions.add(predator);
 
         // Explosions a la creation du munition
-        Texture boom = new Texture("pictures/explosion/explosion-5.png");
+        Texture boom = getAssets().getExplosion5();
         getBatch().begin();
         getBatch().draw(boom,predator.getxPosition()-predator.getImage().getWidth()-8,predator.getyPosition()-predator.getImage().getHeight());
         getBatch().end();
@@ -84,7 +86,7 @@ public class PredatorFury extends Weapon {
 //        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
 //        soundShoot.play();
     }
-    public void spawnAllAmmo(Alien target){
+    public void spawnAllAmmo(Alien target) throws NoWeaponExeption {
         if(target == null){
             spawnAllAmmo();
         }
@@ -112,7 +114,7 @@ public class PredatorFury extends Weapon {
             Predator ammo = iterator.next();
             if (new Collision().checkCollision(ammo.getxPosition(), ammo.getyPosition(), ammo.getImage().getWidth(), ammo.getImage().getHeight(), opponent.getPosX(),
                     opponent.getPosY(), opponent.getPicture().getWidth(), opponent.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
-                Texture boom = new Texture("pictures/explosion/boom06.png");
+                Texture boom = getAssets().getBoom6();
                 getBatch().begin();
                 getBatch().draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
                 getBatch().end();

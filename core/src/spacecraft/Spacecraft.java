@@ -1,6 +1,7 @@
 package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import exceptions.NoWeaponExeption;
 import weapon.Weapon;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.graphics.Texture;
@@ -51,7 +52,9 @@ abstract public class Spacecraft {
     public void setPosY(float posY) { this.posY = posY;}
     public Texture getPicture() { return picture;}
 
-    public Weapon getWeapon() {
+    public Weapon getWeapon() throws NoWeaponExeption {
+        if(weapon == null)
+            throw new NoWeaponExeption();
         return weapon;
     }
     public void setWeapon(Weapon weapon) {
@@ -66,10 +69,9 @@ abstract public class Spacecraft {
     abstract public void shotBy(Ammo ammo);//car le vaisseau du héro peut avoir un bouclier
 
     //Le constructeur
-    public Spacecraft(String name,String picture, SpriteBatch batch){
+    public Spacecraft(String name, SpriteBatch batch){
         setName(name);
-        this.picture = new Texture(picture);
-        this.picture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); // optionnel : améliore la qualité de l'image redimensionnée
+
         setBatch(batch);
     }
 

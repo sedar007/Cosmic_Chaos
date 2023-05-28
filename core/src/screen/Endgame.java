@@ -32,14 +32,20 @@ public class Endgame implements Screen {
     Label label;
     Image image ;
     Skin skin;
+    private final AllAssets assets;
 
-    public Endgame(final ShootEmUP game,String comment ){
+    public AllAssets getAssets() {
+        return assets;
+    }
+
+    public Endgame(final ShootEmUP game, String comment, AllAssets assets ){
+        this.assets = assets;
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
         // temporary until we have asset manager in
-        skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
+        skin = getAssets().getSkin();
 
         //ajout de texte dans le stage
        /* statistics =  new BitmapFont();
@@ -55,7 +61,7 @@ public class Endgame implements Screen {
 
 
         ////
-        backgroundTexture = new Texture(Gdx.files.internal("pictures/endgame.jpg"));
+        backgroundTexture = getAssets().getEndGamePicture();
         image = new Image(backgroundTexture);
         stage = new Stage(new ScreenViewport());
 
@@ -108,7 +114,7 @@ public class Endgame implements Screen {
         restart.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new Loading(game));
+                game.setScreen(new Loading(game, getAssets()));
             }
         });
         menu.addListener(new ChangeListener() {
@@ -156,7 +162,12 @@ public class Endgame implements Screen {
     @Override
     public void dispose() {
         // dispose of assets when not needed anymore
+
         stage.dispose();
+        fontBoutton.dispose(); // Libère la ressource de la police de caractères
+        statistics.dispose(); // Libère la ressource de la police de caractères
+        skin.dispose(); // Libère la ressource du skin
+        backgroundTexture.dispose(); // Libère la ressource de la texture
     }
 
 }

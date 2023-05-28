@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
+import screen.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
 import weapon.ammo.Rocket;
@@ -15,8 +16,8 @@ public class RocketStorm extends Weapon {
     private static final String DEFAULT_NAME = "Rocket Storm";
 
     // Constructor
-    public RocketStorm(SpriteBatch batch, Spacecraft spacecraft) {
-        super(batch, spacecraft);
+    public RocketStorm(SpriteBatch batch, Spacecraft spacecraft, AllAssets assets) {
+        super(batch, spacecraft, assets);
         setName(DEFAULT_NAME);
     }
 
@@ -24,11 +25,11 @@ public class RocketStorm extends Weapon {
     public void createAmmo(){//creer un seul munition
         float xPosition = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) ;
         float yPosition = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
-        Rocket ammo = new Rocket(xPosition,yPosition, getBatch());
+        Rocket ammo = new Rocket(xPosition,yPosition, getBatch(), getAssets());
         munitions.add(ammo);
 
         // Explosions a la creation du munition
-        Texture boom = new Texture("pictures/explosion/explosion-5.png");
+        Texture boom = getAssets().getExplosion5();
         getBatch().begin();
 
         getBatch().draw(boom,ammo.getxPosition()-ammo.getImage().getWidth()-8,ammo.getyPosition()-ammo.getImage().getHeight());
@@ -37,8 +38,8 @@ public class RocketStorm extends Weapon {
 
         // sound du shoots
         Music soundShoot;
-        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-        soundShoot.play();
+//        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+//        soundShoot.play();
 
         lastAmmoTime = TimeUtils.nanoTime(); // dernier ammo creer
     }

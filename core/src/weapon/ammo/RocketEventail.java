@@ -1,6 +1,8 @@
 package weapon.ammo;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import screen.AllAssets;
 
 public class RocketEventail{
     // Static
@@ -11,11 +13,11 @@ public class RocketEventail{
      public Ammo[] AmmosTab ;
 
     // Constructor
-    public RocketEventail(float x1Position, float y1Position,float x2Position, float y2Position, float x3Position, float y3Position, SpriteBatch batch){
+    public RocketEventail(float x1Position, float y1Position, float x2Position, float y2Position, float x3Position, float y3Position, SpriteBatch batch, AllAssets assets){
         this.AmmosTab = new Ammo[3];
-        this.AmmosTab[0] = new Ammo(DEFAULT_NAME, DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x1Position, y1Position, batch);
-        this.AmmosTab[1] = new Ammo(DEFAULT_NAME, DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x2Position, y2Position, batch);
-        this.AmmosTab[2] = new Ammo(DEFAULT_NAME, DEFAULT_PICTURE, DEFAULT_DEGATS,DEFAULT_SPEED, x3Position, y3Position, batch);
+        this.AmmosTab[0] = new Ammo(DEFAULT_NAME,DEFAULT_DEGATS, DEFAULT_SPEED, x1Position, y1Position, batch, assets, assets.getRocketPicture());
+        this.AmmosTab[1] = new Ammo(DEFAULT_NAME,DEFAULT_DEGATS, DEFAULT_SPEED, x2Position, y2Position, batch, assets, assets.getRocketPicture());
+        this.AmmosTab[2] = new Ammo(DEFAULT_NAME,DEFAULT_DEGATS, DEFAULT_SPEED, x3Position, y3Position, batch, assets, assets.getRocketPicture());
 
     }
 
