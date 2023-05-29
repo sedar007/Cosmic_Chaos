@@ -78,12 +78,12 @@ public class TestButton implements Screen{
             }
         });
 
-        newGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenuScreen(game));
-            }
-        });
+//        newGame.addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//                game.setScreen(new MainMenuScreen(game, ));
+//            }
+//        });
 
 
     }

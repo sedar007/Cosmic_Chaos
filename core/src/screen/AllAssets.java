@@ -51,7 +51,18 @@ public class AllAssets {
     private final Texture venomClawRavager;
 
     // Explosion
+    private final Texture boom1;
+    private final Texture boom2;
+    private final Texture boom3;
+    private final Texture boom4;
+    private final Texture boom5;
     private final Texture boom6;
+    private final Texture boom7;
+    private final Texture boom8;
+    private final Texture boom9;
+    private final Texture boom10;
+    private final Texture boom11;
+
     private final Texture explosion5;
 
 
@@ -83,7 +94,7 @@ public class AllAssets {
 
 
         // Shield
-        this.shieldPicture = new Texture("pictures/bonus/shield.png");
+        this.shieldPicture = new Texture("pictures/shield/shield.png");
 
         // Skin
         this.skin = new Skin(Gdx.files.internal("skin2/star-soldier-ui.json"));
@@ -102,7 +113,18 @@ public class AllAssets {
         this.venomClawRavager = new Texture("pictures/ships/VenomclawRavager.png");
 
         //Explosion
+        this.boom1 = new Texture("pictures/explosion/boom01.png");
+        this.boom2 = new Texture("pictures/explosion/boom02.png");
+        this.boom3 = new Texture("pictures/explosion/boom03.png");
+        this.boom4 = new Texture("pictures/explosion/boom04.png");
+        this.boom5 = new Texture("pictures/explosion/boom05.png");
         this.boom6 = new Texture("pictures/explosion/boom06.png");
+        this.boom7 = new Texture("pictures/explosion/boom07.png");
+        this.boom8 = new Texture("pictures/explosion/boom08.png");
+        this.boom9 = new Texture("pictures/explosion/boom09.png");
+        this.boom10 = new Texture("pictures/explosion/boom10.png");
+        this.boom11 = new Texture("pictures/explosion/boom11.png");
+
         this.explosion5 = new Texture("pictures/explosion/explosion-5.png");
 
 
@@ -113,6 +135,46 @@ public class AllAssets {
 
     public Texture getExplosion5() {
         return explosion5;
+    }
+
+    public Texture getBoom1() {
+        return boom1;
+    }
+
+    public Texture getBoom2() {
+        return boom2;
+    }
+
+    public Texture getBoom3() {
+        return boom3;
+    }
+
+    public Texture getBoom4() {
+        return boom4;
+    }
+
+    public Texture getBoom5() {
+        return boom5;
+    }
+
+    public Texture getBoom7() {
+        return boom7;
+    }
+
+    public Texture getBoom8() {
+        return boom8;
+    }
+
+    public Texture getBoom9() {
+        return boom9;
+    }
+
+    public Texture getBoom10() {
+        return boom10;
+    }
+
+    public Texture getBoom11() {
+        return boom11;
     }
 
     public Texture getBoom6() {

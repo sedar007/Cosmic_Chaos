@@ -8,15 +8,65 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class FilesJson {
-    HashMap<Integer, Double> jsonData;
+    HashMap jsonData;
     Json json;
     FileHandle file;
+    String jsonString;
 
     public FilesJson(){
-        jsonData = new HashMap<>();
-        json = new Json();
+
         file = Gdx.files.local("highScore.json");
 
+    }
+
+
+    public void initJson(){
+        jsonData = new HashMap<>();
+        json = new Json();
+        jsonData.put(1, 0.0);
+        jsonData.put(2, 0.0);
+        jsonData.put(3, 0.0);
+        jsonData.put(4, 0.0);
+        jsonData.put(5, 0.0);
+
+        jsonString = json.toJson(jsonData);
+        file.writeString(jsonString, false);
+    }
+
+
+    public HashMap readJson(){
+        jsonData = new HashMap<>();
+        json = new Json();
+        jsonData = json.fromJson(HashMap.class, file);
+        return jsonData;
+    }
+
+    public void writeJson(Double lastScore){
+        HashMap jsonData2 = new HashMap<>();
+        jsonData2 = new HashMap<>();
+        json = new Json();
+
+        this.jsonData = readJson();
+        //jsonData = new HashMap<>();
+
+       // System.out.println(jsonData);
+        Double[] tableau = new Double[6];
+        for( int i = 0 ; i < 5 ; i++){
+            tableau[i] = (Double) jsonData.get(String.format("%d",i+1));
+        }
+        tableau[5] = lastScore;
+
+        Arrays.sort(tableau);
+
+        int j = 1;
+        for( int i = 5 ; i > 0 ; i--){
+            jsonData2.put(j++,tableau[i]);
+
+        }
+
+
+        jsonString = json.toJson(jsonData2);
+        file.writeString(jsonString, false);
 
     }
 

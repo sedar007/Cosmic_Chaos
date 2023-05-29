@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import screen.AllAssets;
 
 public class RocketJet extends Ammo{
-    public final static String DEFAULT_PICTURE = "pictures/projectiles/rocketInverse.png";
     public final static String DEFAULT_NAME = "Energy Orbs";
     public final static float DEFAULT_DEGATS = 0.10f;
     private final static int DEFAULT_SPEED = -5;

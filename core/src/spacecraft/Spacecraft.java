@@ -79,7 +79,7 @@ abstract public class Spacecraft {
     //Affichage des statistiques
     @Override
     public String toString() {
-        return String.format(" Name :%s Puissance :%d MaxPuissance :%d \n", getName(),getPuissance(),getMaxPuissance());
+        return String.format(" Name :%s Puissance :%f MaxPuissance :%f \n", getName(),getPuissance(),getMaxPuissance());
     }
 
 

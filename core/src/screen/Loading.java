@@ -67,7 +67,7 @@ public class Loading extends ScreenAdapter implements Screen {
      */
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        ScreenUtils.clear(0, 0, 0, 0);
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
@@ -76,7 +76,7 @@ public class Loading extends ScreenAdapter implements Screen {
 
         game.batch.end();
 
-        x += 1;
+        x += 3;
         int width = 500;
         int pourcentage = (x * 100) / width;
         float posX = (float) (Gdx.graphics.getWidth()) / 4;
@@ -94,6 +94,8 @@ public class Loading extends ScreenAdapter implements Screen {
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(Color.WHITE);
         shape.rect(posX, posY, width,height);
+        if(x > width)
+            x = width;
         if(x == width ) {
             game.setScreen(new  GameScreen(game, getAssets()));
             dispose();

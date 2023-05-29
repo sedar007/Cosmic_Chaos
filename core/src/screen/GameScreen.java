@@ -1,5 +1,6 @@
 package screen;
 
+import bonus.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -15,10 +16,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
-import bonus.BonusPower;
-import bonus.BonusScore;
-import bonus.ChangeWeapon;
-import bonus.Bonus;
 import exceptions.NoWeaponExeption;
 import helpers.Collision;
 import shoot_em_up.ShootEmUP;
@@ -62,6 +59,8 @@ public class GameScreen implements Screen {
     private final float durationTimeLevelText;
 
     Skin skin;
+
+    FilesJson filesJson;
 
     public Double getScore() {
         return score;
@@ -121,6 +120,8 @@ public class GameScreen implements Screen {
         times = 0f;
         times1 = 5f; // Durée d'affichage en secondes
 
+        this.filesJson = new FilesJson();
+
     }
 
     @Override
@@ -134,12 +135,16 @@ public class GameScreen implements Screen {
         if( !captain.isNotDestroyed() ){//qd il est mort !
             //finalStat(numLevel,getScore(),Lost());
             //return;
+
+            this.filesJson.writeJson(getScore());
             game.setScreen(new Endgame(game,finalStat(numLevel,getScore(),Lost()), getAssets()));
             dispose();
         }
         if( numLevel > 2){//il a fini la partie
             //finalStat(numLevel-1,getScore(),Win());
            // return;
+
+            this.filesJson.writeJson(getScore());
             game.setScreen(new Endgame(game,finalStat(numLevel-1,getScore(),Win()),getAssets()));
             dispose();
         }
@@ -205,18 +210,11 @@ public class GameScreen implements Screen {
         catch (NoWeaponExeption e){
             e.printStackTrace();
         }
-        times += Gdx.graphics.getDeltaTime();
-
-
-        if (times >= times1 ) {
-            times = 0;
-            bonus.add(new ChangeWeapon(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
-
-        }
 
 
 
 
+        generateBonus();
 
         //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
         collectible();
@@ -256,16 +254,26 @@ public class GameScreen implements Screen {
                 numberALienKilled += 1;
                 //captain.setScore(captain.getScore() + monster.getPoints());
                 bonus.add(new BonusScore(captain, monster.getPosX(), monster.getPosY(), batch, this, getAssets()));
-                if (numberALienKilled == 10) {
-                    float x = new Random().nextInt(Gdx.graphics.getWidth());
-                    float y = new Random().nextInt(Gdx.graphics.getHeight() / 2);
-                    bonus.add(new BonusPower(captain, x, y, batch, this.assets));
-                    numberALienKilled = 0;//pour chaque 10
-                }
+
                for(int i = 10 ; i >= 1 ; i--){
-                   String boom =String.format("boom%02d.png",i) ;
-                   Texture texture = new Texture("pictures/explosion/" + boom);
+//                   String boom =String.format("boom%02d.png",i) ;
+//                   Texture texture = new Texture("pictures/explosion/" + boom);
                    batch.begin();
+                   Texture texture = null;
+                   switch (i) {
+                       case 1:
+                           texture = getAssets().getBoom1();
+                           break;
+                       case 2:
+                           texture = getAssets().getBoom2();
+                           break;
+                       case 3:
+                           texture = getAssets().getBoom3();
+                           break;
+                       default:
+                           texture = getAssets().getBoom1();
+                           break;
+                   }
                    batch.draw(texture,monster.getPosX() , monster.getPosY());
                    batch.end();
                }
@@ -396,6 +404,29 @@ public class GameScreen implements Screen {
         level();
     }
 
+    public void generateBonus(){
+        times += Gdx.graphics.getDeltaTime();
+        int choice = new Random().nextInt(50);
+        if (numberALienKilled >= 10 && choice % 2 == 0 && times >= times1 ){
+            times = 0;
+            numberALienKilled = 0;//pour chaque 10
+            int choice2 =  new Random().nextInt(3);
+
+            if(choice2 == 0)
+                bonus.add(new ChangeWeapon(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
+            else if(choice2 == 1)
+                bonus.add(new BonusPower(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
+            else
+                bonus.add(new Shield(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
+
+
+
+
+        }
+
+
+    }
+
     public void collectible(){
         //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
         Iterator<Bonus> iteratorGift = bonus.iterator();
@@ -422,6 +453,9 @@ public class GameScreen implements Screen {
                 }
                 iteratorGift.remove();
             }
+            else if (collectible.timeOut())
+                iteratorGift.remove();
+
         }
     }
 

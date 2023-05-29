@@ -11,7 +11,7 @@ public class BonusPower extends Bonus {
     public BonusPower(Skyblade skyblade, float x , float y, SpriteBatch batch, AllAssets assets) {
         super(DEFAULT_NAME,skyblade,x,y,batch);
         setBonus(BONUS);
-        setPicture(assets.getBonusScorePicture());
+        setPicture(assets.getBonusPowerPicture());
     }
 
     public void collect() {

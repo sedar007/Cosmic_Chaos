@@ -21,7 +21,8 @@ public class Shield extends Bonus {
 
     public Shield(Skyblade skyblade, float x , float y, SpriteBatch batch, AllAssets assets) {
         super(DEFAULT_NAME,skyblade,x,y,batch);
-        setShieldPicture(assets.getBonusShieldPicture());
+        setPicture(assets.getBonusShieldPicture());
+        setShieldPicture(assets.getShieldPicture());
 
     }
     public void touched(){// impact des tirs

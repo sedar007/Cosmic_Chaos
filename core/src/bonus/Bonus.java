@@ -1,8 +1,8 @@
 package bonus;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
 import spacecraft.Skyblade;
 
 abstract public class Bonus {
@@ -13,6 +13,8 @@ abstract public class Bonus {
     protected SpriteBatch batch;
 
     private float posX,posY;
+    private float timesOut;
+    private float maxTimeOut;
 
     private float bonus;
     public String getName() {
@@ -66,12 +68,12 @@ abstract public class Bonus {
        setName(name);
     }
     public Bonus(String name, Skyblade skyblade, float x, float y, SpriteBatch batch) {
-        super();
         setName(name);
         setSkyblade(skyblade);
         setPosX(x);
         setPosY(y);
         this.batch = batch;
+        this.maxTimeOut = 7f;
     }
     //methodes abstraites
     abstract public void collect();
@@ -80,7 +82,12 @@ abstract public class Bonus {
     public void draw(){
         this.batch.begin();
         this.batch.draw(getPicture(),getPosX(),getPosY());
+        this.timesOut = this.timesOut + Gdx.graphics.getDeltaTime();
         this.batch.end();
+    }
+
+    public boolean timeOut(){
+        return timesOut >= maxTimeOut;
     }
 
     public void setBonus(float bonus) {

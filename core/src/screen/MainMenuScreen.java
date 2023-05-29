@@ -34,21 +34,18 @@ public class MainMenuScreen implements Screen{
         return assets;
     }
 
-    public AllAssets getAllPictures() {
-        return assets;
-    }
 
 
-    public MainMenuScreen(final ShootEmUP game){
-        // Telecharge toutes les images
-        this.assets = new AllAssets();
+    public MainMenuScreen(final ShootEmUP game, AllAssets assets){
+        // Telecharge toutes les assets
+        this.assets = assets;
 
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         fontBoutton = new BitmapFont();
 
-        backgroundTexture = getAllPictures().getMainMenuScreenPicture();
+        backgroundTexture = getAssets().getMainMenuScreenPicture();
         image = new Image(backgroundTexture);
         stage = new Stage(new ScreenViewport());
 
@@ -63,7 +60,7 @@ public class MainMenuScreen implements Screen{
 
     @Override
     public void show() {
-        // Create a table that fills the screen. Everything else will go inside this table.
+
         stage.addActor(image);
         Table table = new Table();
         table.setFillParent(true);
@@ -73,18 +70,24 @@ public class MainMenuScreen implements Screen{
         skin = getAssets().getSkin();
 
 
-        //create buttons
-        TextButton newGame = new TextButton("START GAME", skin);
-        //TextButton preferences = new TextButton("Preferences", skin);
+
+        //creer les boutons
+        TextButton start = new TextButton("START", skin);
+        TextButton highscore = new TextButton("HIGH SCORE", skin);
         TextButton exit = new TextButton("Exit", skin);
-        newGame.setColor(Color.RED);
+
+        start.setColor(Color.RED);
         exit.setColor(Color.RED);
-        //add buttons to table
-        table.add(newGame).fillX().uniformX();
+        highscore.setColor(Color.RED);
+
+        //ajout dans la table
+        table.add(start).fillX().uniformX();
+        table.row().pad(10, 0, 10, 0);
+        table.row();
+        table.add(highscore).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
         table.row();
         table.add(exit).fillX().uniformX();
-
         // create button listeners
         exit.addListener(new ChangeListener() {
             @Override
@@ -93,10 +96,16 @@ public class MainMenuScreen implements Screen{
             }
         });
 
-        newGame.addListener(new ChangeListener() {
+        start.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new Loading(game, getAssets()));
+            }
+        });
+        highscore.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new HighScore(game, getAssets()));
             }
         });
 
