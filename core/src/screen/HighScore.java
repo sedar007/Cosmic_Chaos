@@ -42,82 +42,103 @@ public class HighScore extends ScreenAdapter implements Screen{
     Texture backgroundTexture;
     Image image;
     public HighScore(final ShootEmUP game, AllAssets assets ){
+
         this.game = game;
+
+        //pouvoir garder les assets mis en parametres
         this.assets = assets;
+
+        //pour avoir le skin du jeu
         skin = this.assets.getSkin();
 
-
+        //instanciation et  configuration de la caméra avec une projection orthographique
+        //Elle capture une vue plate de la scène, où les objets à l'écran apparaissent à la même échelle,
+        // quelle que soit leur distance par rapport à la caméra
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
+
+        //instanciation du stage !
         stage = new Stage(new ScreenViewport());
 
+        //pour l'image en background
         backgroundTexture = getAssets().getHighScore();
         image = new Image(backgroundTexture);
+
+        //Modification de la taille de l image pour bien adapter au stage
         image.setWidth(stage.getWidth());
         image.setHeight(stage.getHeight());
 
+        //instanciation du fichiers
         this.filesJson = new FilesJson();
 
+        //Pour le titre
         title = new Label("HIGH SCORE :", skin);
+
+        //Stockage des donnees dans le fichier json
         String tmp = " ";
         for (Object cle : filesJson.readJson().keySet()) {
             tmp = tmp + cle + " - " + filesJson.readJson().get(cle) + "\n\n";
         }
+
+        //On recupere (string) puis on le met dans un label pour pouvoir l'integrer au stage !
         label = new Label(tmp, skin);
-        title.setFontScale(2.0f, 2.0f);//modification de la taille du texte
-        label.setFontScale(1.5f, 1.5f);//modification de la taille du texte
+
+        //modification de la taille du texte
+        title.setFontScale(2.0f, 2.0f);
+        label.setFontScale(1.5f, 1.5f);
+
+        //Pour les mesures x,y par rapport au screen
         float x = (float) (Gdx.graphics.getWidth() /2 )- (label.getWidth() / 2) ;
         float y = (float)(Gdx.graphics.getHeight() /2) - (label.getHeight()/ 2) ;
+
+        //On place le title et label dans les positions adequates
         title.setPosition(x - label.getWidth() ,y + label.getHeight() + 100);
         label.setPosition(x, y);
 
+        //le stage doit être le gestionnaire d'entrée principal de l' application
+        //et recevra les événements d'entrée et les transmettra aux acteurs(boutons,...)
         Gdx.input.setInputProcessor(stage);
+
     }
+
     public AllAssets getAssets() {
         return assets;
     }
 
     public void render(float delta) {
-       /* ScreenUtils.clear(0, 0, 0.2f, 1);
-       camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-
-        String tmp = "";
-        for (Object cle : filesJson.readJson().keySet()) {
-            tmp = tmp + cle + " -> " + filesJson.readJson().get(cle) + "\n";
-        }
-        Label label = new Label(tmp, skin);
-      /*  float x = (float) (Gdx.graphics.getWidth() /2 )- (label.getWidth() / 2) ;
-        float y = (float)(Gdx.graphics.getHeight() /2) - (label.getHeight()/ 2) ;
-        label.setPosition( 100,100);
-        label.setFontScale(1.0f, 1.0f);
-
-        game.batch.begin();
-        label.draw(game.batch,1f);
-        game.batch.end();*/
+        // Nettoyer l'ecran
         ScreenUtils.clear(0, 0, 0, 0);
+
+        //Pour ordonner le stage d'effectuer les actions demandées
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
 
     public void show(){
+
+        //Ajout des acteurs dans le stage
         stage.addActor(image);
         stage.addActor(title);
         stage.addActor(label);
+
+        //Instanciation et positionnement de la table qui va contenier le bouton
         Table table = new Table();
-        //table.setFillParent(true);
         table.setPosition(100,100);
+
+        //Ajout du table comme acteur dans le stage
         stage.addActor(table);
 
-
+        //pour avoir le skin du jeu
         skin = getAssets().getSkin();
-        //creer le bouton
-        TextButton back = new TextButton("BACK", skin);
 
+        //creer le bouton et donner la couleur
+        TextButton back = new TextButton("BACK", skin);
         back.setColor(Color.RED);
 
+        //ajout du bouton  dans la table
         table.add(back).fillX().uniformX();
 
+        // l' actions qui va se dérouler une fois que le bouton sera cliqué
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -127,13 +148,15 @@ public class HighScore extends ScreenAdapter implements Screen{
     }
 
     public void resize(int width, int height) {
-        // change the stage's viewport when teh screen size is changed
+        // Pour changer le viewport du stage quand la taille de l ecran change aussi
         stage.getViewport().update(width, height, true);
     }
     public void dispose() {
-        // dispose of assets when not needed anymore
+        //pour le nettoyage une fois qu on aura plus besoin des elements
         stage.dispose();
-        skin.dispose(); // Libère la ressource du skin
+
+        // Libère la ressource du skin
+        skin.dispose();
 
     }
 

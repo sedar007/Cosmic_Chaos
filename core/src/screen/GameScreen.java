@@ -62,21 +62,33 @@ public class GameScreen implements Screen {
 
 
     public GameScreen(final ShootEmUP game, AllAssets assets) {
-        // create the camera and the SpriteBatch
+
+        //instanciation et  configuration de la caméra avec une projection orthographique
+        //Elle capture une vue plate de la scène, où les objets à l'écran apparaissent à la même échelle,
+        // quelle que soit leur distance par rapport à la caméra
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
-        this.assets = assets; // recupere les assets
+        // recupere les assets
+        this.assets = assets;
+
         this.game = game;
 
+        //Instanciation du nouveau shape
         shapestyle = new ShapeRenderer();
+
+        //Pour l'image de fond
         background = new Background(getAssets().getEtoilePicture(), 50.1f, camera, this.assets);
+
         batch = new SpriteBatch();
+
+        //Fichier
         highScore = new FilesJson();
 
-
+        //En train de jouer
         play = true;
 
+        //Instanciation et arme du vaisseau du capitaine
         captain = new Skyblade(batch, getAssets());
         captain.setWeapon(new RocketStorm3X(batch,captain, getAssets()));
 
@@ -85,8 +97,8 @@ public class GameScreen implements Screen {
         level = new Level(numLevel,this.game,batch, getAssets());//Au debut !!
         aliens = level.getAliens(); // Recupere le monstre du level
         boss = null; // Pour garder le boss
-        targetPredator = null;
-        bossTime = 0f;
+        targetPredator = null;//Qui va contenir l alien qui est touché par le predator
+        bossTime = 0f;//Pour garder le temps de vie du Boss pour qu on puisse ajouter des autres aliens dans le level 5
 
 
         bonus = new HashSet<>(); // Initialise le bonus
@@ -94,9 +106,9 @@ public class GameScreen implements Screen {
         nbAliens = 0; // Le nombre de aliens qu'il y a
         MaxLevel = 5; // Nombre de level Max
         numberALienKilled = 0 ; // Pour connaitre le nombre d'alien creer
-        setScore(0.0);
+        setScore(0.0);//Intialisation du score
 
-        elapsedTimeLevelText = 0f;
+        elapsedTimeLevelText = 0f;//Temps passés
         durationTimeLevelText = 5f; // Durée d'affichage en secondes
 
         timesBonus = 0f;
@@ -120,28 +132,23 @@ public class GameScreen implements Screen {
             dispose();
         }
 
-        if(captain.isNotDestroyed()){
+        if(captain.isNotDestroyed()){//Qd le vaisseau n est pas encore detruit
 
             elapsedTimeLevelText += Gdx.graphics.getDeltaTime();
 
-            if(aliens.size() == 0 && bonus.size() == 0){
-                elapsedTimeLevelText = 0f;
-                numLevel += 1;
-                showLevelText(numLevel);
+            if(aliens.size() == 0 && bonus.size() == 0){//S il n y a plus d aliens et il n y a plus de bonus sur le screen
+                elapsedTimeLevelText = 0f;//On reinitialise
+                numLevel += 1;//On avance le level
+                showLevelText(numLevel);//Pour afficher la transition affichant le level suivant
                 level = new Level(numLevel,this.game,batch, getAssets());
                 this.aliens = level.getAliens();
                 nbAliens = level.getAliens().size();
             }
 
-            if (elapsedTimeLevelText >= durationTimeLevelText ) {
+            if (elapsedTimeLevelText >= durationTimeLevelText ) {//Pour afficher le texte de transition avant de continuer
                 play();
             }
 
-
-        /*if(numLevel > 5 ){//fin du jeu
-            game.setScreen(new MainMenuScreen(game));
-            dispose();
-        }*/
         }
 
     }
@@ -189,7 +196,7 @@ public class GameScreen implements Screen {
 
 
         if(bossTime >= 10f && aliens.contains(boss)) {
-            // Generations de aliens chaque 10 secondes, Si le boss est la, donc au
+            // Generations de aliens chaque 10 secondes, Si le boss est la,donc on ajoute 5 aliens differents au
             // dernier level
             aliens.add(new DeathspikeMarauder(batch,getAssets()));
             aliens.add(new InfernoReaper(batch,getAssets()));
@@ -233,10 +240,6 @@ public class GameScreen implements Screen {
             catch (NoWeaponExeption e){
 
             }
-
-
-
-
 
             if (!alien.isNotDestroyed()) {
                 numberALienKilled += 1;
@@ -329,19 +332,6 @@ public class GameScreen implements Screen {
         else shapestyle.setColor(Color.GREEN);
         shapestyle.rect(Gdx.graphics.getWidth() - 150, 20, alienStat,20);
         shapestyle.end();
-
-      /*  Image image1 = new Image(skin, "progress-bar-back");
-        image1.setPosition(55,60);
-
-        batch.begin();
-        image1.draw(batch,0.8f);
-        for(int i = 0 ; i < 5 ; i++ ){
-            Image image = new Image(skin, "progress-bar");
-            image.setPosition(70+(i*10),70);
-            image.draw(batch,1f);
-        }
-        batch.end();*/
-
     }
 
     public void scoreStat(){
@@ -354,15 +344,6 @@ public class GameScreen implements Screen {
         label.draw(batch,1f);
         batch.end();
 
-        /*BitmapFont ScoreStat = new BitmapFont();
-        String text =" SCORE: " + score;
-        GlyphLayout layout = new GlyphLayout();
-        layout.setText(ScoreStat, text);
-        float x = (Gdx.graphics.getWidth() - layout.width) / 2;
-        float y = Gdx.graphics.getHeight() - 10;
-        batch.begin();
-        ScoreStat.draw(batch, layout, x,y );
-        batch.end();*/
     }
 
     public void level(){

@@ -37,17 +37,24 @@ public class MainMenuScreen implements Screen{
 
 
     public MainMenuScreen(final ShootEmUP game, AllAssets assets){
-        // Telecharge toutes les assets
+        // Enregistre tous les assets
         this.assets = assets;
 
         this.game = game;
+
+       //instanciation et  configuration de la caméra avec une projection orthographique
+        //Elle capture une vue plate de la scène, où les objets à l'écran apparaissent à la même échelle,
+        // quelle que soit leur distance par rapport à la caméra
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1000, 1000);
 
-        fontBoutton = new BitmapFont();
+        fontBoutton = new BitmapFont();//pour le font par défaut !
 
+        //pour l'image en background
         backgroundTexture = getAssets().getMainMenuScreenPicture();
         image = new Image(backgroundTexture);
+
+        //instanciation du stage !
         stage = new Stage(new ScreenViewport());
 
 
@@ -55,8 +62,11 @@ public class MainMenuScreen implements Screen{
         image.setWidth(stage.getWidth());
         image.setHeight(stage.getHeight());
 
-        /// create stage and set it as input processor
+        //le stage doit être le gestionnaire d'entrée principal de l' application
+        //et recevra les événements d'entrée et les transmettra aux acteurs(boutons,...)
         Gdx.input.setInputProcessor(stage);
+
+        //pour avoir le skin du jeu
         skin = getAssets().getSkin();
 
 
@@ -65,21 +75,27 @@ public class MainMenuScreen implements Screen{
     @Override
     public void show() {
 
+        //Ajout des acteurs dans le stage
         stage.addActor(image);
+
+        //Instanciation  de la table qui va contenier les boutons
         Table table = new Table();
+
+        // Table occupe tout l'espace disponible dans son conteneur parent, en s'adaptant automatiquement à sa taille
         table.setFillParent(true);
         stage.addActor(table);
 
-        //creer les boutons
+        //creation des boutons
         TextButton start = new TextButton("START", skin);
         TextButton highscore = new TextButton("HIGH SCORE", skin);
         TextButton exit = new TextButton("Exit", skin);
 
+        //pour la couleur du bouton (contour)
         start.setColor(Color.RED);
         exit.setColor(Color.RED);
         highscore.setColor(Color.RED);
 
-        //ajout dans la table
+        //ajout des boutons  dans la table
         table.add(start).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
         table.row();
@@ -87,7 +103,8 @@ public class MainMenuScreen implements Screen{
         table.row().pad(10, 0, 10, 0);
         table.row();
         table.add(exit).fillX().uniformX();
-        // create button listeners
+
+        // les actions qui vont se dérouler une fois que les boutons seront cliqués
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -116,16 +133,17 @@ public class MainMenuScreen implements Screen{
 
     @Override
     public void render(float delta) {
-        // tell our stage to do actions and draw itself
-        ScreenUtils.clear(0, 0, 0, 0); // Nettoyer l'ecran
+        // Nettoyer l'ecran
+        ScreenUtils.clear(0, 0, 0, 0);
 
+        //Pour ordonner le stage d'effectuer les actions demandées
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-        // change the stage's viewport when teh screen size is changed
+        // Pour changer le viewport du stage quand la taille de l ecran change aussi
         stage.getViewport().update(width, height, true);
     }
 
@@ -149,7 +167,7 @@ public class MainMenuScreen implements Screen{
 
     @Override
     public void dispose() {
-        // dispose of assets when not needed anymore
+        //pour le nettoyage une fois qu on aura plus besoin des elements
         backgroundTexture.dispose(); // Libérer la texture du fond
         stage.dispose();
     }

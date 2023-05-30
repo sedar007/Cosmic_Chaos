@@ -11,13 +11,16 @@ public class ShootEmUP extends Game {
     private  AllAssets assets; // Toutes les images
     @Override
     public void create () {//l'initialisation
-        this.assets = new AllAssets();//pour l initialisation et obtenir toutes les images
+
+        //pour l initialisation et obtenir toutes les images
+        this.assets = new AllAssets();
 
         batch = new SpriteBatch();
         font = new BitmapFont(); // use libGDX's default Arial font
         this.setScreen(new MainMenuScreen(this,assets));
     }
     @Override
+
     public void render () {// produit les affichages à chaque itération !
         super.render(); // important! pour affichage du screen
 
