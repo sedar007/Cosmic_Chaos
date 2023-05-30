@@ -11,6 +11,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setTitle("Cosmic Chaos");
 		config.setResizable(false);
+
 		config.setWindowedMode(1000, 1000);
 		new Lwjgl3Application(new ShootEmUP(), config);
 

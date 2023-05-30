@@ -41,7 +41,7 @@ public class Endgame implements Screen {
         this.assets = assets;
         this.game = game;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 1000, 1000);
         fontBoutton = new BitmapFont();
         // temporary until we have asset manager in
         skin = getAssets().getSkin();

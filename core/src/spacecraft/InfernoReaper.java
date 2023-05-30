@@ -15,7 +15,6 @@ public class InfernoReaper extends Alien{
 
     public InfernoReaper(SpriteBatch batch, AllAssets assets) {
         super(DEFAULT_NAME,DEFAULT_MAX_LIFE, batch,assets.getInfernoReaper());
-      // RocketStorm monster= new RocketStorm(new SpriteBatch(),this);
      setWeapon(new FireballStorm(batch,this, assets));
     }
 }

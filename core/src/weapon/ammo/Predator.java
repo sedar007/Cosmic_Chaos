@@ -8,7 +8,7 @@ import spacecraft.Spacecraft;
 public class Predator extends Ammo{
     // Static
     public final static String DEFAULT_NAME = "Predator";
-    public final static float DEFAULT_DEGATS = 10;
+    public final static float DEFAULT_DEGATS = 50;
     private final static int DEFAULT_SPEED = 5;
 
     // Constructor

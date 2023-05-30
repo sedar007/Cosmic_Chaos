@@ -9,7 +9,7 @@ import weapon.Weapon;
 public class Laser extends Ammo{
     // Static
     public static final String DEFAULT_NAME = "laser";
-    public static final float DEFAULT_DEGATS = 0.9f;
+    public static final float DEFAULT_DEGATS = 10f;
     private final static int DEFAULT_SPEED = 9;
 
     // Constructor

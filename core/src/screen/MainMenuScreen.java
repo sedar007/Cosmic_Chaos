@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import shoot_em_up.ShootEmUP;
 
@@ -32,8 +33,7 @@ public class MainMenuScreen implements Screen{
 
     public AllAssets getAssets() {
         return assets;
-    }
-
+    }//pour recuperer les assets mis en param
 
 
     public MainMenuScreen(final ShootEmUP game, AllAssets assets){
@@ -42,19 +42,23 @@ public class MainMenuScreen implements Screen{
 
         this.game = game;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 1000, 1000);
+
         fontBoutton = new BitmapFont();
 
         backgroundTexture = getAssets().getMainMenuScreenPicture();
         image = new Image(backgroundTexture);
         stage = new Stage(new ScreenViewport());
 
+
+        // mettre en plein ecran l image
         image.setWidth(stage.getWidth());
         image.setHeight(stage.getHeight());
 
         /// create stage and set it as input processor
-
         Gdx.input.setInputProcessor(stage);
+        skin = getAssets().getSkin();
+
 
     }
 
@@ -65,11 +69,6 @@ public class MainMenuScreen implements Screen{
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
-
-
-        skin = getAssets().getSkin();
-
-
 
         //creer les boutons
         TextButton start = new TextButton("START", skin);
@@ -100,12 +99,15 @@ public class MainMenuScreen implements Screen{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new Loading(game, getAssets()));
+                dispose();
             }
         });
+
         highscore.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new HighScore(game, getAssets()));
+                dispose();
             }
         });
 
@@ -115,6 +117,8 @@ public class MainMenuScreen implements Screen{
     @Override
     public void render(float delta) {
         // tell our stage to do actions and draw itself
+        ScreenUtils.clear(0, 0, 0, 0); // Nettoyer l'ecran
+
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -146,6 +150,7 @@ public class MainMenuScreen implements Screen{
     @Override
     public void dispose() {
         // dispose of assets when not needed anymore
+        backgroundTexture.dispose(); // Libérer la texture du fond
         stage.dispose();
     }
 
