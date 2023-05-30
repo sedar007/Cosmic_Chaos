@@ -12,10 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -41,26 +38,41 @@ public class HighScore extends ScreenAdapter implements Screen{
     FilesJson filesJson;
     private final Stage stage;
 
-    Label label;
+    Label title,label;
     OrthographicCamera camera;
+
+    Texture backgroundTexture;
+    Image image;
     public HighScore(final ShootEmUP game, AllAssets assets ){
         this.game = game;
         this.assets = assets;
         skin = this.assets.getSkin();
 
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
+        stage = new Stage(new ScreenViewport());
+
+        backgroundTexture = getAssets().getHighScore();
+        image = new Image(backgroundTexture);
+        image.setWidth(stage.getWidth());
+        image.setHeight(stage.getHeight());
 
         this.filesJson = new FilesJson();
 
-        stage = new Stage(new ScreenViewport());
 
-        String tmp = "";
+        title = new Label("HIGH SCORE :", skin);
+        String tmp = " ";
         for (Object cle : filesJson.readJson().keySet()) {
-            tmp = tmp + cle + " -> " + filesJson.readJson().get(cle) + "\n";
+            tmp = tmp + cle + " - " + filesJson.readJson().get(cle) + "\n\n";
         }
         label = new Label(tmp, skin);
-        label.setPosition(100, 100);
+        title.setFontScale(2.0f, 2.0f);//modification de la taille du texte
+        label.setFontScale(1.5f, 1.5f);//modification de la taille du texte
+        float x = (float) (Gdx.graphics.getWidth() /2 )- (label.getWidth() / 2) ;
+        float y = (float)(Gdx.graphics.getHeight() /2) - (label.getHeight()/ 2) ;
+        title.setPosition(x - label.getWidth() ,y + label.getHeight() + 100);
+        label.setPosition(x, y);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -92,9 +104,12 @@ public class HighScore extends ScreenAdapter implements Screen{
     }
 
     public void show(){
+        stage.addActor(image);
+        stage.addActor(title);
         stage.addActor(label);
         Table table = new Table();
-        table.setFillParent(true);
+        //table.setFillParent(true);
+        table.setPosition(100,100);
         stage.addActor(table);
 
 

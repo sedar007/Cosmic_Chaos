@@ -24,6 +24,7 @@ public class AllAssets {
     private final Texture endGamePicture;
     private final Texture etoilePicture;
     private final Texture logo;
+    private final Texture highScore;
 
     // Images Bonus
     private final Texture bonusPowerPicture;
@@ -85,6 +86,7 @@ public class AllAssets {
         this.endGamePicture = new Texture("pictures/endgame.jpg");
         this.etoilePicture = new Texture("pictures/stars_1.png");
         this.logo = new Texture(Gdx.files.internal("pictures/logogame.jpeg"));
+        this.highScore = new Texture("pictures/highScore.jpg");
 
         // Bonus
         this.bonusPowerPicture = new Texture("pictures/bonus/puissance.png");
@@ -131,6 +133,10 @@ public class AllAssets {
 //        private Texture Shield;
 
 
+    }
+
+    public Texture getHighScore() {
+        return highScore;
     }
 
     public Texture getExplosion5() {
@@ -208,6 +214,7 @@ public class AllAssets {
     public Texture getLogo() {
         return logo;
     }
+
 
     public Texture getBossSmallPicture() {
         return bossSmallPicture;
