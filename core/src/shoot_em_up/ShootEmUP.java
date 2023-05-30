@@ -15,7 +15,7 @@ public class ShootEmUP extends Game {
 
         batch = new SpriteBatch();
         font = new BitmapFont(); // use libGDX's default Arial font
-        this.setScreen(new HighScore(this,assets));
+        this.setScreen(new MainMenuScreen(this,assets));
     }
     @Override
     public void render () {// produit les affichages à chaque itération !

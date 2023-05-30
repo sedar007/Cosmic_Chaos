@@ -43,11 +43,13 @@ public class GameScreen implements Screen {
     BonusScore bonusScore = null;
     HashSet<Bonus> bonus ;
     int nbMonstres = 0;
+    private int maxLevel;
 
     BitmapFont fontScore;
 
     private Double score;
     private Alien targetPredator;
+    Alien boss = null;
 
     int numberALienKilled = 0 ;
     boolean play;
@@ -55,12 +57,14 @@ public class GameScreen implements Screen {
     Level level;
     int numLevel;
     private float elapsedTimeLevelText;
-    private float times, times1;
+    private float times, times1, bossTime;
     private final float durationTimeLevelText;
 
     Skin skin;
 
     FilesJson filesJson;
+
+
 
     public Double getScore() {
         return score;
@@ -80,6 +84,7 @@ public class GameScreen implements Screen {
 
     public GameScreen(final ShootEmUP game, AllAssets assets) {
         this.assets = assets;
+        this.maxLevel = 5;
 
         skin = getAssets().getSkin();
 
@@ -120,6 +125,9 @@ public class GameScreen implements Screen {
         times = 0f;
         times1 = 5f; // Durée d'affichage en secondes
 
+
+        bossTime = 0f;
+
         this.filesJson = new FilesJson();
 
     }
@@ -133,16 +141,12 @@ public class GameScreen implements Screen {
     public void render(float delta) {
 
         if( !captain.isNotDestroyed() ){//qd il est mort !
-            //finalStat(numLevel,getScore(),Lost());
-            //return;
 
             this.filesJson.writeJson(getScore());
             game.setScreen(new Endgame(game,finalStat(numLevel,getScore(),Lost()), getAssets()));
             dispose();
         }
-        if( numLevel > 2){//il a fini la partie
-            //finalStat(numLevel-1,getScore(),Win());
-           // return;
+        if( numLevel > this.maxLevel ){//il a fini la partie
 
             this.filesJson.writeJson(getScore());
             game.setScreen(new Endgame(game,finalStat(numLevel-1,getScore(),Win()),getAssets()));
@@ -166,6 +170,7 @@ public class GameScreen implements Screen {
                 play();
             }
 
+
         /*if(numLevel > 5 ){//fin du jeu
             game.setScreen(new MainMenuScreen(game));
             dispose();
@@ -176,6 +181,8 @@ public class GameScreen implements Screen {
 
 
     public void play(){
+
+        bossTime += Gdx.graphics.getDeltaTime();
         // Permet de mettre en pause le jeu
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) { // Si on appuie sur la touche P
             if( !(play = !play) )  // On change la valeur de play et on verifie si elle est a false
@@ -214,15 +221,31 @@ public class GameScreen implements Screen {
 
 
 
+
+
         generateBonus();
 
         //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
         collectible();
 
+        if(bossTime >= 10f && monsters.contains(boss)) {
+            monsters.add(new DeathspikeMarauder(batch,getAssets()));
+            monsters.add(new InfernoReaper(batch,getAssets()));
+            monsters.add(new RavagerScourge(batch,getAssets()));
+            monsters.add(new TyrantOfDesolation(batch,getAssets()));
+            monsters.add(new VenomclawRavager(batch,getAssets()));
+            bossTime = 0f;
+            nbMonstres += 5;
+            boss = null;
+        }
+
         //Pour l affichage des aliens et aussi leur disparition une fois qu'ils sont touchés par les tirs !
         Iterator<Alien> iterator = monsters.iterator();
         while (iterator.hasNext()) {
             Alien monster = iterator.next();
+
+            if(monster instanceof BossChaosbaneDestructor)
+                boss = monster;
             try {
                 monster.getWeapon().spawnAllAmmo();
 
@@ -246,6 +269,7 @@ public class GameScreen implements Screen {
             catch (NoWeaponExeption e){
 
             }
+
 
 
 

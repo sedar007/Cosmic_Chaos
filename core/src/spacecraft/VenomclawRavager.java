@@ -11,7 +11,7 @@ import weapon.ammo.EnergyOrbs;
 public class VenomclawRavager extends Alien{
 
 
-    private static final int DEFAULT_MAX_LIFE = 20;
+    private static final int DEFAULT_MAX_LIFE = 300;
     private static final String DEFAULT_NAME = "Venom Claw Ravager";
 
 

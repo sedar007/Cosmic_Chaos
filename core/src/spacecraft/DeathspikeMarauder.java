@@ -6,7 +6,7 @@ import weapon.AlienWeapons.SingleRocket;
 import weapon.SkyBladeWeapons.RocketCyclone;
 
 public class DeathspikeMarauder extends Alien {
-    private static final int DEFAULT_MAX_LIFE = 100 ;
+    private static final int DEFAULT_MAX_LIFE = 150 ;
 
     private static final String DEFAULT_NAME = "Death Spike Marauder" ;
     public DeathspikeMarauder(SpriteBatch batch, AllAssets assets) {

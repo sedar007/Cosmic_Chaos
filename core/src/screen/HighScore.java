@@ -37,10 +37,8 @@ public class HighScore extends ScreenAdapter implements Screen{
     private AllAssets assets;
     FilesJson filesJson;
     private final Stage stage;
-
     Label title,label;
     OrthographicCamera camera;
-
     Texture backgroundTexture;
     Image image;
     public HighScore(final ShootEmUP game, AllAssets assets ){
@@ -59,7 +57,6 @@ public class HighScore extends ScreenAdapter implements Screen{
         image.setHeight(stage.getHeight());
 
         this.filesJson = new FilesJson();
-
 
         title = new Label("HIGH SCORE :", skin);
         String tmp = " ";

@@ -10,7 +10,7 @@ import weapon.ammo.Laser;
 public class InfernoReaper extends Alien{
     private static final String DEFAULT_NAME = "Inferno Reaper";
 
-    private static final int DEFAULT_MAX_LIFE = 10;
+    private static final int DEFAULT_MAX_LIFE = 250;
 
 
     public InfernoReaper(SpriteBatch batch, AllAssets assets) {
