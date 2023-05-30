@@ -1,4 +1,4 @@
-package screen;
+package helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -40,6 +40,8 @@ public class AllAssets {
 
     // Sound
     private final Music backgroundMusic;
+    private final Music soundShoot;
+    private final Music bonuCollect;
 
     //Spacecraft
     private final Texture skybladePicture;
@@ -103,6 +105,9 @@ public class AllAssets {
 
         // Sound
         this.backgroundMusic =  Gdx.audio.newMusic(Gdx.files.internal("song/06-Damiano-Baldoni-Charlotte.mp3"));
+        this.soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+        this.bonuCollect = Gdx.audio.newMusic(Gdx.files.internal("song/bonus-collected.wav"));
+
 
         // Spacecraft
         this.skybladePicture = new Texture("pictures/ships/skyblade.png");
@@ -133,6 +138,14 @@ public class AllAssets {
 //        private Texture Shield;
 
 
+    }
+
+    public Music getBonuCollect() {
+        return bonuCollect;
+    }
+
+    public Music getSoundShoot() {
+        return soundShoot;
     }
 
     public Texture getHighScore() {

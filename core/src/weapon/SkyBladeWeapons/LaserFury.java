@@ -3,17 +3,13 @@ package weapon.SkyBladeWeapons;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import exceptions.NoWeaponExeption;
-import screen.AllAssets;
+import helpers.AllAssets;
 import spacecraft.Spacecraft;
-import weapon.AlienWeapons.SingleRocket;
 import weapon.Weapon;
-import weapon.ammo.EnergyOrbs;
 import weapon.ammo.Laser;
-import weapon.ammo.Rocket;
 
 public class LaserFury extends Weapon {
         // Static

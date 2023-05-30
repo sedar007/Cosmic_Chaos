@@ -1,8 +1,7 @@
 package weapon.ammo;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.TimeUtils;
-import screen.AllAssets;
+import helpers.AllAssets;
 
 public class InfernalBlaze extends Ammo{
     // Static

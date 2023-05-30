@@ -1,5 +1,6 @@
 package shoot_em_up;
 
+import helpers.AllAssets;
 import screen.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class ShootEmUP extends Game {
     public BitmapFont font;//pour les textes
     public SpriteBatch batch;//affichages
-    private  AllAssets assets; // Toutes les images
+    private AllAssets assets; // Toutes les images
     @Override
     public void create () {//l'initialisation
 

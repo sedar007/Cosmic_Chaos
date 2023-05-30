@@ -2,10 +2,8 @@ package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
+import helpers.AllAssets;
 import weapon.AlienWeapons.FireballStorm;
-import weapon.ammo.Laser;
 
 public class InfernoReaper extends Alien{
     private static final String DEFAULT_NAME = "Inferno Reaper";

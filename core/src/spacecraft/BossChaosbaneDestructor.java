@@ -2,11 +2,8 @@ package spacecraft;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import helpers.Collision;
-import screen.AllAssets;
-import weapon.AlienWeapons.InfernoOrbs;
+import helpers.AllAssets;
 import weapon.AlienWeapons.MegaInferno;
-import weapon.Weapon;
 
 import java.util.Random;
 

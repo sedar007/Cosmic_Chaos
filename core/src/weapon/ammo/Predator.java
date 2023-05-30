@@ -1,8 +1,10 @@
 package weapon.ammo;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
+import helpers.AllAssets;
 import spacecraft.Spacecraft;
 
 public class Predator extends Ammo{
@@ -10,6 +12,8 @@ public class Predator extends Ammo{
     public final static String DEFAULT_NAME = "Predator";
     public final static float DEFAULT_DEGATS = 50;
     private final static int DEFAULT_SPEED = 5;
+    public Music soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/rocketflyby-32158.mp3"));
+
 
     // Constructor
     public Predator(float xPosition, float yPosition, SpriteBatch batch, AllAssets assets){
@@ -19,6 +23,9 @@ public class Predator extends Ammo{
 
     // Methodes
     public void move(Spacecraft target) {
+
+         this.soundShoot.play();
+
         if(target.getPosX() + (float) target.getPicture().getWidth() /2 < getxPosition())
             setxPosition(getxPosition() - getSpeed());
         else

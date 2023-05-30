@@ -1,9 +1,8 @@
 package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
+import helpers.AllAssets;
 import weapon.AlienWeapons.SingleRocket;
-import weapon.SkyBladeWeapons.RocketCyclone;
 
 public class DeathspikeMarauder extends Alien {
     private static final int DEFAULT_MAX_LIFE = 150 ;

@@ -1,12 +1,8 @@
 package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
-import weapon.AlienWeapons.FireballStorm;
-import weapon.AlienWeapons.InfernoOrbs;
-import weapon.AlienWeapons.MegaInferno;
+import helpers.AllAssets;
 import weapon.AlienWeapons.SingleRocket;
-import weapon.ammo.EnergyOrbs;
 
 public class VenomclawRavager extends Alien{
 

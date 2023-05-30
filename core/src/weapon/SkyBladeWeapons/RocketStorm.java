@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
-import screen.AllAssets;
+import helpers.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
 import weapon.ammo.Rocket;
@@ -38,8 +38,9 @@ public class RocketStorm extends Weapon {
 
         // sound du shoots
         Music soundShoot;
-//        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-//        soundShoot.play();
+        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
+        soundShoot.play();
+
 
         lastAmmoTime = TimeUtils.nanoTime(); // dernier ammo creer
     }

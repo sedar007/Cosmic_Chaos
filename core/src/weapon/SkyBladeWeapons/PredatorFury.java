@@ -2,19 +2,17 @@ package weapon.SkyBladeWeapons;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import exceptions.NoWeaponExeption;
 import helpers.Collision;
-import screen.AllAssets;
+import helpers.AllAssets;
 import spacecraft.Alien;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
-import weapon.ammo.Ammo;
 import weapon.ammo.Predator;
-import weapon.ammo.Rocket;
-import weapon.ammo.RocketEventail;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -118,6 +116,10 @@ public class PredatorFury extends Weapon {
                 getBatch().begin();
                 getBatch().draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
                 getBatch().end();
+                ammo.soundShoot.dispose();
+                Music sound = Gdx.audio.newMusic(Gdx.files.internal("song/boom_c_06-102838.mp3"));
+                sound.play();
+                sound.dispose();
                 opponent.shotBy(ammo);//il a ete tire !!
                 iterator.remove();
 

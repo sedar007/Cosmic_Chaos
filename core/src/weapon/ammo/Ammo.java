@@ -4,7 +4,7 @@ package weapon.ammo;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import helpers.MoveManager;
-import screen.AllAssets;
+import helpers.AllAssets;
 
 public class Ammo implements MoveManager {
     protected float degats;
