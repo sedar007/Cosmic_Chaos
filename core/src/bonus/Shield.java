@@ -23,25 +23,27 @@ public class Shield extends Bonus {
         super(DEFAULT_NAME,skyblade,x,y,batch, assets);
         setPicture(assets.getBonusShieldPicture());
         setShieldPicture(assets.getShieldPicture());
-
     }
-    public void touched(){// impact des tirs
+    public void touched(){
+        //Impact des tirs sur le bouclier
         if(charge > 0 ){
             this.charge--;
         }
         else{
             this.charge = 0;
         }
+
+        //Pour savoir si le bouclier est cassé ou pas
         if(isBroken())
-            this.skyblade.protect(false);
+            this.skyblade.protect(false);//il ne sera pas protégé logiquement
 
 
     }
     public boolean isBroken(){
        return this.charge == 0;
-    }
+    }//si la charge devient nulle donc le bouclier cassé
     @Override
-    public void collect() {
+    public void collect() {//collecte le bouclier et declenche un petit son
         getAssets().getBonuCollect().play();
         this.skyblade.protect(true);
     }

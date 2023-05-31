@@ -79,7 +79,7 @@ public class MainMenuScreen implements Screen{
         //Ajout des acteurs dans le stage
         stage.addActor(image);
 
-        //Instanciation  de la table qui va contenier les boutons
+        //Instanciation  de la table qui va contenir les boutons
         Table table = new Table();
 
         // Table occupe tout l'espace disponible dans son conteneur parent, en s'adaptant automatiquement à sa taille
@@ -87,7 +87,7 @@ public class MainMenuScreen implements Screen{
         stage.addActor(table);
 
         //creation des boutons
-        TextButton start = new TextButton("START", skin);
+        final TextButton start = new TextButton("START", skin);
         TextButton highscore = new TextButton("HIGH SCORE", skin);
         TextButton exit = new TextButton("Exit", skin);
 
@@ -116,16 +116,17 @@ public class MainMenuScreen implements Screen{
         start.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new Loading(game, getAssets()));
                 dispose();
+                game.setScreen(new Loading(game, getAssets()));
+
             }
         });
 
         highscore.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new HighScore(game, getAssets()));
                 dispose();
+                game.setScreen(new HighScore(game, getAssets()));
             }
         });
 
@@ -169,8 +170,7 @@ public class MainMenuScreen implements Screen{
     @Override
     public void dispose() {
         //pour le nettoyage une fois qu on aura plus besoin des elements
-//        backgroundTexture.dispose(); // Libérer la texture du fond
-//        stage.dispose();
+        stage.dispose();
     }
 
 }

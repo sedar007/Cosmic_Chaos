@@ -63,11 +63,15 @@ public class Alien extends Spacecraft {
        setPicture(pictureAlien);
 
         int xPos = 0;
+
         xPos = (new Random().nextInt(2) == 0 )? xPos : Gdx.graphics.getWidth() - getPicture().getWidth();
-//        int yPos = Gdx.graphics.getHeight()-getPicture().getHeight() - 2;
         int yPos = new Random().nextInt(Gdx.graphics.getHeight() - getPicture().getHeight()) + Gdx.graphics.getHeight() /2;
+
+        //Application des positions initiales des monstres
         setPosX(xPos);
         setPosY(yPos);
+
+        //pour avoir un deplacement aleatoire
         xAlea = new Random().nextInt(5)  ;
         yAlea = new Random().nextInt(4)  ;
     }
@@ -75,15 +79,19 @@ public class Alien extends Spacecraft {
     @Override
     public void move(Spacecraft spacecraft) {
 
+        //dessin et positionnement des monstres
         getBatch().begin();
         getBatch().draw(getPicture(), getPosX(), getPosY());
         getBatch().end();
 
+        //changement des positions
         setPosX(getPosX() + xSpeed);
         setPosY(getPosY() + ySpeed);
 
+        //pour la descente
         xAlea -= 1;
         yAlea--;
+
 
         if(getPosX()<=0 || getPosX() >= Gdx.graphics.getWidth() - getPicture().getWidth())
             xSpeed = - xSpeed;

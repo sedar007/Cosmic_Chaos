@@ -54,13 +54,10 @@ public class GameScreen implements Screen {
     int numLevel; // Le level actuel
 
     FilesJson highScore; // Permet de modifier le high Score
-    float elapsedTimeLevelText;//Le temps d affichage du texte Level
-    final float durationTimeLevelText;
+    float elapsedTimeLevelText,timesBonus,bossTime,afficheNbBonus;//Le temps d affichage du texte Level et du bonus
+    final float durationTimeLevelText,MaxTimeBonus;
 
-    float timesBonus;//Le temps d affichage du bonus
-    final float MaxTimeBonus;
-    float bossTime;
-
+    Label afficheBonusLabel;
 
 
     public GameScreen(final ShootEmUP game, AllAssets assets) {
@@ -79,7 +76,7 @@ public class GameScreen implements Screen {
         //Instanciation du nouveau shape
         shapestyle = new ShapeRenderer();
 
-        //Pour l'image de fond
+        //Pour l'image de fond (animé)
         background = new Background(getAssets().getEtoilePicture(), 50.1f, camera, this.assets);
 
         batch = new SpriteBatch();
@@ -116,6 +113,10 @@ public class GameScreen implements Screen {
         timesBonus = 0f;
         MaxTimeBonus = 30f; // Durée d'affichage en secondes
 
+        afficheNbBonus = 0f;
+
+        afficheBonusLabel = null;
+
         getAssets().getBackgroundMusic().setLooping(true); // debut la music du fond
     }
 
@@ -141,7 +142,7 @@ public class GameScreen implements Screen {
             if(aliens.size() == 0 && bonus.size() == 0){//S il n y a plus d aliens et il n y a plus de bonus sur le screen
                 elapsedTimeLevelText = 0f;//On reinitialise
                 numLevel += 1;//On avance le level
-                showLevelText(numLevel);//Pour afficher la transition affichant le level suivant
+                showLevelText();//Pour afficher la transition affichant le level suivant
                 level = new Level(numLevel,this.game,batch, getAssets());
                 this.aliens = level.getAliens();
                 nbAliens = level.getAliens().size();
@@ -160,6 +161,8 @@ public class GameScreen implements Screen {
 
         //Le temps de vie du boss
         bossTime += Gdx.graphics.getDeltaTime();
+
+        afficheNbBonus += Gdx.graphics.getDeltaTime();
 
         // Permet de mettre en pause le jeu
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) { // Si on appuie sur la touche P
@@ -185,7 +188,9 @@ public class GameScreen implements Screen {
 
         // Permet de faire la mise a jour
         background.update(game.batch,Gdx.graphics.getDeltaTime());
+
         camera.update();
+
         game.batch.setProjectionMatrix(camera.combined);
 
         /* --- Game Play --- */
@@ -453,69 +458,81 @@ public class GameScreen implements Screen {
     }
 
     public void collectible(){
-        BitmapFont fontScore = new BitmapFont();
 
         //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
+
+        // Pour le font par defaut du screen
+        BitmapFont fontScore = new BitmapFont();
+
+       //Pour garder tous les bonus du jeu
         Iterator<Bonus> iteratorGift = bonus.iterator();
+
+        //Parcour du hashset (ici converti en iterator)
         while (iteratorGift.hasNext()) {
             Bonus collectible = iteratorGift.next();
             collectible.draw(); // dessine les bonus
 
             // Permet de recuperer les bonus
+            //Si le captain a touché les bonus
             if (new Collision().checkCollision(collectible.getPosX(), collectible.getPosY(), collectible.getPicture().getWidth(), collectible.getPicture().getHeight(),
-                    captain.getPosX(),
-                    captain.getPosY(),
-                    captain.getPicture().getWidth(), captain.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
+                    captain.getPosX(), captain.getPosY(), captain.getPicture().getWidth(), captain.getPicture().getHeight())) {
+
+                //pour initialiser le temps d affichage
+                afficheNbBonus = 0f;
+
+                //Collecte du bonus touché
                 collectible.collect();
-                String text = " + " + collectible.getBonus() + " POINTS ";
-                GlyphLayout layout = new GlyphLayout();
 
-                fontScore.setColor(Color.GREEN);
-                layout.setText(fontScore, text);
+                //Pour le texte à afficher
+                afficheBonusLabel = new Label(String.format(" + %.2f POINTS",collectible.getBonus()),getAssets().getSkin());
+                afficheBonusLabel.setColor(Color.GREEN);
 
-                batch.begin();
-
+                //Pour le mettre a coté du statisques selon le type de bonus !
                 if (collectible instanceof BonusScore)
-                    fontScore.draw(batch, layout, ((Gdx.graphics.getWidth() - layout.width) / 2) + 180, Gdx.graphics.getHeight() - 10);
+                    afficheBonusLabel.setPosition(((Gdx.graphics.getWidth() - afficheBonusLabel.getWidth()) / 2) + 250, Gdx.graphics.getHeight() - afficheBonusLabel.getHeight() - 5);
+                else if (collectible instanceof BonusPower)
+                    afficheBonusLabel.setPosition(200, 50);
 
-                 else if (collectible instanceof BonusPower)
-                    fontScore.draw(batch, layout, 200, 50);
-
-                batch.end();
-
+                //Pour retirer dans la liste
                 iteratorGift.remove();
             }
-            else if (collectible.timeOut()) // Permet de retirer les bonus apres un certains temps sans etre recuperer
+
+            // Permet de retirer les bonus apres un certains temps sans etre recuperer
+            else if (collectible.timeOut())
                 iteratorGift.remove();
         }
+
+        //Pour dessiner pendant un certain temps
+        if(afficheBonusLabel != null && afficheNbBonus < 0.7f){
+            batch.begin();
+            afficheBonusLabel.draw(batch,1f);
+            batch.end();
+        }
+
+
     }
 
-    public void showLevelText(int level){
+    public void showLevelText(){
+        //Affiche le texte level en haut a gauche
 
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         Label label = new Label(String.format("LEVEL %d",numLevel),getAssets().getSkin());
+
+        //Positionnement dans le screen
         float x = (float) (Gdx.graphics.getWidth() /2 )- (label.getWidth() / 2) ;
         float y = (float)(Gdx.graphics.getHeight() /2) - (label.getHeight()/ 2) ;
         label.setPosition( x,y);
+
+        //La taille du texte
         label.setFontScale(1.5f, 1.5f);
 
+        //Dessin
         batch.begin();
         label.draw(batch,1f);
         batch.end();
-
-
-        /*BitmapFont levelText = new BitmapFont();
-        String text =" LEVEL " + level ;
-        GlyphLayout layout = new GlyphLayout();
-        layout.setText(levelText, text);
-        float x = (Gdx.graphics.getWidth() - layout.width) / 2;
-        float y = (Gdx.graphics.getHeight() - layout.height) / 2;
-        batch.begin();
-        levelText.draw(batch, layout, x,y );
-        batch.end();*/
-
 
     }
 
@@ -528,13 +545,12 @@ public class GameScreen implements Screen {
 
     public String finalStat(int level,Double score,String comment ){
        return String.format(" %s \n STATISTICS  :\n  LEVEL -> %d \n SCORE -> %.2f ", comment,level,score);
-
     }
 
-
-
     @Override
-    public void show() {
+    public void show() {//Qd l'ecran s'affiche son contenu va s'executer
+
+        //Musique de fond
         getAssets().getBackgroundMusic().play();
     }
 
@@ -544,33 +560,30 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {
+    public void pause() {//Pour mettre en pause
+
+        //Methode prédefinie pour mettre en pause la musique de fond
         getAssets().getBackgroundMusic().pause();
 
-        BitmapFont pauseFont = new BitmapFont();
-        String textPause =" PAUSED " ;
-        GlyphLayout layoutPause = new GlyphLayout();
-        layoutPause.setText(pauseFont, textPause);
+        //pour contenir les textes et aussi appliquer le skin du jeu
+        Label textPause = new Label("PAUSED ",getAssets().getSkin());
+        Label textPauseMessage = new Label(" Press P or R to continue ",getAssets().getSkin());
 
-        BitmapFont pauseFontMessage = new BitmapFont();
-        String textPauseMessage =" Press P or R to continue " ;
-        GlyphLayout layoutPauseMessage = new GlyphLayout();
-        layoutPauseMessage.setText(pauseFontMessage, textPauseMessage);
+        //Positionnement des textes
+        textPause.setPosition((Gdx.graphics.getWidth() - textPause.getWidth()) / 2, (Gdx.graphics.getHeight() - textPause.getHeight()) / 2);
+        textPauseMessage.setPosition( (Gdx.graphics.getWidth() - textPauseMessage.getWidth()) / 2,  ( (Gdx.graphics.getHeight() - textPauseMessage.getHeight()) / 2) - 20);
 
+        //Dessin
         batch.begin();
-        pauseFont.draw(batch, layoutPause, (Gdx.graphics.getWidth() - layoutPause.width) / 2, (Gdx.graphics.getHeight() - layoutPause.height) / 2);
-        pauseFontMessage.draw(batch, layoutPauseMessage, (Gdx.graphics.getWidth() - layoutPauseMessage.width) / 2,  ( (Gdx.graphics.getHeight() - layoutPauseMessage.height) / 2) - 20);
-
+        textPause.draw(batch,1f);
+        textPauseMessage.draw(batch,1f);
         batch.end();
-
 
     }
 
     @Override
-    public void resume() {
+    public void resume() {//Pour rejouer encore la musique
         getAssets().getBackgroundMusic().play();
-
-
     }
 
     @Override

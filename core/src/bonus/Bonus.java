@@ -93,7 +93,7 @@ abstract public class Bonus {
 
     public boolean timeOut(){
         return timesOut >= maxTimeOut;
-    }
+    }//pour svoir si le temps est superieur ou bien égale au temps max
 
     public void setBonus(float bonus) {
         this.bonus = bonus;
