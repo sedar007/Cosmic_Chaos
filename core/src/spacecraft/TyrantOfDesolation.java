@@ -2,12 +2,8 @@ package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
+import helpers.AllAssets;
 import weapon.AlienWeapons.SingleRocket;
-
-import weapon.ammo.Rocket;
-import weapon.ammo.RocketEventail;
 
 public class TyrantOfDesolation extends Alien {
     private static final String DEFAULT_NAME = "Tyrant Of Desolation";

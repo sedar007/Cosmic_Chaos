@@ -1,11 +1,10 @@
 package weapon.AlienWeapons;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
-import screen.AllAssets;
+import helpers.AllAssets;
 import spacecraft.Spacecraft;
 import weapon.Weapon;
 import weapon.ammo.EnergyOrbs;

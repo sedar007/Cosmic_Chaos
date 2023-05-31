@@ -1,7 +1,7 @@
 package weapon.ammo;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
+import helpers.AllAssets;
 
 public class RocketJet extends Ammo{
     public final static String DEFAULT_NAME = "Energy Orbs";

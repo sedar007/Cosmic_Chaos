@@ -1,10 +1,8 @@
 package weapon.ammo;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
+import helpers.AllAssets;
 import spacecraft.Spacecraft;
-import weapon.Weapon;
 
 public class Laser extends Ammo{
     // Static

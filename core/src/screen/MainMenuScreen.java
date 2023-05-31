@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import helpers.AllAssets;
 import shoot_em_up.ShootEmUP;
 
 public class MainMenuScreen implements Screen{
@@ -168,8 +169,8 @@ public class MainMenuScreen implements Screen{
     @Override
     public void dispose() {
         //pour le nettoyage une fois qu on aura plus besoin des elements
-        backgroundTexture.dispose(); // Libérer la texture du fond
-        stage.dispose();
+//        backgroundTexture.dispose(); // Libérer la texture du fond
+//        stage.dispose();
     }
 
 }

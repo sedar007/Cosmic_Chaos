@@ -2,7 +2,7 @@ package bonus;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import exceptions.NoWeaponExeption;
-import screen.AllAssets;
+import helpers.AllAssets;
 import spacecraft.Skyblade;
 import weapon.SkyBladeWeapons.LaserFury;
 import weapon.SkyBladeWeapons.RocketCyclone;
@@ -17,7 +17,7 @@ public class ChangeWeapon extends Bonus {
    private HashSet<Weapon> weapons ;
 
     public ChangeWeapon(Skyblade skyblade, float x , float y, SpriteBatch batch, AllAssets assets) {
-        super(DEFAULT_NAME,skyblade,x,y,batch);
+        super(DEFAULT_NAME,skyblade,x,y,batch, assets);
         this.weapons = new HashSet<>();
         this.weapons.add(new RocketCyclone(batch,skyblade, assets));
         this.weapons.add(new RocketStorm(batch,skyblade, assets));
@@ -30,6 +30,8 @@ public class ChangeWeapon extends Bonus {
             for(Weapon weapon : this.weapons){
                 if(this.skyblade.getWeapon() != weapon) {
                     this.skyblade.setWeapon(weapon);
+                    getAssets().getBonuCollect().play();
+
                     return;
                 }
             }

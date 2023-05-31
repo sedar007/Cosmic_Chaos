@@ -2,7 +2,7 @@ package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import bonus.BonusScore;
-import screen.AllAssets;
+import helpers.AllAssets;
 import weapon.SkyBladeWeapons.PredatorFury;
 import weapon.ammo.Ammo;
 import com.badlogic.gdx.Gdx;

@@ -4,6 +4,7 @@ import bonus.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import exceptions.NoWeaponExeption;
+import helpers.AllAssets;
 import helpers.Collision;
 import shoot_em_up.ShootEmUP;
 import spacecraft.*;
@@ -248,6 +250,10 @@ public class GameScreen implements Screen {
 
                 //gain de bonus pour le vaisseau du capitaine
                 bonus.add(new BonusScore(captain, alien.getPosX(), alien.getPosY(), batch, this, getAssets()));
+
+                Music soundShoot;
+                soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/mixkit-multiple-fireworks-explosions-1689.wav")); // song explosion quand un alien est mort
+                soundShoot.play();
 
                for(int i = 10 ; i >= 1 ; i--){
 //                   String boom =String.format("boom%02d.png",i) ;

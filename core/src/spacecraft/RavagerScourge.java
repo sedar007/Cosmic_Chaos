@@ -1,8 +1,7 @@
 package spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
-import weapon.AlienWeapons.MegaInferno;
+import helpers.AllAssets;
 import weapon.AlienWeapons.SingleRocket;
 
 public class RavagerScourge extends Alien{

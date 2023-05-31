@@ -1,6 +1,7 @@
 package screen;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import helpers.AllAssets;
 import shoot_em_up.ShootEmUP;
 import spacecraft.*;
 

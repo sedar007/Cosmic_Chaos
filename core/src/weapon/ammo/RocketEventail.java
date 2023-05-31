@@ -1,8 +1,7 @@
 package weapon.ammo;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
+import helpers.AllAssets;
 
 public class RocketEventail{
     // Static

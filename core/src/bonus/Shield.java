@@ -2,7 +2,7 @@ package bonus;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import screen.AllAssets;
+import helpers.AllAssets;
 import spacecraft.Skyblade;
 
 public class Shield extends Bonus {
@@ -20,7 +20,7 @@ public class Shield extends Bonus {
     }
 
     public Shield(Skyblade skyblade, float x , float y, SpriteBatch batch, AllAssets assets) {
-        super(DEFAULT_NAME,skyblade,x,y,batch);
+        super(DEFAULT_NAME,skyblade,x,y,batch, assets);
         setPicture(assets.getBonusShieldPicture());
         setShieldPicture(assets.getShieldPicture());
 
@@ -42,6 +42,7 @@ public class Shield extends Bonus {
     }
     @Override
     public void collect() {
+        getAssets().getBonuCollect().play();
         this.skyblade.protect(true);
     }
 }
