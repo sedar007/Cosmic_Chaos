@@ -7,7 +7,7 @@ public class RocketEventail{
     // Static
     public final static String DEFAULT_NAME = "Rocket Eventail";
     public final static float DEFAULT_DEGATS = 0.9f;
-    private final static int DEFAULT_SPEED = 5;
+    private final static int DEFAULT_SPEED = 6;
      public Ammo[] AmmosTab ;
 
     // Constructor

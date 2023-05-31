@@ -7,7 +7,7 @@ public class EnergyOrbs extends Ammo{
     // Static
     public final static String DEFAULT_NAME = "Energy Orbs";
     public final static float DEFAULT_DEGATS = 0.9f;
-    private final static int DEFAULT_SPEED = -5;
+    private final static int DEFAULT_SPEED = -6;
 
     // Constructor
     public EnergyOrbs(float xPosition, float yPosition, SpriteBatch batch, AllAssets assets){
