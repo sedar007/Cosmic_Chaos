@@ -72,7 +72,8 @@ abstract public class Weapon {
                     opponent.getPosY(), opponent.getPicture().getWidth(), opponent.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
                 Texture boom = getAssets().getBoom6();
                 getBatch().begin();
-                getBatch().draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
+                if( !(ammo instanceof Laser))
+                    getBatch().draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
                 getBatch().end();
                 opponent.shotBy(ammo);//il a ete tire !!
                 iterator.remove();

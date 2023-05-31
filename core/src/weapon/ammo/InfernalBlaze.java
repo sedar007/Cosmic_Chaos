@@ -30,14 +30,9 @@ public class InfernalBlaze extends Ammo{
         setxPosition(getxPosition() + xSpeed);
         setyPosition(getyPosition() + DEFAULT_SPEED);
 
-
         getBatch().begin();
         getBatch().draw(getImage(), getxPosition(), getyPosition());
         getBatch().end();
-
-
     }
-
-
-    }
+}
 

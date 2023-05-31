@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import helpers.AllAssets;
+import helpers.FilesJson;
 import shoot_em_up.ShootEmUP;
 
 import java.util.HashMap;
@@ -29,8 +30,7 @@ public class HighScore extends ScreenAdapter implements Screen{
     String jsonString;
     final ShootEmUP game;
     Skin skin;
-    Double lastScoreGame;
-    private AllAssets assets;
+    private final AllAssets assets;
     FilesJson filesJson;
     private final Stage stage;
     Label title,label;
@@ -51,7 +51,7 @@ public class HighScore extends ScreenAdapter implements Screen{
         //Elle capture une vue plate de la scène, où les objets à l'écran apparaissent à la même échelle,
         // quelle que soit leur distance par rapport à la caméra
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 1000, 1000);
 
         //instanciation du stage !
         stage = new Stage(new ScreenViewport());

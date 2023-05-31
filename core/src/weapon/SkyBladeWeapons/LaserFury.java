@@ -23,14 +23,12 @@ public class LaserFury extends Weapon {
             setName(DEFAULT_NAME);
             try {
                 lastWeapon = spacecraft.getWeapon();
-
             }
             catch (NoWeaponExeption e){
                 lastWeapon = new RocketStorm(getBatch(),spacecraft, getAssets());
-
             }
             times = 0f;
-            duration = 5f;
+            duration = 9f;
         }
 
         // Methodes
@@ -42,9 +40,7 @@ public class LaserFury extends Weapon {
             munitions.add(laser);
 
             lastAmmoTime = TimeUtils.nanoTime();
-            Music soundShoot;
-//            soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-//            soundShoot.play();
+
         }
 
         @Override
@@ -59,7 +55,6 @@ public class LaserFury extends Weapon {
                     createAmmo();
         }
 
-
-    }
+}
 
 

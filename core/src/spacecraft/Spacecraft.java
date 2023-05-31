@@ -71,7 +71,6 @@ abstract public class Spacecraft {
     //Le constructeur
     public Spacecraft(String name, SpriteBatch batch){
         setName(name);
-
         setBatch(batch);
     }
 

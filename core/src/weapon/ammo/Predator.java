@@ -18,14 +18,11 @@ public class Predator extends Ammo{
     // Constructor
     public Predator(float xPosition, float yPosition, SpriteBatch batch, AllAssets assets){
         super(DEFAULT_NAME,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch, assets, assets.getPredatorPicture());
-
     }
 
     // Methodes
     public void move(Spacecraft target) {
-
          this.soundShoot.play();
-
         if(target.getPosX() + (float) target.getPicture().getWidth() /2 < getxPosition())
             setxPosition(getxPosition() - getSpeed());
         else
@@ -37,33 +34,14 @@ public class Predator extends Ammo{
             setyPosition(getyPosition() - getSpeed());
 
         // aim sur le target
-        Texture cible = new Texture("pictures/target/aim.png");
+        Texture cible = getAssets().getAim();
 
         getBatch().begin();
         getBatch().draw(cible, target.getPosX() + (float) (target.getPicture().getWidth() /2) - (float) cible.getWidth() /2, target.getPosY() - (float) cible.getHeight() /2);
         getBatch().draw(getImage(), getxPosition(), getyPosition());
         getBatch().end();
-
-
     }
 }
-
-/*
-*  if(targetPredator == null)
-                targetPredator = monster;
-                *
-                *
-                if(targetPredator != null  ){
-            captain.getPredatorFury().spawnAllAmmo(targetPredator);
-        }
-        if(targetPredator != null){
-            captain.getPredatorFury().shoot(targetPredator);
-            targetPredator = null;
-
-
-        }
-        *
-        * */
 
 
 

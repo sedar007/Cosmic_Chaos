@@ -18,6 +18,7 @@ public class ShootEmUP extends Game {
 
         batch = new SpriteBatch();
         font = new BitmapFont(); // use libGDX's default Arial font
+        dispose();
         this.setScreen(new MainMenuScreen(this,assets));
     }
     @Override
@@ -32,7 +33,7 @@ public class ShootEmUP extends Game {
 
     @Override
     public void dispose () { // pour detruire les instances qu on avait créée auparavant pour la memoire !
-        batch.dispose();
+
         font.dispose();
 
     }

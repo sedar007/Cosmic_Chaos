@@ -76,13 +76,9 @@ public class PredatorFury extends Weapon {
         getBatch().draw(boom,predator.getxPosition()-predator.getImage().getWidth()-8,predator.getyPosition()-predator.getImage().getHeight());
         getBatch().end();
 
-
         predators.add(predator);
         lastAmmoTime = TimeUtils.nanoTime(); // dernier ammo creer
 
-//        Music soundShoot;
-//        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-//        soundShoot.play();
     }
     public void spawnAllAmmo(Alien target) throws NoWeaponExeption {
         if(target == null){
@@ -119,6 +115,11 @@ public class PredatorFury extends Weapon {
                 ammo.soundShoot.dispose();
                 Music sound = Gdx.audio.newMusic(Gdx.files.internal("song/boom_c_06-102838.mp3"));
                 sound.play();
+
+                Music soundShoot;
+                soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/mixkit-multiple-fireworks-explosions-1689.wav")); // song explosion quand un alien est mort
+                soundShoot.play();
+
                 sound.dispose();
                 opponent.shotBy(ammo);//il a ete tire !!
                 iterator.remove();
@@ -133,36 +134,21 @@ public class PredatorFury extends Weapon {
     public boolean isEmpty(){
         return getNbAmmo() <= 0 ;
     }
-    public void reload(){
-
-    }
 
     @Override
     public void create() {
-
         times += Gdx.graphics.getDeltaTime();
         times2 += Gdx.graphics.getDeltaTime();
 
-       if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && !isEmpty() && times2 >= duration2 ){
+        if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT) && !isEmpty() && times2 >= duration2 ){ // permet de tirer la tete chercheuse avec le click droit
            createAmmo();
            setNbAmmo(getNbAmmo() - 1);
            times2 = 0;
-      }
+        }
 
-        if (times >= duration && !isFull()) {
+        if (times >= duration && !isFull()) { // Generer les tetes chercheuses
             setNbAmmo(getNbAmmo() + 1);
             times = 0;
         }
-
-
     }
-
-//    declaration de ressource
-    // declaration
-    // scolarite
-
-
-
-
-
 }

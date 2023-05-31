@@ -10,14 +10,11 @@ public class Background {
     private final Texture texture;
     private final float scrollSpeed;
     private float layer1, layer2;
-   private OrthographicCamera camera;
-    private Texture backgroundP;
-    private AllAssets assets;
+    private final Texture backgroundP;
 
     public Background(Texture texturePath, float scrollSpeed, OrthographicCamera camera, AllAssets assets) {
 
         // recupere les assets et le jeu
-        this.assets = assets;
 
         //Le path de l'image
         texture = texturePath;
@@ -28,7 +25,6 @@ public class Background {
         //Vitesse du scroll
         this.scrollSpeed = scrollSpeed;
 
-        this.camera = camera;
 
         layer1 = 0;
         layer2 = texture.getWidth();
@@ -37,7 +33,6 @@ public class Background {
     public void update(SpriteBatch batch, float delta) {
 
         //delta : Le temps generé par l'affichage du screen
-
         layer1 -= scrollSpeed * delta;
         layer2 -= scrollSpeed * delta;
 

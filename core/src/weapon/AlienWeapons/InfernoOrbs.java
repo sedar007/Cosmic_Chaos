@@ -41,9 +41,7 @@ public class InfernoOrbs extends Weapon {
         munitions.add(ammo2);
 
         lastAmmoTime = TimeUtils.nanoTime();
-        Music soundShoot;
-//        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-//        soundShoot.play();
+
     }
 
     @Override

@@ -3,10 +3,9 @@ package weapon.ammo;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import helpers.MoveManager;
 import helpers.AllAssets;
 
-public class Ammo implements MoveManager {
+public class Ammo {
     protected float degats;
     private int speed;
     private Texture image;
@@ -89,7 +88,7 @@ public class Ammo implements MoveManager {
     }
 
      // Methodes Abstraites
-     @Override
+
      public void move() {
         setyPosition(getyPosition() + getSpeed());
         getBatch().begin();

@@ -132,10 +132,8 @@ public class Alien extends Spacecraft {
 
     }
 
-    public void shotBy(Ammo ammo) {// qund il a ete tire
+    public void shotBy(Ammo ammo) {// quand il a ete tire
         setPuissance(getPuissance() - ammo.getDegats());
-
-
     }
 
 

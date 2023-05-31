@@ -13,7 +13,6 @@ public class Rocket extends Ammo{
     public Rocket(float xPosition, float yPosition, SpriteBatch batch, AllAssets assets){
         super(DEFAULT_NAME,DEFAULT_DEGATS,DEFAULT_SPEED, xPosition, yPosition, batch, assets, assets.getRocketPicture());
         getAssets().getSoundShoot().play();
-
     }
 
     // Methodes

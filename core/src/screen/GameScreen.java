@@ -4,13 +4,11 @@ import bonus.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -18,8 +16,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import exceptions.NoWeaponExeption;
 import helpers.AllAssets;
 import helpers.Collision;
+import helpers.FilesJson;
+import level.Level;
 import shoot_em_up.ShootEmUP;
 import spacecraft.*;
+import weapon.SkyBladeWeapons.LaserFury;
 import weapon.SkyBladeWeapons.RocketStorm3X;
 
 import java.util.HashSet;
@@ -39,8 +40,7 @@ public class GameScreen implements Screen {
 
     // Les characteres
     Skyblade captain; // Le captain
-    HashSet<Alien> aliens = new HashSet<>();
-    BonusScore bonusScore = null;
+    HashSet<Alien> aliens;
     HashSet<Bonus> bonus ;
     int nbAliens; // Le nombre de aliens qu'il y a
 
@@ -66,7 +66,7 @@ public class GameScreen implements Screen {
         //Elle capture une vue plate de la scène, où les objets à l'écran apparaissent à la même échelle,
         // quelle que soit leur distance par rapport à la caméra
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 1000, 1000);
 
         // recupere les assets
         this.assets = assets;
@@ -109,12 +109,9 @@ public class GameScreen implements Screen {
 
         elapsedTimeLevelText = 0f;//Temps passés
         durationTimeLevelText = 5f; // Durée d'affichage en secondes
-
         timesBonus = 0f;
         MaxTimeBonus = 30f; // Durée d'affichage en secondes
-
         afficheNbBonus = 0f;
-
         afficheBonusLabel = null;
 
         getAssets().getBackgroundMusic().setLooping(true); // debut la music du fond
@@ -136,24 +133,22 @@ public class GameScreen implements Screen {
         }
 
         if(captain.isNotDestroyed()){//Qd le vaisseau n est pas encore detruit
-
             elapsedTimeLevelText += Gdx.graphics.getDeltaTime();
 
             if(aliens.size() == 0 && bonus.size() == 0){//S il n y a plus d aliens et il n y a plus de bonus sur le screen
+
                 elapsedTimeLevelText = 0f;//On reinitialise
                 numLevel += 1;//On avance le level
                 showLevelText();//Pour afficher la transition affichant le level suivant
+
                 level = new Level(numLevel,this.game,batch, getAssets());
                 this.aliens = level.getAliens();
                 nbAliens = level.getAliens().size();
             }
 
-            if (elapsedTimeLevelText >= durationTimeLevelText ) {//Pour afficher le texte de transition avant de continuer
+            if (elapsedTimeLevelText >= durationTimeLevelText )//Pour afficher le texte de transition avant de continuer
                 play();
-            }
-
         }
-
     }
 
 
@@ -256,9 +251,6 @@ public class GameScreen implements Screen {
                 //gain de bonus pour le vaisseau du capitaine
                 bonus.add(new BonusScore(captain, alien.getPosX(), alien.getPosY(), batch, this, getAssets()));
 
-                Music soundShoot;
-                soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/mixkit-multiple-fireworks-explosions-1689.wav")); // song explosion quand un alien est mort
-                soundShoot.play();
 
                for(int i = 10 ; i >= 1 ; i--){
 //                   String boom =String.format("boom%02d.png",i) ;
@@ -442,6 +434,7 @@ public class GameScreen implements Screen {
             //Pour donner des bonus aleatoires au capitaine
             int choice2 =  new Random().nextInt(3);
 
+
             //Soit changement d arme
             if(choice2 == 0)
                 bonus.add(new ChangeWeapon(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
@@ -601,10 +594,6 @@ public class GameScreen implements Screen {
 
     public void setScore(Double score) {
         this.score = score;
-    }
-
-    public void setAliens(Alien alien) {
-        aliens.add(alien);
     }
 
     public AllAssets getAssets() {

@@ -68,6 +68,7 @@ public class AllAssets {
 
     private final Texture explosion5;
 
+    private final Texture aim;
 
 
 
@@ -134,10 +135,13 @@ public class AllAssets {
 
         this.explosion5 = new Texture("pictures/explosion/explosion-5.png");
 
+        this.aim =  new Texture("pictures/target/aim.png");
 
-//        private Texture Shield;
 
+    }
 
+    public Texture getAim() {
+        return aim;
     }
 
     public Music getBonuCollect() {

@@ -30,9 +30,6 @@ public class SingleRocket  extends Weapon{
             munitions.add(ammo);
 
             lastAmmoTime = TimeUtils.nanoTime();
-//        Music soundShoot;
-//        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-//        soundShoot.play();
         }
 
         @Override

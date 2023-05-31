@@ -37,11 +37,18 @@ public class RocketCyclone extends Weapon {
 
         float x1Position = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) - 10;
         float y1Position = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
+        float x4Position = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) - 5;
+        float y4Position = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
         float x2Position = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 );
         float y2Position = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
         float x3Position = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) + 10;
         float y3Position = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
-        RocketEventail rocketEventail = new RocketEventail(x1Position,  y1Position, x2Position, y2Position, x3Position, y3Position, getBatch(), getAssets());
+        float x5Position = getSpacecraft().getPosX() + ((float) getSpacecraft().getPicture().getWidth() /2 ) + 5 ;
+        float y5Position = getSpacecraft().getPosY() + getSpacecraft().getPicture().getHeight();
+
+
+        RocketEventail rocketEventail = new RocketEventail(x1Position,  y1Position, x2Position, y2Position, x3Position, y3Position
+               ,x4Position, y4Position ,x5Position, y5Position, getBatch(), getAssets());
 
         Texture boom = getAssets().getExplosion5();
         getBatch().begin();
@@ -66,16 +73,16 @@ public class RocketCyclone extends Weapon {
         while (iterator.hasNext()) {
             RocketEventail ammo = iterator.next();
             ammo.move();
-            for(int i =0; i< 3; i++)
+            for(int i =0; i< 5; i++)
                 if(ammo.AmmosTab[i] != null)
                     if (ammo.AmmosTab[i].getyPosition() > Gdx.graphics.getHeight() + 2 || ammo.AmmosTab[i].getyPosition() < 0 || ammo.AmmosTab[i].getxPosition() < 0 || ammo.AmmosTab[i].getxPosition() > Gdx.graphics.getWidth()) // Supprimer les ammos
                         ammo.AmmosTab[i]  = null;
 
             int test = 0;
-            for(int i=0; i < 3; i++)
+            for(int i=0; i < 5; i++)
                 if(ammo.AmmosTab[i]  == null)
                     test ++;
-            if(test == 3)
+            if(test == 5)
                 iterator.remove();
 
         }
@@ -89,7 +96,7 @@ public class RocketCyclone extends Weapon {
 
         while (iterator.hasNext()) {
             RocketEventail ammo = iterator.next();
-            for(int i =0; i< 3; i++){
+            for(int i =0; i< 5; i++){
                 if(ammo.AmmosTab[i] != null) {
                     if (new Collision().checkCollision(ammo.AmmosTab[i].getxPosition(), ammo.AmmosTab[i].getyPosition(), ammo.AmmosTab[i].getImage().getWidth(), ammo.AmmosTab[i].getImage().getHeight(), ennemi.getPosX(),
                             ennemi.getPosY(), ennemi.getPicture().getWidth(), ennemi.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!

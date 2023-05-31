@@ -170,6 +170,7 @@ public class MainMenuScreen implements Screen{
     @Override
     public void dispose() {
         //pour le nettoyage une fois qu on aura plus besoin des elements
+        fontBoutton.dispose();
         stage.dispose();
     }
 

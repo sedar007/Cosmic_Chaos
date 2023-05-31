@@ -23,11 +23,8 @@ public class Loading extends ScreenAdapter implements Screen {
     BitmapFont fontBoutton;
    ShapeRenderer shape;
 
-    private Viewport viewport;
-
     int x,y ;
 
-    Skin skin;
     Label label;
     private final AllAssets assets;
 
@@ -60,9 +57,6 @@ public class Loading extends ScreenAdapter implements Screen {
 
         //Pour l'iteration(ici en pourcentage)
         x = 0;
-
-        //pour avoir le skin du jeu
-        skin = getAssets().getSkin();
     }
 
     @Override
@@ -71,8 +65,6 @@ public class Loading extends ScreenAdapter implements Screen {
 
     @Override
     public void render(float delta) {
-
-        ScreenUtils.clear(0, 0, 0, 0);
 
         //Mise a jour du camera et prise en compte de toutes nouvelles modifications
         camera.update();
@@ -102,7 +94,7 @@ public class Loading extends ScreenAdapter implements Screen {
         float height = 40;
         float posY = height + 10;
 
-        label = new Label("LOADING "+ pourcentage +" % ",skin);
+        label = new Label("LOADING "+ pourcentage +" % ",getAssets().getSkin());
         label.setPosition(posX + 85, posY );
 
         //Pour pouvoir dessiner le label
@@ -123,8 +115,8 @@ public class Loading extends ScreenAdapter implements Screen {
         if(x > width)
             x = width;
         if(x == width ) {
-            game.setScreen(new  GameScreen(game, getAssets()));
             dispose();
+            game.setScreen(new  GameScreen(game, getAssets()));
         }
 
         //Creation d un nouveau rectangle de couleur rouge pendant le chargement

@@ -51,12 +51,7 @@ public class MegaInferno  extends Weapon{
         ammo6.setxSpeed(-ammo6.getxSpeed());
         munitions.add(ammo6);
 
-
-
         lastAmmoTime = TimeUtils.nanoTime();
-//        Music soundShoot;
-//        soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/gunner-sound-43794.mp3"));
-//        soundShoot.play();
     }
 
     @Override

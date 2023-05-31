@@ -1,4 +1,4 @@
-package screen;
+package level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import helpers.AllAssets;

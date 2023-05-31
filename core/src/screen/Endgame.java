@@ -63,6 +63,9 @@ public class Endgame implements Screen {
         //et recevra les événements d'entrée et les transmettra aux acteurs(boutons,...)
         Gdx.input.setInputProcessor(stage);
 
+        getAssets().getBackgroundMusic().dispose();
+
+
     }
 
     @Override

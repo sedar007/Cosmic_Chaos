@@ -1,4 +1,4 @@
-package screen;
+package helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

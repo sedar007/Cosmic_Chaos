@@ -25,11 +25,7 @@ public class BossChaosbaneDestructor extends Alien{
         getBatch().end();
 
         setPosX(getPosX() + getxSpeed());
-//        setPosY(getPosY() + ySpeed);
-
-//        xAlea -= 1;
         setxAlea(getxAlea() - 1);
-//        yAlea--;
 
         if(getPosX()<=0 || getPosX() >= Gdx.graphics.getWidth() - getPicture().getWidth())
             setxSpeed(- getxSpeed());
@@ -60,8 +56,6 @@ public class BossChaosbaneDestructor extends Alien{
 
         if(getPosX() > Gdx.graphics.getWidth() - getPicture().getWidth())
             setPosX(Gdx.graphics.getWidth() - getPicture().getWidth());
-
-
 
     }
 
