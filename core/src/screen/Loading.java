@@ -115,7 +115,7 @@ public class Loading extends ScreenAdapter implements Screen {
         //pour la couleur
         shape.setColor(Color.WHITE);
 
-        //Pour avoir un rectange
+        //Pour avoir un rectangle
         shape.rect(posX, posY, width,height);
 
         //pour pouvoir s arreter et aussi passer a l'ecran suivante

@@ -52,10 +52,10 @@ public class GameScreen implements Screen {
     int numLevel; // Le level actuel
 
     FilesJson highScore; // Permet de modifier le high Score
-    float elapsedTimeLevelText;
+    float elapsedTimeLevelText;//Le temps d affichage du texte Level
     final float durationTimeLevelText;
 
-    float timesBonus;
+    float timesBonus;//Le temps d affichage du bonus
     final float MaxTimeBonus;
     float bossTime;
 
@@ -156,7 +156,9 @@ public class GameScreen implements Screen {
 
     public void play(){
 
+        //Le temps de vie du boss
         bossTime += Gdx.graphics.getDeltaTime();
+
         // Permet de mettre en pause le jeu
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) { // Si on appuie sur la touche P
             if( !(play = !play) )  // On change la valeur de play et on verifie si elle est a false
@@ -171,7 +173,8 @@ public class GameScreen implements Screen {
             resume();
         }
 
-        if(!play){ // Permet de mettre en pause a chaque render si play est false
+        //// Permet de mettre en pause a chaque render si play est false
+        if(!play){
             pause();
             return;
         }
@@ -214,10 +217,9 @@ public class GameScreen implements Screen {
             Alien alien = iterator.next();
 
             if(alien instanceof BossChaosbaneDestructor)
-                boss = alien;
+                boss = alien;//Pour garder la valeur du boss dans le jeu
             try {
                 alien.getWeapon().spawnAllAmmo();
-
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -241,8 +243,10 @@ public class GameScreen implements Screen {
 
             }
 
-            if (!alien.isNotDestroyed()) {
+            if (!alien.isNotDestroyed()) {//Destruction du vaisseau de l alien
                 numberALienKilled += 1;
+
+                //gain de bonus pour le vaisseau du capitaine
                 bonus.add(new BonusScore(captain, alien.getPosX(), alien.getPosY(), batch, this, getAssets()));
 
                for(int i = 10 ; i >= 1 ; i--){
@@ -268,9 +272,10 @@ public class GameScreen implements Screen {
                    batch.end();
                }
 
-                iterator.remove();
+               iterator.remove();
             }
         }
+
         if(targetPredator != null  ){
             try{
                 captain.getPredatorFury().spawnAllAmmo(targetPredator);
@@ -285,14 +290,18 @@ public class GameScreen implements Screen {
         }
 
         captain.move(null);
-        stats(numLevel);
+        stats();
 
     }
 
 
     public void powerStats( float captainStat, float alienStat){
-        //AFFICHAGES DES STATISTIQUES
+        //AFFICHAGES DES STATISTIQUES:
 
+
+        //Pour le vaisseau du  capitaine
+
+        //petite image du vaisseau du capitaine
         batch.begin();
         batch.draw( getAssets().getSkybladePicture(),0,15, 40,40);
         batch.end();
@@ -301,45 +310,65 @@ public class GameScreen implements Screen {
         float height = 20;
         float posY = 20;
 
-        //  shape.rect(posX + 10,posY + 10 ,x - 20,height - 20);
-
         shapestyle.begin(ShapeRenderer.ShapeType.Filled);
 
         shapestyle.setColor(Color.WHITE);
+
+        //Pour avoir un rectangle qui contient la progression
         shapestyle.rect(posX, posY, 100,height);
 
         if(captainStat <= 30 ) shapestyle.setColor(Color.RED);
         else shapestyle.setColor(Color.GREEN);
 
+        //Pour avoir un rectangle pour la progression
         shapestyle.rect(50, 20, captainStat,20);
+
         shapestyle.end();
+
+        //Affichages des tetes chercheuses pres du statistique
         for(int i=0; i<captain.getPredatorFury().getNbAmmo(); i++) {
             Texture predatorPic =getAssets().getPredatorPicture();
             batch.begin();
             batch.draw(predatorPic, 60 + 100 + i*10, 20);
             batch.end();
         }
+
+
+        //Pour le vaisseau du monstre
+
+        //petite image du vaisseau du monstre
         batch.begin();
         batch.draw( getAssets().getBossSmallPicture(),Gdx.graphics.getWidth() - 40,15, 40,40);
         batch.end();
 
-
         shapestyle.begin(ShapeRenderer.ShapeType.Filled);
+
         shapestyle.setColor(Color.WHITE);
+
+        //Pour avoir un rectangle qui contient la progression
         shapestyle.rect(Gdx.graphics.getWidth() - 150, 20, 100,20);
 
         if(alienStat <= 30 ) shapestyle.setColor(Color.RED);
         else shapestyle.setColor(Color.GREEN);
+
+        //Pour avoir un rectangle pour la progression
         shapestyle.rect(Gdx.graphics.getWidth() - 150, 20, alienStat,20);
+
         shapestyle.end();
     }
 
     public void scoreStat(){
+        //AFFICHAGE DU SCORE SUR L'EN TETE DE L'ECRAN
+
+        //le texte contenu dans un label avec le skin du jeu
         Label label = new Label(String.format("SCORE : %.2f",getScore()),getAssets().getSkin());
+
+        //positionnement de ce label sur l'ecran
         float x = (Gdx.graphics.getWidth() - label.getWidth()) / 2;
         float y = Gdx.graphics.getHeight() - label.getHeight() - 5;
         label.setPosition( x, y);
 
+        //Pouvoir dessinner ce label
         batch.begin();
         label.draw(batch,1f);
         batch.end();
@@ -347,40 +376,70 @@ public class GameScreen implements Screen {
     }
 
     public void level(){
+        //AFFICHAGE DU LEVEL SUR L'EN TETE DE L'ECRAN
+
+        //le texte contenu dans un label avec le skin du jeu
         Label label = new Label(String.format("LEVEL : %d",numLevel),getAssets().getSkin());
+
+        //positionnement de ce label sur l'ecran
         label.setPosition( 10, Gdx.graphics.getHeight() - label.getHeight() - 5);
+
+        //Pouvoir dessinner ce label
         batch.begin();
         label.draw(batch,1f);
         batch.end();
     }
 
-    public void stats( int levelStat){
-        //Calcul du nombre moyenne de vaisseau en pourcentage !
+    public void stats(){
+       //AFFICHAGE ET CALCUL DU STATISTIQUES,SCORE,LEVEL
+
+        //Pour convertir  la puissance totale des monstres en %
         float sum = 0;
         for (Alien alien : aliens) {
             float pctg = (float) (alien.getPuissance() * 100) / alien.getMaxPuissance();
             sum += pctg;
         }
+
+        //Pour avoir la moyenne
         int alienLife = (int) (sum / nbAliens);
 
+        //Pour convertir la puissance du capitaine en %
         float pourcentagePuissance = (captain.getPuissance() * 100)/ captain.getMaxPuissance();
+
+        //Affichage et application des calculs
         powerStats(pourcentagePuissance,alienLife);
         scoreStat();
         level();
+
     }
 
     public void generateBonus(){
+
+        //Pour pourvoir compter le nombre de temps que le bonus s affiche
         timesBonus += Gdx.graphics.getDeltaTime();
+
         int choice = new Random().nextInt(50);
+
+        //generation de bonus une fois que le nombre d'aliens morts atteints le nombre 10 ou plus (pour chaque 10)
+        //ou bien si on obtient une valeur aleatoire paire et que le temps maximal d'affichage du bouton est atteint
         if (numberALienKilled >= 10 || (choice % 2 == 0 && timesBonus >= MaxTimeBonus) ){
+
             timesBonus = 0;
-            numberALienKilled = 0;//pour chaque 10
+
+            numberALienKilled = 0;
+
+            //Pour donner des bonus aleatoires au capitaine
             int choice2 =  new Random().nextInt(3);
 
+            //Soit changement d arme
             if(choice2 == 0)
                 bonus.add(new ChangeWeapon(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
+
+            //Soit bonus sur la puissance
             else if(choice2 == 1)
                 bonus.add(new BonusPower(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
+
+            //Soit un gain de bouclier
             else
                 bonus.add(new Shield(captain, new Random().nextInt(Gdx.graphics.getWidth()),new Random().nextInt(Gdx.graphics.getHeight() / 2), batch,getAssets()));
         }
