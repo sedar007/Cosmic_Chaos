@@ -81,7 +81,7 @@ public class Level {
 
         // //Pour le level 5
         else if( level == 5){
-            for(int i=0 ; i < 10 ; i++){
+            for(int i=0 ; i < 3 ; i++){
                 Alien alien = new VenomclawRavager(batch,assets);
                 setAliens(alien);
             }

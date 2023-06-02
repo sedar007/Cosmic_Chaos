@@ -10,7 +10,7 @@ import com.badlogic.gdx.Gdx;
 import bonus.Shield;
 
 public class Skyblade extends Spacecraft {
-    private static final int DEFAULT_PUISSANCE = 1000;
+    private static final int DEFAULT_PUISSANCE = 1500;
     private static final String DEFAULT_NAME = "captain";
 
     public Shield shield;//bouclier du Capitaine.

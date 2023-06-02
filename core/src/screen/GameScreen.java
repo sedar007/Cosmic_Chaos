@@ -200,7 +200,7 @@ public class GameScreen implements Screen {
         collectible(); //Pour l affichage des bonus et aussi le collecte de ces bonus pour le vaisseau
 
 
-        if(bossTime >= 10f && aliens.contains(boss)) {
+        if(bossTime >= 30f && aliens.contains(boss)) {
             // Generations de aliens chaque 10 secondes, Si le boss est la,donc on ajoute 5 aliens differents au
             // dernier level
             aliens.add(new DeathspikeMarauder(batch,getAssets()));
