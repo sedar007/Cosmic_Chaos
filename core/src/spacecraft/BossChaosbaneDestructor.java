@@ -37,7 +37,6 @@ public class BossChaosbaneDestructor extends Alien{
         if(getxAlea() == 0) {
             setxAlea( new Random().nextInt(2)) ;
             setxSpeed(- getxSpeed());
-
         }
 
         if(getyAlea() == 0){
