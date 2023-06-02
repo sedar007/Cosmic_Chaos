@@ -10,7 +10,7 @@ import spacecraft.Spacecraft;
 public class Predator extends Ammo{
     // Static
     public final static String DEFAULT_NAME = "Predator";
-    public final static float DEFAULT_DEGATS = 50;
+    public final static float DEFAULT_DEGATS = 55;
     private final static int DEFAULT_SPEED = 5;
     public Music soundShoot = Gdx.audio.newMusic(Gdx.files.internal("song/rocketflyby-32158.mp3"));
 

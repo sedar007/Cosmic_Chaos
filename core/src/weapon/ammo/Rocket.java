@@ -6,7 +6,7 @@ import helpers.AllAssets;
 public class Rocket extends Ammo{
     // Static
     public final static String DEFAULT_NAME = "Rocket";
-    public final static float DEFAULT_DEGATS = 5f;
+    public final static float DEFAULT_DEGATS = 7.5f;
     private final static int DEFAULT_SPEED = 6;
 
     // Constructor
