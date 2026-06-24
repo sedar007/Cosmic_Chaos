@@ -51,9 +51,8 @@ public class RocketCyclone extends Weapon {
                ,x4Position, y4Position ,x5Position, y5Position, getBatch(), getAssets());
 
         Texture boom = getAssets().getExplosion5();
-        getBatch().begin();
         getBatch().draw(boom,x2Position-rocketEventail.AmmosTab[0].getImage().getWidth()-10,y2Position-rocketEventail.AmmosTab[0].getImage().getHeight());
-        getBatch().end();
+
 
         munitionsTab.add(rocketEventail);
         lastAmmoTime = TimeUtils.nanoTime(); // dernier ammo creer

@@ -91,9 +91,7 @@ public class Ammo {
 
      public void move() {
         setyPosition(getyPosition() + getSpeed());
-        getBatch().begin();
         getBatch().draw(this.getImage(), this.getxPosition(), this.getyPosition());
-        getBatch().end();
 
      }
 

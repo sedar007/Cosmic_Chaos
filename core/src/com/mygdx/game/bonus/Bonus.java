@@ -85,10 +85,8 @@ abstract public class Bonus {
 
 
     public void draw(){
-        this.batch.begin();
         this.batch.draw(getPicture(),getPosX(),getPosY());
         this.timesOut = this.timesOut + Gdx.graphics.getDeltaTime();
-        this.batch.end();
     }
 
     public boolean timeOut(){

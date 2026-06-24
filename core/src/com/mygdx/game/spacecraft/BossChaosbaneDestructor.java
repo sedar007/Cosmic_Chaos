@@ -20,9 +20,7 @@ public class BossChaosbaneDestructor extends Alien{
     @Override
     public void move(Spacecraft spacecraft) {
 
-        getBatch().begin();
         getBatch().draw(getPicture(), getPosX(), getPosY());
-        getBatch().end();
 
         setPosX(getPosX() + getxSpeed());
         setxAlea(getxAlea() - 1);

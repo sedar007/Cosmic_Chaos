@@ -72,9 +72,7 @@ public class PredatorFury extends Weapon {
 
         // Explosions a la creation du munition
         Texture boom = getAssets().getExplosion5();
-        getBatch().begin();
         getBatch().draw(boom,predator.getxPosition()-predator.getImage().getWidth()-8,predator.getyPosition()-predator.getImage().getHeight());
-        getBatch().end();
 
         predators.add(predator);
         lastAmmoTime = TimeUtils.nanoTime(); // dernier ammo creer
@@ -109,9 +107,7 @@ public class PredatorFury extends Weapon {
             if (new Collision().checkCollision(ammo.getxPosition(), ammo.getyPosition(), ammo.getImage().getWidth(), ammo.getImage().getHeight(), opponent.getPosX(),
                     opponent.getPosY(), opponent.getPicture().getWidth(), opponent.getPicture().getHeight())) {//si les tirs ont touche les ennemis !!
                 Texture boom = getAssets().getBoom6();
-                getBatch().begin();
                 getBatch().draw(boom,ammo.getxPosition() - (float) boom.getWidth() /2,ammo.getyPosition()- (float) boom.getHeight() /2);
-                getBatch().end();
                 ammo.soundShoot.dispose();
                 Music sound = Gdx.audio.newMusic(Gdx.files.internal("song/boom_c_06-102838.mp3"));
                 sound.play();

@@ -63,13 +63,10 @@ public class Skyblade extends Spacecraft {
     @Override
     public void move(Spacecraft spacecraft) {
 
-        getBatch().begin();
-
         getBatch().draw(getPicture(), getPosX(), getPosY());
         if(isProtected())
             getBatch().draw(getShield().getShieldPicture(), getPosX()- 25, getPosY() );
 
-        getBatch().end();
 
 
         float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);

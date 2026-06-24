@@ -24,10 +24,8 @@ public class Laser extends Ammo{
     public void move(Spacecraft owner) {
         setxPosition(owner.getPosX());
         setyPosition(owner.getPosY());
-
-        getBatch().begin();
         getBatch().draw(getImage(), getxPosition(), getyPosition());
-        getBatch().end();
+
     }
 
 }

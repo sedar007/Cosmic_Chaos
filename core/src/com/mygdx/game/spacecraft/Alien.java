@@ -80,9 +80,7 @@ public class Alien extends Spacecraft {
     public void move(Spacecraft spacecraft) {
 
         //dessin et positionnement des monstres
-        getBatch().begin();
         getBatch().draw(getPicture(), getPosX(), getPosY());
-        getBatch().end();
 
         //changement des positions
         setPosX(getPosX() + xSpeed);

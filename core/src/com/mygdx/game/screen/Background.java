@@ -45,7 +45,6 @@ public class Background {
         }
 
         //Dessin
-        batch.begin();
 
         //dessin du background
         batch.draw(backgroundP,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -53,8 +52,6 @@ public class Background {
         //dessin des textures  avec une vitesse layer1 et layer2
         batch.draw(texture, 0, layer1,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.draw(texture, 0, layer2,Gdx.graphics.getWidth(), texture.getHeight());
-
-        batch.end();
 
     }
 

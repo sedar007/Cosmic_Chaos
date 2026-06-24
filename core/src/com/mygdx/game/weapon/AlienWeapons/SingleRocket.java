@@ -24,9 +24,7 @@ public class SingleRocket  extends Weapon{
             // munition 1
             RocketJet ammo = new RocketJet(getSpacecraft().getPosX() + (float) getSpacecraft().getPicture().getWidth() /2,getSpacecraft().getPosY(),getBatch(), getAssets());
             Texture boom = getAssets().getExplosion5();
-            getBatch().begin();
             getBatch().draw(boom,ammo.getxPosition()-ammo.getImage().getWidth()-8,ammo.getyPosition()-ammo.getImage().getHeight());
-            getBatch().end();
             munitions.add(ammo);
 
             lastAmmoTime = TimeUtils.nanoTime();
