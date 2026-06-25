@@ -51,7 +51,7 @@ public class HighScore extends ScreenAdapter implements Screen{
         //Elle capture une vue plate de la scène, où les objets à l'écran apparaissent à la même échelle,
         // quelle que soit leur distance par rapport à la caméra
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1000, 1000);
+        camera.setToOrtho(false, game.getWidth(), game.getHeight());
 
         //instanciation du stage !
         stage = new Stage(new ScreenViewport());

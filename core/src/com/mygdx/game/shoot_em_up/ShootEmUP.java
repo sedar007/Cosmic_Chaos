@@ -10,6 +10,14 @@ public class ShootEmUP extends Game {
     public BitmapFont font;//pour les textes
     public SpriteBatch batch;//affichages
     private AllAssets assets; // Toutes les images
+    private final Integer width, height;
+
+    public ShootEmUP(Integer width, Integer height){
+        super();
+        this.width = width;
+        this.height = height;
+    }
+
     @Override
     public void create () {//l'initialisation
 
@@ -21,8 +29,8 @@ public class ShootEmUP extends Game {
         dispose();
         this.setScreen(new MainMenuScreen(this,assets));
     }
-    @Override
 
+    @Override
     public void render () {// produit les affichages à chaque itération !
         super.render(); // important! pour affichage du screen
 
@@ -36,5 +44,13 @@ public class ShootEmUP extends Game {
 
         font.dispose();
 
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public Integer getHeight() {
+        return height;
     }
 }

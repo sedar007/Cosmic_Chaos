@@ -12,8 +12,10 @@ public class DesktopLauncher {
 		config.setTitle("Cosmic Chaos");
 		config.setResizable(false);
 
-		config.setWindowedMode(1000, 1000);
-		new Lwjgl3Application(new ShootEmUP(), config);
+		final Integer width = 1000;
+		final Integer height = 1000;
+		config.setWindowedMode(width, height);
+		new Lwjgl3Application(new ShootEmUP(width, height), config);
 
 	}
 }

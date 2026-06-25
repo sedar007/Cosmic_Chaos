@@ -7,15 +7,18 @@ import com.mygdx.game.shoot_em_up.ShootEmUP;
 
 public class HtmlLauncher extends GwtApplication {
 
+        private final Integer width = 1000;
+        private final Integer height = 1000;
+
         @Override
         public GwtApplicationConfiguration getConfig () {
                 //return new GwtApplicationConfiguration(true);
-                return new GwtApplicationConfiguration(1000, 1000);
+                return new GwtApplicationConfiguration(width, height);
 
         }
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new ShootEmUP();
+                return new ShootEmUP(width, height);
         }
 }

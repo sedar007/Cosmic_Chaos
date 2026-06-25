@@ -63,7 +63,7 @@ public class GameScreen implements Screen {
 
     public GameScreen(final ShootEmUP game, AllAssets assets) {
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1000, 1000);
+        camera.setToOrtho(false, game.getWidth(), game.getHeight());
         this.assets = assets;
         this.game = game;
         shapestyle = new ShapeRenderer();

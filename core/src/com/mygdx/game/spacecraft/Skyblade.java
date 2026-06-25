@@ -2,6 +2,8 @@ package com.mygdx.game.spacecraft;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.bonus.BonusScore;
+import com.mygdx.game.commands.ICommand;
+import com.mygdx.game.commands.MouseCommand;
 import com.mygdx.game.helpers.AllAssets;
 import com.mygdx.game.weapon.SkyBladeWeapons.PredatorFury;
 import com.mygdx.game.weapon.ammo.Ammo;
@@ -24,6 +26,8 @@ public class Skyblade extends Spacecraft {
     public Shield getShield() {
         return shield;
     }
+
+    private ICommand command;
 
 
     public void setShield(Shield shield) {
@@ -48,6 +52,7 @@ public class Skyblade extends Spacecraft {
         setPosY(0);
         this.assets = assets;
         setPicture(getAssets().getSkybladePicture());
+        this.command = new MouseCommand();
 
 
         protect(false);
@@ -55,6 +60,7 @@ public class Skyblade extends Spacecraft {
         setPredatorFury(new PredatorFury(batch, this, assets));
 
     }
+
 
     public Skyblade(SpriteBatch batch, AllAssets assets){
        this(DEFAULT_NAME, batch, assets);
@@ -68,25 +74,21 @@ public class Skyblade extends Spacecraft {
             getBatch().draw(getShield().getShieldPicture(), getPosX()- 25, getPosY() );
 
 
+        if (command != null) {
+            command.handleMovement(this, Gdx.graphics.getDeltaTime());
+        }
 
-        float positionX = Gdx.input.getX() - ((float) getPicture().getWidth() /2);
-
-        if(positionX < 0)
+        if (getPosX() < 0) {
             setPosX(0);
-
-        else if(positionX > Gdx.graphics.getWidth() - getPicture().getWidth())
+        } else if (getPosX() > Gdx.graphics.getWidth() - getPicture().getWidth()) {
             setPosX(Gdx.graphics.getWidth() - getPicture().getWidth());
-        else
-            setPosX(positionX);
+        }
 
-        float positionY = Gdx.graphics.getHeight() - Gdx.input.getY() - ((float) getPicture().getHeight() /2); // Calculate paddle y position based on mouse position
-
-        if(positionY < 0)
+        if (getPosY() < 0) {
             setPosY(0);
-        else if(positionY > Gdx.graphics.getHeight() - getPicture().getHeight())
+        } else if (getPosY() > Gdx.graphics.getHeight() - getPicture().getHeight()) {
             setPosY(Gdx.graphics.getHeight() - getPicture().getHeight());
-        else
-            setPosY(positionY);
+        }
 
     }
 
@@ -109,5 +111,9 @@ public class Skyblade extends Spacecraft {
 
     public AllAssets getAssets() {
         return assets;
+    }
+
+    public void setCommand(ICommand command) {
+        this.command = command;
     }
 }
